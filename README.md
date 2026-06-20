@@ -1,75 +1,152 @@
-***
+# 🌧️ Yakualarma
 
-```markdown
-# Yakualarma 📱🌧️
+## Sistema Móvil de Reporte Comunitario de Lluvias Intensas y Movimientos en Masa
 
-### Sistema Móvil de Reporte Comunitario de Lluvias Intensas y Movimientos en Masa
+### 📖 Descripción General
 
-![Android](https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-![Offline First](https://img.shields.io/badge/Status-Offline--First-blue?style=for-the-badge)
-![Social Impact](https://img.shields.io/badge/Focus-Social%20Impact-orange?style=for-the-badge)
-![Region](https://img.shields.io/badge/Region-Per%C3%BA%20%F0%9F%87%B5%F0%9F%87%AA-red?style=for-the-badge)
+**Yakualarma** es una solución tecnológica desarrollada para fortalecer la gestión participativa del riesgo de desastres en comunidades rurales del Perú. La aplicación permite a ciudadanos, líderes comunales e instituciones locales reportar eventos relacionados con lluvias intensas, huaycos, deslizamientos y activación de quebradas, incluso en zonas con baja o nula conectividad a Internet.
+
+La plataforma combina tecnologías móviles, geolocalización y mapeo colaborativo para proporcionar información en tiempo real a los gobiernos locales, facilitando la emisión de alertas tempranas y la coordinación de acciones de respuesta ante emergencias.
 
 ---
 
-## 📝 Descripción del Proyecto
+## 🎯 Problemática
 
-**Yakualarma** es una solución de tecnología social diseñada específicamente para dotar a las comunidades rurales del Perú de herramientas tecnológicas accesibles para la gestión participativa del riesgo de desastres. 
+El Perú es uno de los países más vulnerables a desastres naturales de origen hidrometeorológico. Cada año, miles de familias resultan afectadas por lluvias intensas, deslizamientos y huaycos, especialmente en comunidades rurales de la sierra y selva.
 
-Nuestra propuesta consiste en una **aplicación móvil nativa para Android** que opera de forma óptima en condiciones de baja o nula conectividad (enfoque *offline-first*). Permite a los ciudadanos y líderes comunales registrar y enviar reportes geolocalizados sobre eventos climáticos extremos. Toda esta información se consolida en un **Dashboard Web** diseñado para los equipos de gestión del riesgo de los gobiernos locales, permitiendo la activación de alertas tempranas y la coordinación oportuna de respuestas de emergencia.
+Los mecanismos tradicionales de reporte de emergencias, como llamadas telefónicas o comunicación radial, suelen ser lentos e insuficientes para generar respuestas oportunas. Además, muchas de estas zonas presentan problemas de conectividad, dificultando la comunicación con las autoridades.
 
----
-
-## 🚨 Problemática y Antecedentes
-
-El Perú es uno de los países de América Latina más expuestos a desastres de origen hidrometeorológico. De acuerdo con datos del **Instituto Nacional de Defensa Civil (INDECI, 2024)**:
-* Durante la temporada de lluvias (noviembre–abril), fenómenos como **huaycos, deslizamientos y activación de quebradas** causan pérdidas humanas y materiales cuantiosas.
-* Solo en la temporada **2023-2024 se registraron más de 4,200 emergencias** a nivel nacional, afectando a más de **800,000 personas**, con un impacto crítico en regiones como *Cajamarca, Ayacucho, Junín, Cusco y Puno*.
-
-**El Desafío Tecnológico:**
-Los canales tradicionales de reporte (llamadas, radio o desplazamiento físico) son sumamente lentos e ineficientes en zonas vulnerables y aisladas. La falta de conectividad móvil estable agrava la situación, retrasando la llegada de ayuda humanitaria y la activación de alertas de evacuación. **Yakualarma cierra esta brecha digital transformando a cada habitante en un agente activo de prevención.**
+Yakualarma surge como una herramienta que convierte a la comunidad en la primera línea de detección y reporte de riesgos, mejorando la capacidad de prevención y respuesta de las municipalidades.
 
 ---
 
-## ✨ Características Principales de la Solución
+## 🚀 Nuestra Solución
 
-1. **Reportes Geolocalizados con Captura Multimedia:** Los usuarios pueden registrar de forma rápida el tipo de evento (lluvia intensa, deslizamiento, huayco, activación de quebrada), seleccionar el nivel de intensidad, añadir una descripción textual y adjuntar una fotografía. Las coordenadas GPS se capturan automáticamente en segundo plano.
-2. **Modo Offline con Sincronización Automática:** El núcleo de la aplicación está preparado para zonas sin cobertura de red. Los reportes se almacenan localmente de forma segura mediante una base de datos embebida y se sincronizan de manera automática e invisible con el servidor en el momento exacto en que el dispositivo detecte señal (datos móviles o Wi-Fi).
-3. **Mapeo Comunitario en Tiempo Real:** Visualización dinámica de los incidentes reportados en un mapa colaborativo. Está disponible tanto en la app móvil como en el panel web municipal, facilitando la identificación de zonas críticas o cuencas activadas.
-4. **Módulo de Notificaciones y Alertas Push:** Un canal directo desde el dashboard municipal que permite enviar alertas geodirigidas a los teléfonos celulares de la población dentro del radio de la zona afectada, maximizando los tiempos de evacuación.
+Yakualarma es una aplicación móvil Android diseñada para operar en condiciones de conectividad limitada mediante un sistema offline-first.
 
----
+Los usuarios pueden registrar incidentes relacionados con fenómenos climáticos extremos y sincronizar la información automáticamente cuando se recupera la conexión a Internet.
 
-## 👥 Segmentos Objetivo y Perfiles de Usuario
-
-Nuestra plataforma adapta su funcionalidad a cuatro actores clave en la cadena de prevención de desastres rurales:
-
-| Segmento / Perfil | Descripción y Rol en el Ecosistema | Prioridad Tecnológica |
-| :--- | :--- | :--- |
-| **Pobladores Rurales** | Ciudadanos y líderes comunitarios en zonas de alta vulnerabilidad. Cuentan con smartphones de gama de entrada y habilidades digitales básicas. | Interfaz ultra-simplificada, intuitiva y funcionamiento 100% offline. |
-| **Gestores Municipales** | Personal técnico de Gestión del Riesgo de Desastres en las Municipalidades Distritales. | Dashboard Web analítico para centralizar datos, mapear emergencias y emitir alertas masivas. |
-| **Organizaciones No Gubernamentales (ONGs)** | Entidades de apoyo que desarrollan proyectos de prevención y desarrollo en la sierra y selva peruana. | Acceso a un histórico consolidado de eventos climáticos para planificación de infraestructura y mitigación a largo plazo. |
-| **Instituciones Educativas y Comités Escolares** | Directores, docentes y padres de familia de escuelas rurales próximas a zonas de riesgo de huaycos. | Recepción de alertas tempranas rápidas para suspender clases o activar evacuaciones autónomas de estudiantes. |
+Toda la información recopilada se centraliza en un dashboard web utilizado por los gestores municipales para monitorear eventos, emitir alertas y coordinar acciones de respuesta.
 
 ---
 
-## 🛠️ Arquitectura Tecnológica (Sugerida)
+## 👥 Segmentos Objetivo
 
-El ecosistema de **Yakualarma** se compone de de la siguiente manera:
-* **Frontend Móvil:** Aplicación Nativa para Android (Kotlin / Java) con almacenamiento local (Room / SQLite) y APIs de Localización de Google Play Services.
-* **Backend & API Gateway:** Microservicios construidos para la ingesta y procesamiento asíncrono de los reportes enviados.
-* **Frontend Web:** Dashboard Administrativo para las municipalidades (React / Vue.js) con integraciones de mapas (Leaflet / Mapbox / Google Maps).
+### 🏡 Pobladores Rurales
+
+Ciudadanos que viven en zonas vulnerables a deslizamientos, huaycos y lluvias intensas. Utilizan la aplicación para reportar eventos de manera rápida y sencilla.
+
+### 🏛️ Gestores Municipales
+
+Personal técnico encargado de la Gestión del Riesgo de Desastres en municipalidades distritales. Utilizan el dashboard para monitorear reportes y coordinar respuestas de emergencia.
+
+### 🤝 Organizaciones No Gubernamentales (ONG)
+
+Instituciones que desarrollan proyectos de prevención y mitigación de riesgos. Aprovechan la información histórica generada por la plataforma para la planificación de proyectos.
+
+### 🏫 Instituciones Educativas y Comités Escolares
+
+Directores, docentes y padres de familia que requieren recibir alertas tempranas para proteger a estudiantes en zonas de riesgo.
 
 ---
 
-## 🚀 Instalación y Despliegue (Plantilla Inicial)
+## ⭐ Características Principales
 
-```bash
-# 1. Clonar el repositorio
-git clone [https://github.com/tu-usuario/yakualarma.git](https://github.com/tu-usuario/yakualarma.git)
+### 📍 Reportes Geolocalizados
 
-# 2. Configurar variables de entorno (API Keys de mapas y Backend)
-cp .env.example .env
+Permite registrar:
 
-# 3. Compilar el proyecto Android mediante Gradle
-./gradlew assembleDebug
+* Tipo de evento
+
+  * Lluvia intensa
+  * Huayco
+  * Deslizamiento
+  * Activación de quebrada
+* Nivel de intensidad
+* Descripción del incidente
+* Evidencia fotográfica
+* Ubicación GPS automática
+
+### 📶 Funcionamiento Offline
+
+* Registro de reportes sin conexión a Internet.
+* Almacenamiento local seguro.
+* Sincronización automática cuando se recupera la conectividad.
+
+### 🗺️ Mapa Comunitario en Tiempo Real
+
+* Visualización geográfica de incidentes reportados.
+* Identificación de zonas críticas.
+* Apoyo a la toma de decisiones para autoridades locales.
+
+### 🔔 Sistema de Alertas Tempranas
+
+* Emisión de alertas desde el dashboard municipal.
+* Notificaciones push para usuarios ubicados en zonas afectadas.
+* Comunicación rápida durante emergencias.
+
+### 📊 Dashboard de Gestión Municipal
+
+* Monitoreo de reportes en tiempo real.
+* Visualización de estadísticas.
+* Gestión de alertas.
+* Seguimiento de eventos históricos.
+
+---
+
+## 🏗️ Arquitectura General
+
+### Aplicación Móvil Android
+
+Responsable de:
+
+* Registro de incidentes.
+* Captura GPS.
+* Almacenamiento offline.
+* Recepción de alertas.
+
+### Backend
+
+Responsable de:
+
+* Procesamiento de reportes.
+* Gestión de usuarios.
+* Sincronización de información.
+* Generación de estadísticas.
+
+### Dashboard Web
+
+Responsable de:
+
+* Visualización de reportes.
+* Gestión de alertas.
+* Monitoreo de riesgos.
+* Apoyo a la toma de decisiones.
+
+---
+
+## 🎯 Objetivos del Proyecto
+
+* Fortalecer la prevención comunitaria ante desastres naturales.
+* Reducir los tiempos de respuesta ante emergencias.
+* Facilitar la comunicación entre ciudadanía y gobiernos locales.
+* Promover la participación activa de las comunidades rurales.
+* Contribuir a la reducción de pérdidas humanas y materiales.
+
+---
+
+## 🌎 Impacto Esperado
+
+Con Yakualarma se busca construir una red colaborativa de monitoreo comunitario que permita a las comunidades rurales del Perú actuar de manera preventiva frente a fenómenos climáticos extremos, mejorando la resiliencia territorial y fortaleciendo la gestión local del riesgo de desastres.
+
+---
+
+## 👨‍💻 Autores
+
+Proyecto desarrollado por el equipo de **Yakualarma** como una iniciativa de tecnología social orientada a la gestión comunitaria del riesgo de desastres en el Perú.
+
+---
+
+## 📄 Licencia
+
+Este proyecto se encuentra desarrollado con fines académicos y de innovación tecnológica. La licencia podrá definirse según los requerimientos del equipo de desarrollo.
