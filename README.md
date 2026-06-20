@@ -105,15 +105,6 @@ Responsable de:
 * Almacenamiento offline.
 * Recepción de alertas.
 
-### Backend
-
-Responsable de:
-
-* Procesamiento de reportes.
-* Gestión de usuarios.
-* Sincronización de información.
-* Generación de estadísticas.
-
 ### Dashboard Web
 
 Responsable de:
