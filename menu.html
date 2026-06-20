@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    
+    <link rel="stylesheet" href="menu.css">
+</head>
+
+<body>
+    <div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+
+        <div>
+
+            <div class="brand">
+
+                <!-- CAMBIAR IMAGEN -->
+                <img src="imagenes/logo2.png" alt="YakuAlarma">
+
+            </div>
+
+            <nav class="menu">
+
+                <a class="active" href="#">
+                    <i class="fa-solid fa-table-cells-large"></i>
+                    Dashboard
+                </a>
+
+                <a href="alertas.html">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    Alertas Activas
+                </a>
+
+                <a href="mapa-riesgos.html">
+                    <i class="fa-regular fa-map"></i>
+                    Mapa de Riesgos
+                </a>
+
+                <a href="centros-salud.html">
+                    <i class="fa-solid fa-circle-plus"></i>
+                    Centros de Salud
+                </a>
+
+                <a href="instituciones.html">
+                    <i class="fa-solid fa-building"></i>
+                    Instituciones
+                </a>
+
+                <a href="estadisticas.html">
+                    <i class="fa-solid fa-cloud-rain"></i>
+                    Estadísticas Climáticas
+                </a>
+
+                <a href="reportes.html">
+                    <i class="fa-regular fa-file-lines"></i>
+                    Reportes Ciudadanos
+                </a>
+
+                <a href="usuarios.html">
+                    <i class="fa-solid fa-users"></i>
+                    Gestión de Usuarios
+                </a>
+
+                <a href="configuracion.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Configuración
+                </a>
+
+            </nav>
+
+        </div>
+
+        <div>
+
+            <a href="perfil.html" class="profile-card">
+
+    <div class="profile-avatar">
+        <i class="fa-regular fa-user"></i>
+    </div>
+
+    <div>
+        <h4>Melina De la Cruz</h4>
+        <span>Gestor Municipal</span>
+    </div>
+
+</a>
+
+            <a class="logout-btn" href="login.html">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Cerrar sesión
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="topbar">
+
+            <div class="top-left">
+
+                <button id="menuToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+            </div>
+
+            <div class="top-right">
+
+                <button class="icon-btn">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="notification-badge" id="notificaciones">3</span>
+                </button>
+
+                <button class="icon-btn">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span class="notification-badge" id="mensajes">2</span>
+                </button>
+
+                <div class="municipality">
+
+                    <!-- CAMBIAR IMAGEN -->
+                    <img src="imagenes/huaral.png" alt="Huaral">
+
+                    <div>
+
+                        <small>Municipalidad de</small>
+                        <strong>Huaral</strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- CONTENIDO -->
+        <section class="content">
+
+            <div class="page-title">
+
+                <h1>Dashboard</h1>
+
+                <p>
+                    Resumen de situación -
+                    <span id="fechaActual"></span>
+                </p>
+
+            </div>
+
+            <!-- CARDS -->
+            <div class="stats-grid">
+
+                <a href="alertas.html" class="stat-card alert">
+
+                    <div>
+
+                        <h4>Alertas activas</h4>
+
+                        <h2 id="alertasActivas">
+                            12
+                        </h2>
+
+                        <span>
+                            Ver detalles →
+                        </span>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+
+                </a>
+
+                <a href="reportes.html" class="stat-card report">
+
+                    <div>
+
+                        <h4>Reportes ciudadanos</h4>
+
+                        <h2 id="reportesCiudadanos">
+                            328
+                        </h2>
+
+                        <span>
+                            Ver detalles →
+                        </span>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+
+                </a>
+
+                <a href="centros-salud.html" class="stat-card health">
+
+                    <div>
+
+                        <h4>Centros de salud</h4>
+
+                        <h2 id="centrosSalud">
+                            56
+                        </h2>
+
+                        <span>
+                            Ver detalles →
+                        </span>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-hospital"></i>
+                    </div>
+
+                </a>
+
+                <a href="instituciones.html" class="stat-card institution">
+
+                    <div>
+
+                        <h4>Instituciones conectadas</h4>
+
+                        <h2 id="instituciones">
+                            14
+                        </h2>
+
+                        <span>
+                            Ver detalles →
+                        </span>
+
+                    </div>
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+
+                </a>
+
+            </div>
+
+            <!-- MAPA + PANEL DERECHO -->
+            <div class="dashboard-grid">
+
+                <!-- MAPA -->
+                <div class="panel map-panel">
+
+                    <div class="panel-header">
+
+                        <h3>Mapa de riesgos</h3>
+
+                        <div class="risk-legend">
+
+                            <span class="red"></span> Riesgo alto
+                            <span class="yellow"></span> Riesgo medio
+                            <span class="green"></span> Riesgo bajo
+
+                        </div>
+
+                    </div>
+
+                    <div id="map"></div>
+
+                    <button class="map-btn">
+                        Ver mapa completo →
+                    </button>
+
+                </div>
+
+                <!-- DERECHA -->
+                <div class="side-panels">
+
+                    <!-- GRAFICO -->
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>Alertas activas (últimas 24h)</h3>
+
+                        </div>
+
+                        <canvas id="alertChart"></canvas>
+
+                    </div>
+
+                    <!-- CENTROS -->
+                    <div class="panel">
+
+                        <div class="panel-header">
+
+                            <h3>Centros de salud cercanos</h3>
+
+                        </div>
+
+                        <div id="centrosList">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- REPORTES -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>Reportes recientes</h3>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Tipo de evento</th>
+                            <th>Ubicación</th>
+                            <th>Nivel de riesgo</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody id="reportesTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- CLIMA -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h3>Estadísticas climáticas (Hoy)</h3>
+
+                </div>
+
+                <div class="weather-grid">
+
+                    <div class="weather-card">
+
+                        <i class="fa-solid fa-cloud-rain"></i>
+
+                        <h4>Lluvia acumulada</h4>
+
+                        <h2 id="lluvia">24.6</h2>
+
+                        <span>mm</span>
+
+                    </div>
+
+                    <div class="weather-card">
+
+                        <i class="fa-solid fa-water"></i>
+
+                        <h4>Caudal de ríos</h4>
+
+                        <h2 id="caudal">1.35</h2>
+
+                        <span>m</span>
+
+                    </div>
+
+                    <div class="weather-card">
+
+                        <i class="fa-solid fa-temperature-three-quarters"></i>
+
+                        <h4>Temperatura</h4>
+
+                        <h2 id="temperatura">22</h2>
+
+                        <span>°C</span>
+
+                    </div>
+
+                    <div class="weather-card">
+
+                        <i class="fa-solid fa-droplet"></i>
+
+                        <h4>Humedad</h4>
+
+                        <h2 id="humedad">78</h2>
+
+                        <span>%</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- JS -->
+<script src="menu.js"></script>
+
+</body>
+</html>

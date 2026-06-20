@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Alertas Activas</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="alertas.css">
+</head>
+
+<body>
+    <div class="app">
+
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="menu.html">
+                        <i class="fa-solid fa-table-cells-large"></i>
+                        Dashboard
+                    </a>
+
+                    <a class="active" href="#">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Alertas Activas
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        Mapa de Riesgos
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-solid fa-hospital"></i>
+                        Centros de Salud
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-solid fa-building"></i>
+                        Instituciones
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-solid fa-cloud-rain"></i>
+                        Estadísticas Climáticas
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-solid fa-file-lines"></i>
+                        Reportes Ciudadanos
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-solid fa-users-gear"></i>
+                        Gestión de Usuarios
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-solid fa-gear"></i>
+                        Configuración
+                    </a>
+                </nav>
+            </div>
+
+            <div>
+                <a href="#" class="profile-card">
+                    <div class="profile-avatar">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <div>
+                        <h4>Melina De la Cruz</h4>
+                        <span>Gestor Municipal</span>
+                    </div>
+                </a>
+
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="top-right">
+                    <button class="icon-btn">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-badge" id="notificaciones">3</span>
+                    </button>
+
+                    <button class="icon-btn">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span class="notification-badge" id="mensajes">1</span>
+                    </button>
+
+                    <div class="municipality">
+                        <img src="imagenes/huaral.png" alt="Huaral">
+                        <div>
+                            <small>Municipalidad de</small>
+                            <strong>Huaral</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+
+                <div class="page-title">
+                    <h1>Alertas Activas</h1>
+                    <p>Monitoreo en tiempo real de alertas y emergencias</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="card-stat red">
+                        <div>
+                            <h4>Total de alertas activas</h4>
+                            <h2 id="totalAlertas">0</h2>
+                            <span>Requieren atención</span>
+                        </div>
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-stat orange">
+                        <div>
+                            <h4>Riesgo alto</h4>
+                            <h2 id="altoCount">0</h2>
+                            <span>Atención inmediata</span>
+                        </div>
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-stat yellow">
+                        <div>
+                            <h4>Riesgo medio</h4>
+                            <h2 id="medioCount">0</h2>
+                            <span>Monitoreo constante</span>
+                        </div>
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-stat green">
+                        <div>
+                            <h4>Riesgo bajo</h4>
+                            <h2 id="bajoCount">0</h2>
+                            <span>Sin peligro inmediato</span>
+                        </div>
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-stat blue">
+                        <div>
+                            <h4>Última actualización</h4>
+                            <h2 id="horaActual">00:00</h2>
+                            <span id="fechaActual">--/--/----</span>
+                        </div>
+                        <div class="stat-icon-wrapper">
+                            <i class="fa-solid fa-rotate"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="panel map-panel">
+                        <div class="panel-header">
+                            <h3>Mapa de alertas en tiempo real</h3>
+                            <select id="tipoFiltro" class="filter-select">
+                                <option value="Todos">Todos los tipos</option>
+                                <option value="Inundación">Inundación</option>
+                                <option value="Deslizamiento">Deslizamiento</option>
+                                <option value="Lluvia intensa">Lluvia intensa</option>
+                                <option value="Huayco">Huayco</option>
+                                <option value="Tormenta eléctrica">Tormenta eléctrica</option>
+                            </select>
+                        </div>
+                        <div id="map"></div>
+                    </div>
+
+                    <div class="side-panels">
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h3>Alertas por tipo</h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="tipoChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h3>Alertas por provincia</h3>
+                            </div>
+                            <div id="provinceBars"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel table-panel">
+                    <div class="table-actions">
+                        <input type="text" id="searchInput" placeholder="Buscar alerta...">
+                        <button id="exportBtn" class="btn-primary">
+                            <i class="fa-solid fa-download"></i> Exportar
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tipo</th>
+                                    <th>Ubicación</th>
+                                    <th>Riesgo</th>
+                                    <th>Descripción</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaAlertas">
+                                </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <button id="prevPage"><i class="fa-solid fa-chevron-left"></i></button>
+                        <span id="pageNumber">1</span>
+                        <button id="nextPage"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="alertas.js"></script>
+</body>
+
+</html>

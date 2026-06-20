@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión en Yakualarma</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="login-container">
+
+    <!-- SECCIÓN IZQUIERDA (branding) -->
+    <div class="login-left">
+        <a href="inicio.html" class="btn-back">
+            ← Regresar 
+        </a>
+        <img src="imagenes/logo1.PNG" class="login-logo" alt="YakuAlarma Logo">
+        <h1>¡Bienvenido de vuelta!</h1>
+        <p>
+            Inicia sección para accder a todas nuestras funciones para ayudar a tu comunidad
+        </p>
+
+        <div class="bg-shapes"></div>
+    </div>
+
+    <!-- SECCIÓN DERECHA (formulario) -->
+    <div id="loginForm" class="login-right">
+        <h2 class="titulo-login">
+            <span class="azul">INICIAR</span>
+            <span class="rojo">SESIÓN</span>
+        </h2>
+
+        <form class="loginForm">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" placeholder="" required>
+
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" placeholder="" required>
+
+            <div class="options">
+                <label class="remember">
+                    <input type="checkbox" id="remember" />
+                    <span>Recordarme</span>
+                </label>
+                <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <div id="mensaje" class="mensaje"></div>
+
+            <button type="submit"  class="btn-login">Ingresar</button>
+
+
+            <p class="register-text">
+                ¿No tienes una cuenta? <a href="signup.html">Regístrate aquí</a>
+            </p>
+        </form>
+
+        <div class="social">
+            <p>Síguenos</p>
+            <div class="social-icons">
+                <a href="#"><img src="imagenes/facebook.png" alt=""></a>
+                <a href="#"><img src="imagenes/twitter.png" alt=""></a>
+                <a href="#"><img src="imagenes/instagram.png" alt=""></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="login.js"></script>
+</body>
+</html>

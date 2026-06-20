@@ -1,0 +1,630 @@
+/* =========================
+   RESET
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,
+body{
+height:100%;
+font-family:'Inter',sans-serif;
+background:#f5f7fb;
+color:#1b263b;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+button{
+font-family:inherit;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app{
+display:flex;
+min-height:100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+width:270px;
+background:#0b2c66;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+padding:20px;
+transition:.3s;
+position:fixed;
+left:0;
+top:0;
+height:100vh;
+z-index:999;
+overflow-y:auto;
+}
+
+.brand{
+display:flex;
+justify-content:center;
+margin-bottom:30px;
+}
+
+.brand img{
+width:170px;
+max-width:100%;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.menu a{
+display:flex;
+align-items:center;
+gap:12px;
+padding:14px;
+border-radius:12px;
+font-weight:500;
+transition:.25s;
+}
+
+.menu a i{
+width:22px;
+text-align:center;
+}
+
+.menu a:hover{
+background:rgba(255,255,255,.12);
+}
+
+.menu a.active{
+background:white;
+color:#0b2c66;
+font-weight:700;
+}
+
+.profile-card{
+display:flex;
+align-items:center;
+gap:12px;
+padding:15px;
+background:rgba(255,255,255,.08);
+border-radius:14px;
+margin-bottom:12px;
+}
+
+.profile-avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+background:white;
+color:#0b2c66;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+}
+
+.profile-card h4{
+font-size:14px;
+margin-bottom:4px;
+}
+
+.profile-card span{
+font-size:12px;
+opacity:.8;
+}
+
+.logout-btn{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+padding:12px;
+background:#d62828;
+border-radius:10px;
+font-weight:600;
+transition:.3s;
+}
+
+.logout-btn:hover{
+background:#b61d1d;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+flex:1;
+margin-left:270px;
+display:flex;
+flex-direction:column;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+height:75px;
+background:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 25px;
+border-bottom:1px solid #e8edf5;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.top-left button{
+background:none;
+border:none;
+font-size:22px;
+cursor:pointer;
+color:#0b2c66;
+}
+
+.top-right{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.icon-btn{
+position:relative;
+width:42px;
+height:42px;
+border-radius:50%;
+border:none;
+background:#f1f4f9;
+cursor:pointer;
+font-size:18px;
+}
+
+.notification-badge{
+position:absolute;
+top:-5px;
+right:-3px;
+background:#d62828;
+color:white;
+font-size:11px;
+width:18px;
+height:18px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.municipality{
+display:flex;
+align-items:center;
+gap:10px;
+cursor:pointer;
+padding-left:10px;
+}
+
+.municipality img{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.municipality small{
+display:block;
+font-size:11px;
+color:#777;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+padding:25px;
+display:flex;
+flex-direction:column;
+gap:22px;
+}
+
+.page-title h1{
+font-size:32px;
+font-weight:800;
+color:#0b2c66;
+}
+
+.page-title p{
+margin-top:6px;
+color:#7b8794;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+}
+
+.stat-card{
+background:white;
+border-radius:18px;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
+transition:.3s;
+}
+
+.stat-card:hover{
+transform:translateY(-4px);
+}
+
+.stat-card h4{
+font-size:14px;
+color:#6c757d;
+margin-bottom:10px;
+}
+
+.stat-card h2{
+font-size:34px;
+margin-bottom:10px;
+}
+
+.stat-card span{
+font-size:13px;
+font-weight:600;
+}
+
+.stat-icon{
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+color:white;
+}
+
+.alert .stat-icon{
+background:#d62828;
+}
+
+.report .stat-icon{
+background:#0077b6;
+}
+
+.health .stat-icon{
+background:#2a9d8f;
+}
+
+.institution .stat-icon{
+background:#f77f00;
+}
+
+/* =========================
+   DASHBOARD GRID
+========================= */
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+}
+
+.side-panels{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+/* =========================
+   PANEL
+========================= */
+
+.panel{
+background:white;
+border-radius:18px;
+padding:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.panel-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.panel-header h3{
+font-size:18px;
+color:#0b2c66;
+}
+
+/* =========================
+   MAPA
+========================= */
+
+#map{
+width:100%;
+height:500px;
+border-radius:14px;
+overflow:hidden;
+}
+
+.risk-legend{
+display:flex;
+align-items:center;
+gap:12px;
+font-size:13px;
+}
+
+.red,
+.yellow,
+.green{
+width:12px;
+height:12px;
+border-radius:50%;
+display:inline-block;
+}
+
+.red{
+background:#d62828;
+}
+
+.yellow{
+background:#ffb703;
+}
+
+.green{
+background:#2a9d8f;
+}
+
+.map-btn{
+margin-top:15px;
+padding:10px 18px;
+border:none;
+background:#0b2c66;
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* =========================
+   CHART
+========================= */
+
+#alertChart{
+height:260px !important;
+max-height:260px;
+}
+
+/* =========================
+   CENTROS SALUD
+========================= */
+
+#centrosList{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.centro-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:12px;
+background:#f8fafc;
+border-radius:10px;
+}
+
+.centro-info{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.estado{
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.estado.activo{
+background:#d8f3dc;
+color:#2d6a4f;
+}
+
+.estado.ocupado{
+background:#ffe5d9;
+color:#bc4749;
+}
+
+/* =========================
+   TABLA
+========================= */
+
+.table-container{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table th{
+background:#0b2c66;
+color:white;
+padding:14px;
+text-align:left;
+}
+
+table td{
+padding:14px;
+border-bottom:1px solid #edf2f7;
+}
+
+table tr:hover{
+background:#f8fafc;
+}
+
+/* =========================
+   WEATHER
+========================= */
+
+.weather-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+}
+
+.weather-card{
+text-align:center;
+padding:20px;
+border-radius:14px;
+background:#f8fafc;
+}
+
+.weather-card i{
+font-size:28px;
+color:#0b2c66;
+margin-bottom:12px;
+}
+
+.weather-card h4{
+font-size:14px;
+margin-bottom:10px;
+}
+
+.weather-card h2{
+font-size:30px;
+color:#0b2c66;
+margin-bottom:5px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1200px){
+
+.stats-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.weather-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:992px){
+
+.sidebar{
+left:-270px;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.main{
+margin-left:0;
+}
+
+.dashboard-grid{
+grid-template-columns:1fr;
+}
+
+#map{
+height:400px;
+}
+
+}
+
+@media(max-width:768px){
+
+.stats-grid{
+grid-template-columns:1fr;
+}
+
+.weather-grid{
+grid-template-columns:1fr;
+}
+
+.topbar{
+padding:0 15px;
+}
+
+.content{
+padding:15px;
+}
+
+.page-title h1{
+font-size:26px;
+}
+
+#map{
+height:350px;
+}
+
+}
+
+@media(max-width:480px){
+
+.municipality strong{
+display:none;
+}
+
+.municipality small{
+display:none;
+}
+
+.icon-btn{
+width:38px;
+height:38px;
+}
+
+}
+
+.profile-card{
+display:flex;
+align-items:center;
+gap:12px;
+padding:15px;
+background:rgba(255,255,255,.08);
+border-radius:14px;
+margin-bottom:12px;
+color:white;
+text-decoration:none;
+cursor:pointer;
+transition:.3s;
+}
+
+.profile-card:hover{
+background:rgba(255,255,255,.15);
+}

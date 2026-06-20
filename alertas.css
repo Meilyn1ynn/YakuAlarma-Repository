@@ -1,0 +1,542 @@
+/* =========================
+   RESET & BASICS
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: #f5f7fb;
+    color: #1b263b;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =========================
+   APP MAIN WRAPPER
+========================= */
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+    width: 270px;
+    background: #0b2c66;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    transition: .3s;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.brand {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.brand img {
+    width: 170px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.menu a i {
+    width: 22px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.menu a:hover {
+    background: rgba(255, 255, 255, .12);
+}
+
+.menu a.active {
+    background: white;
+    color: #0b2c66;
+    font-weight: 700;
+}
+
+/* PERFIL Y LOGOUT INTERNO */
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: rgba(255, 255, 255, .08);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    color: white;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.profile-card:hover {
+    background: rgba(255, 255, 255, .15);
+}
+
+.profile-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    color: #0b2c66;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.profile-card h4 {
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.profile-card span {
+    font-size: 12px;
+    opacity: .8;
+}
+
+.logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: #d62828;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.logout-btn:hover {
+    background: #b61d1d;
+}
+
+/* =========================
+   MAIN CONTENT WRAPPER
+========================= */
+.main {
+    flex: 1;
+    margin-left: 270px;
+    display: flex;
+    flex-direction: column;
+    transition: .3s;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+.topbar {
+    height: 75px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: 1px solid #e8edf5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-left button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #0b2c66;
+}
+
+.top-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.icon-btn {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: #f1f4f9;
+    cursor: pointer;
+    font-size: 18px;
+    color: #1b263b;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -3px;
+    background: #d62828;
+    color: white;
+    font-size: 11px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.municipality {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.municipality img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.municipality small {
+    display: block;
+    font-size: 11px;
+    color: #777;
+}
+
+/* =========================
+   VISTA INTERNA CONTENT
+========================= */
+.content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0b2c66;
+}
+
+.page-title p {
+    margin-top: 6px;
+    color: #7b8794;
+}
+
+/* =========================
+   CARDS DE ALERTAS (RESPONSIVAS)
+========================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+}
+
+.card-stat {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,.04);
+}
+
+.card-stat h4 {
+    font-size: 13px;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.card-stat h2 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.card-stat span {
+    font-size: 13px;
+    color: #7b8794;
+}
+
+.stat-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+/* Paletas específicas según riesgo */
+.red h2, .red i { color: #d62828; }
+.red .stat-icon-wrapper { background: #ffe5e5; }
+
+.orange h2, .orange i { color: #f77f00; }
+.orange .stat-icon-wrapper { background: #fff0db; }
+
+.yellow h2, .yellow i { color: #fcbf49; }
+.yellow .stat-icon-wrapper { background: #fff8e7; }
+
+.green h2, .green i { color: #2a9d8f; }
+.green .stat-icon-wrapper { background: #e8f6f4; }
+
+.blue h2, .blue i { color: #0077b6; }
+.blue .stat-icon-wrapper { background: #e6f2f7; }
+
+/* =========================
+   GRAFICOS Y MAPA GRID
+========================= */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.panel {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.05);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.panel-header h3 {
+    font-size: 18px;
+    color: #0b2c66;
+}
+
+#map {
+    width: 100%;
+    height: 440px;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.filter-select {
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-family: inherit;
+    outline: none;
+    background: #f8fafc;
+}
+
+.side-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chart-container {
+    position: relative;
+    height: 180px;
+    width: 100%;
+}
+
+/* =========================
+   PROVINCIA PROGRESOS
+========================= */
+.province-bar {
+    margin-bottom: 14px;
+}
+
+.province-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.progress {
+    width: 100%;
+    height: 8px;
+    background: #edf2f7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress span {
+    display: block;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* =========================
+   TABLAS Y PAGINADORES
+========================= */
+.table-panel {
+    margin-top: 5px;
+}
+
+.table-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.table-actions input {
+    width: 280px;
+    border: 1px solid #edf2f7;
+    border-radius: 10px;
+    padding: 10px 14px;
+    outline: none;
+    background: #f8fafc;
+}
+
+.btn-primary {
+    background: #0b2c66;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th {
+    background: #0b2c66;
+    color: white;
+    padding: 14px;
+    text-align: left;
+    font-size: 14px;
+}
+
+table td {
+    padding: 14px;
+    border-bottom: 1px solid #edf2f7;
+    font-size: 14px;
+}
+
+table tr:hover {
+    background: #f8fafc;
+}
+
+.risk {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.risk.alto { background: #ffe5e5; color: #d62828; }
+.risk.medio { background: #fff0db; color: #f77f00; }
+.risk.bajo { background: #e8f6f4; color: #2a9d8f; }
+
+.estado {
+    color: #d62828;
+    font-weight: 600;
+}
+
+.actions {
+    display: flex;
+    gap: 6px;
+}
+
+.actions button {
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #f1f4f9;
+    cursor: pointer;
+    color: #4a5568;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.pagination button {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #edf2f7;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE LAYOUTS
+========================= */
+@media(max-width: 1400px) {
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media(max-width: 992px) {
+    .sidebar { left: -270px; }
+    .sidebar.active { left: 0; }
+    .main { margin-left: 0; }
+    .sidebar.active + .main { margin-left: 0; }
+    .dashboard-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width: 576px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .table-actions { flex-direction: column; gap: 10px; }
+    .table-actions input { width: 100%; }
+}
