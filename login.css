@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+#login {
+    display: flex;
+    height: 100vh;
+}
+
+.left {
+    width: 50%;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo{
+    width: 80px;
+    height: auto;
+}
+
+.left h2 {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
+
+.left h1 {
+    font-size: 30px;
+    margin: 20px 0;
+    text-align: center;
+    flex-direction: column;
+    color: #0f3554;
+}
+
+.left h1 span {
+    color: #BF2119;
+}
+
+.left p {
+    margin-bottom: 20px;
+    color: #666;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.opciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    font-size: 12px;
+}
+
+.opciones a {
+    text-decoration: none;
+}
+
+button {
+    padding: 12px;
+    background: #0f3554;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.registro {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.registro a {
+    color: blue;
+    text-decoration: none;
+}
+
+.right {
+    width: 50%;
+    background-image: url(imagenes/Iniciar-sesión.png);
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 768px) {
+    #login {
+        flex-direction: column;
+    }
+
+    .right {
+        display: none;
+    }
+
+    .left {
+        width: 100%;
+    }
+}
