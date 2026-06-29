@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Reportes Ciudadanos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="reportes.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="menu.html"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a>
+                    <a href="alertas.html"><i class="fa-solid fa-triangle-exclamation"></i> Alertas Activas</a>
+                    <a href="mapa-riesgos.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de Riesgos</a>
+                    <a href="centros-salud.html"><i class="fa-solid fa-hospital"></i> Centros de Salud</a>
+                    <a href="instituciones.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticas.html"><i class="fa-solid fa-cloud-rain"></i> Estadísticas Climáticas</a>
+                    <a class="active" href="reportes.html"><i class="fa-solid fa-file-lines"></i> Reportes Ciudadanos</a>
+                    <a href="usuarios.html"><i class="fa-solid fa-users-gear"></i> Gestión de Usuarios</a>
+                    <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Melina De la Cruz</h4>
+                        <span>Gestor Municipal</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge" id="notifBadge">0</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">2</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/huaral.png" alt="Huaral">
+                        <div>
+                            <small>Municipalidad de</small>
+                            <strong>Huaral</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-header-flex">
+                    <div class="page-title">
+                        <h1>Reportes Ciudadanos</h1>
+                        <p>Gestión, validación y respuesta a las incidencias enviadas por la comunidad</p>
+                    </div>
+                    <div class="page-header-controls">
+                        <button id="btnHistorialCompleto" class="btn-action-outline"><i class="fa-solid fa-clock-rotate-left"></i> Historial Completo</button>
+                        <button id="btnExportarExcel" class="btn-action-green"><i class="fa-solid fa-file-excel"></i> Descargar Excel</button>
+                    </div>
+                </div>
+
+                <div class="reports-metrics-grid">
+                    <div class="card-metric total">
+                        <div>
+                            <small>Total Recibidos</small>
+                            <h2 id="countTotal">0</h2>
+                            <span>Incidentes registrados</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    </div>
+                    <div class="card-metric pendientes">
+                        <div>
+                            <small>Pendientes</small>
+                            <h2 id="countPendientes">0</h2>
+                            <span>Por evaluar</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-clock"></i></div>
+                    </div>
+                    <div class="card-metric proceso">
+                        <div>
+                            <small>En Proceso</small>
+                            <h2 id="countProceso">0</h2>
+                            <span>En atención</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-person-digging"></i></div>
+                    </div>
+                    <div class="card-metric atendidos">
+                        <div>
+                            <small>Atendidos</small>
+                            <h2 id="countAtendidos">0</h2>
+                            <span>Solucionados</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    </div>
+                    <div class="card-metric descartados">
+                        <div>
+                            <small>Descartados</small>
+                            <h2 id="countDescartados">0</h2>
+                            <span>Falsas alarmas / Duplicados</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-trash-can"></i></div>
+                    </div>
+                </div>
+
+                <div class="analytics-row-grid">
+                    <div class="panel summary-panel">
+                        <h3><i class="fa-solid fa-chart-pie"></i> Resumen por Tipo de Evento</h3>
+                        <div class="event-types-list" id="tipoEventoLista">
+                            </div>
+                    </div>
+
+                    <div class="panel risk-panel">
+                        <h3><i class="fa-solid fa-shield-halved"></i> Reportes por Nivel de Riesgo</h3>
+                        <div class="chart-donut-container">
+                            <canvas id="chartRiesgoDona"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="panel general-map-panel">
+                        <h3><i class="fa-solid fa-earth-americas"></i> Ubicación General de Reportes</h3>
+                        <div class="map-wrapper-relative">
+                            <div id="mapaGeneralReportes" class="global-map-style"></div>
+                            <div class="map-legend-box" id="mapaLeyenda">
+                                <h4>Incidencias</h4>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reports-main-grid">
+                    
+                    <div class="panel table-panel">
+                        <div class="table-header-actions">
+                            <div class="filter-tabs">
+                                <button class="tab-btn active" data-filter="Todos">Todos</button>
+                                <button class="tab-btn" data-filter="Pendiente">Pendientes</button>
+                                <button class="tab-btn" data-filter="En Proceso">En Proceso</button>
+                                <button class="tab-btn" data-filter="Atendido">Atendidos</button>
+                                <button class="tab-btn" data-filter="Descartado">Descartados</button>
+                            </div>
+                            <div class="table-controls">
+                                <div class="search-box">
+                                    <input type="text" id="inputBuscarReporte" placeholder="Buscar por ciudadano o zona...">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Ciudadano</th>
+                                        <th>Tipo de Incidencia</th>
+                                        <th>Zona / Dirección</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaReportesBody">
+                                    </tbody>
+                            </table>
+                        </div>
+
+                        <div class="pagination-footer">
+                            <span class="pagination-info" id="paginationInfo">Mostrando 1-5 de 12 registros</span>
+                            <div class="pagination-buttons">
+                                <button id="btnPrevPage" class="pag-btn"><i class="fa-solid fa-angle-left"></i> Anterior</button>
+                                <div id="pageNumbersContainer" class="page-numbers-flex"></div>
+                                <button id="btnNextPage" class="pag-btn">Siguiente <i class="fa-solid fa-angle-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel detail-panel" id="panelDetalleReporte">
+                        <div class="detail-header-blank" id="detalleVacio">
+                            <i class="fa-solid fa-file-invoice" style="font-size: 40px; color: #cbd5e1; margin-bottom: 12px;"></i>
+                            <p>Selecciona un reporte de la tabla para ver su expediente, evidencias fotográficas y cambiar su estado.</p>
+                        </div>
+                        
+                        <div class="detail-content-active hidden" id="detalleActivo">
+                            <div class="detail-top">
+                                <span class="badge-status" id="detEstado">Pendiente</span>
+                                <h3 id="detId">Reporte #0000</h3>
+                            </div>
+                            
+                            <div class="citizen-info-block">
+                                <div class="c-avatar"><i class="fa-solid fa-user-shield"></i></div>
+                                <div>
+                                    <h4 id="detCiudadano">Juan Pérez</h4>
+                                    <p id="detTelefono"><i class="fa-solid fa-phone"></i> +51 999 999 999</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-body-fields">
+                                <div class="field-group">
+                                    <label>Tipo de Incidencia</label>
+                                    <p id="detTipo" class="field-val-bold">Inundación</p>
+                                </div>
+                                <div class="field-group">
+                                    <label>Nivel de Riesgo asignado</label>
+                                    <p id="detRiesgoText" style="font-weight: 700; font-size: 13px;"></p>
+                                </div>
+                                <div class="field-group">
+                                    <label>Fecha y Hora de Envío</label>
+                                    <p id="detFecha">23/06/2026 14:35</p>
+                                </div>
+                                <div class="field-group">
+                                    <label>Descripción del Problema</label>
+                                    <p id="detDescripcion" class="description-text">El agua ha colapsado las alcantarillas principales.</p>
+                                </div>
+                            </div>
+
+                            <div class="evidence-gallery">
+                                <label>Evidencia Visual</label>
+                                <div class="image-wrapper-evidence">
+                                    <img src="" id="detImagenEvidencia" alt="Evidencia de incidente">
+                                </div>
+                            </div>
+
+                            <div class="incident-map-block">
+                                <label>Ubicación Georeferenciada</label>
+                                <div id="mapReporte"></div>
+                            </div>
+
+                            <div class="resolution-actions-block">
+                                <label>Actualizar Estado del Incidente</label>
+                                <div class="action-buttons-flex">
+                                    <button class="btn-action-proceso" id="btnMarcarProceso"><i class="fa-solid fa-person-digging"></i> Iniciar Proceso</button>
+                                    <button class="btn-action-atendido" id="btnMarcarAtendido"><i class="fa-solid fa-circle-check"></i> Resolver</button>
+                                    <button class="btn-action-descartar" id="btnMarcarDescartado"><i class="fa-solid fa-trash-can"></i> Descartar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="reportes.js"></script>
+</body>
+
+</html>
