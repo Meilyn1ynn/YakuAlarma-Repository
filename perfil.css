@@ -1,0 +1,129 @@
+/* ==========================================================================
+   1. RESET, VARIABLES Y REGLAS BASE
+   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; font-family: 'Inter', sans-serif; background: #f5f7fb; color: #1b263b; overflow-x: hidden; }
+button, select, input { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+.app { display: flex; min-height: 100vh; width: 100vw; overflow-x: hidden; }
+.hidden { display: none !important; }
+.d-none { display: none !important; }
+
+/* ==========================================================================
+   2. SIDEBAR CORPORATIVO
+   ========================================================================== */
+.sidebar { width: 270px; min-width: 270px; background: #0b2c66; color: white; display: flex; flex-direction: column; justify-content: space-between; position: fixed; left: 0; top: 0; height: 100vh; z-index: 999; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.sidebar-scroll-container { flex: 1; overflow-y: auto; padding: 20px 20px 10px 20px; }
+.sidebar-scroll-container::-webkit-scrollbar { width: 6px; }
+.sidebar-scroll-container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+.sidebar-footer { padding: 10px 20px 20px 20px; background: #0b2c66; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+.brand { display: flex; justify-content: center; margin-bottom: 30px; }
+.brand img { width: 170px; object-fit: contain; }
+.menu { display: flex; flex-direction: column; gap: 8px; }
+.menu a { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 12px; font-weight: 500; color: white; transition: .25s; }
+.menu a i { width: 22px; text-align: center; font-size: 18px; }
+.menu a:hover { background: rgba(255, 255, 255, .12); }
+.menu a.active { background: white; color: #0b2c66; font-weight: 700; }
+.profile-card { display: flex; align-items: center; gap: 12px; padding: 15px; background: rgba(255, 255, 255, .08); border-radius: 14px; margin-bottom: 12px; color: white; }
+.profile-avatar { width: 45px; height: 45px; border-radius: 50%; background: white; color: #0b2c66; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+.profile-card h4 { font-size: 14px; margin-bottom: 2px; }
+.profile-card span { font-size: 12px; opacity: .8; }
+.logout-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: #d62828; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+
+/* ==========================================================================
+   3. CONTENEDOR PRINCIPAL Y TOPBAR
+   ========================================================================== */
+.main { flex: 1; margin-left: 270px; display: flex; flex-direction: column; width: calc(100% - 270px); transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s; min-width: 0; }
+.main.full-width { margin-left: 0; width: 100%; }
+
+.topbar { height: 75px; background: white; display: flex; justify-content: space-between; align-items: center; padding: 0 25px; border-bottom: 1px solid #e8edf5; position: sticky; top: 0; z-index: 100; }
+.top-left button { background: none; border: none; font-size: 22px; cursor: pointer; color: #0b2c66; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.top-left button:hover { background: #f1f4f9; }
+
+.top-right { display: flex; align-items: center; gap: 18px; }
+.icon-btn { position: relative; width: 42px; height: 42px; border-radius: 50%; border: none; background: #f1f4f9; cursor: pointer; font-size: 18px; color: #1b263b; }
+.notification-badge { position: absolute; top: -5px; right: -3px; background: #d62828; color: white; font-size: 11px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+.municipality { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.municipality img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.municipality small { display: block; font-size: 11px; color: #718096; font-weight: 500; }
+.municipality strong { font-size: 14px; color: #1b263b; }
+
+/* CONTENIDO INTERNO BASE */
+.content { padding: 25px; display: flex; flex-direction: column; gap: 22px; width: 100%; }
+.page-title h1 { font-size: 32px; font-weight: 800; color: #0b2c66; letter-spacing: -0.5px; }
+.page-title p { margin-top: 6px; color: #7b8794; font-size: 15px; }
+
+/* CONTENEDORES INTERNOS (PANEL) */
+.panel { background: white; border-radius: 18px; padding: 24px; box-shadow: 0 5px 20px rgba(0,0,0,.04); border: 1px solid #edf2f7; min-width: 0; }
+.panel-header-simple { margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; }
+.panel-header-simple h3 { font-size: 15px; color: #0b2c66; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center; gap: 8px; }
+
+/* ==========================================================================
+   4. ESTRUCTURA Y GRID DE PERFIL
+   ========================================================================== */
+.profile-grid-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; width: 100%; align-items: start; }
+
+.profile-view-container, .profile-edit-container { display: flex; flex-direction: column; gap: 20px; }
+.profile-main-info { display: flex; gap: 24px; align-items: flex-start; }
+
+.profile-large-avatar { width: 76px; height: 76px; border-radius: 50%; background: #0b2c66; color: white; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; flex-shrink: 0; }
+
+.profile-fields-list { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+.profile-label { display: block; font-size: 11px; color: #718096; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.profile-value-text { font-size: 15.5px; font-weight: 600; color: #1b263b; margin-top: 4px; }
+
+/* COMPONENTE INTERACTIVO DE CAMBIO DE ROL */
+.role-selector-flex { display: flex; align-items: center; gap: 12px; margin-top: 4px; flex-wrap: wrap; }
+.badge-role { background: #e8f6f4; color: #2a9d8f; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 6px; white-space: nowrap; }
+
+.inline-changer { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #718096; background: #f8fafc; border: 1px solid #edf2f7; padding: 3px 8px; border-radius: 6px; }
+.select-inline-role { border: none; font-size: 11.5px; background: transparent; color: #1b263b; outline: none; cursor: pointer; font-weight: 600; }
+
+/* BOTONES Y FORMULARIOS */
+.btn-profile-action { width: 100%; background: transparent; border: 1px solid #0b2c66; color: #0b2c66; padding: 12px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: .2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.btn-profile-action:hover { background: #0b2c66; color: white; }
+
+.form-group-profile { display: flex; flex-direction: column; gap: 6px; }
+.form-group-profile label { font-size: 13px; font-weight: 700; color: #718096; }
+.form-control-profile { width: 100%; border: 1px solid #edf2f7; padding: 12px; border-radius: 10px; outline: none; font-size: 14px; color: #1b263b; background: #ffffff; transition: .2s; }
+.form-control-profile:focus { border-color: #0b2c66; box-shadow: 0 0 0 3px rgba(11, 44, 102, 0.08); }
+
+.profile-actions-flex { display: flex; gap: 14px; margin-top: 8px; }
+.btn-profile-save { flex: 1; background: #053280; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: .2s; }
+.btn-profile-save:hover { background: #0b2c66; }
+.btn-profile-cancel { flex: 1; background: transparent; border: 1px solid #053280; color: #718096; padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: .2s; }
+.btn-profile-cancel:hover { background: #f8fafc; }
+
+.alert-profile-error { background: #fff0f0; color: #d62828; border: 1px solid #ffcccc; padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 600; text-align: center; }
+
+/* SEGURIDAD Y ESTADOS EXTENDIDOS */
+.security-status-list { display: flex; flex-direction: column; gap: 20px; }
+.status-item { display: flex; gap: 14px; align-items: flex-start; transition: transform 0.2s; }
+.status-item:hover { transform: translateX(3px); }
+.safe-icon { color: #0284c7; font-size: 18px; margin-top: 2px; }
+.check-icon { color: #2a9d8f; font-size: 18px; margin-top: 2px; }
+.status-item h5 { font-size: 14px; font-weight: 700; color: #1b263b; }
+.status-item p { font-size: 12px; color: #718096; margin-top: 4px; line-height: 1.45; }
+
+/* ==========================================================================
+   5. RESPONSIVE MEDIA QUERIES (ESTILO FLUIDO E INSTRUMENTAL)
+   ========================================================================== */
+@media(max-width: 1200px) {
+    .profile-grid-layout { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media(max-width: 992px) {
+    .sidebar { left: -270px; }
+    .sidebar.active { left: 0; }
+    .main { margin-left: 0; width: 100%; }
+    .main.expanded { margin-left: 0; }
+}
+
+@media(max-width: 600px) {
+    .content { padding: 15px; gap: 18px; }
+    .topbar { padding: 0 15px; }
+    .profile-main-info { flex-direction: column; align-items: center; text-align: center; }
+    .profile-fields-list { width: 100%; }
+    .role-selector-flex { justify-content: center; }
+    .profile-actions-flex { flex-direction: column; gap: 10px; }
+}

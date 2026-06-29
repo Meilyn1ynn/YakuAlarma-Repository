@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="claro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Perfil de Usuario</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="perfil.css">
+</head>
+
+<body>
+    <div class="app">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="menu.html"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a>
+                    <a href="alertas.html"><i class="fa-solid fa-triangle-exclamation"></i> Alertas Activas</a>
+                    <a href="mapa-riesgos.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de Riesgos</a>
+                    <a href="centros-salud.html"><i class="fa-solid fa-hospital"></i> Centros de Salud</a>
+                    <a href="instituciones.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticas.html"><i class="fa-solid fa-cloud-rain"></i> Estadísticas Climáticas</a>
+                    <a href="reportes.html"><i class="fa-solid fa-file-lines"></i> Reportes Ciudadanos</a>
+                    <a href="usuarios.html"><i class="fa-solid fa-users-gear"></i> Gestión de Usuarios</a>
+                    <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Melina De la Cruz</h4>
+                        <span>Gestor Municipal</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/huaral.png" alt="Huaral">
+                        <div>
+                            <small>Municipalidad de</small>
+                            <strong>Huaral</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-title">
+                    <h1>Perfil de usuario</h1>
+                    <p>Administra tu información personal, comunidad asignada y credenciales del sistema</p>
+                </div>
+
+                <div class="profile-grid-layout">
+                    
+                    <div class="panel">
+                        <div class="panel-header-simple">
+                            <h3>Datos de Cuenta</h3>
+                        </div>
+
+                        <div class="profile-view-container" id="profileViewMode">
+                            <div class="profile-main-info">
+                                <div class="profile-large-avatar" id="profileInitials">SA</div>
+                                <div class="profile-fields-list">
+                                    <div class="field-item">
+                                        <small class="profile-label">Nombre completo</small>
+                                        <h4 class="profile-value-text" id="lblNombre">Melina De la Cruz</h4>
+                                    </div>
+                                    <div class="field-item">
+                                        <small class="profile-label">Correo electrónico</small>
+                                        <p class="profile-value-text text-lowercase" id="lblCorreo">melina.delacruz@huaral.gob.pe</p>
+                                    </div>
+                                    <div class="field-item">
+                                        <small class="profile-label">Rol del Sistema</small>
+                                        <div class="role-selector-flex">
+                                            <span class="badge-role" id="lblRol">Gestor Municipal</span>
+                                            <div class="inline-changer">
+                                                <i class="fa-solid fa-arrows-rotate"></i>
+                                                <select id="roleChangerSelect" class="select-inline-role">
+                                                    <option value="Poblador Comunitario">Poblador Comunitario</option>
+                                                    <option value="Gestor Municipal">Gestor Municipal</option>
+                                                    <option value="Coordinador Comunitario">Coordinador Comunitario</option>
+                                                    <option value="Administrador Municipal">Administrador Municipal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field-item">
+                                        <small class="profile-label">Comunidad / Jurisdicción</small>
+                                        <p class="profile-value-text" id="lblComunidad">Municipalidad de Huaral</p>
+                                    </div>
+                                    <div class="field-item">
+                                        <small class="profile-label">Teléfono de contacto</small>
+                                        <p class="profile-value-text" id="lblTelefono">+51 943 281 094</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn-profile-action" id="btnEditarPerfil"><i class="fa-regular fa-pen-to-square"></i> Editar información</button>
+                        </div>
+
+                        <div class="profile-edit-container d-none" id="profileEditMode">
+                            <div class="alert-profile-error d-none" id="profileErrorMsg">Datos inválidos. Verifique los campos obligatorios.</div>
+                            
+                            <div class="form-group-profile">
+                                <label for="txtNombre">Nombre completo *</label>
+                                <input type="text" class="form-control-profile" id="txtNombre">
+                            </div>
+                            <div class="form-group-profile">
+                                <label for="txtCorreo">Correo electrónico *</label>
+                                <input type="email" class="form-control-profile" id="txtCorreo">
+                            </div>
+                            <div class="form-group-profile">
+                                <label for="txtTelefono">Teléfono de contacto</label>
+                                <input type="text" class="form-control-profile" id="txtTelefono">
+                            </div>
+                            <div class="form-group-profile">
+                                <label for="txtComunidad">Comunidad / Jurisdicción</label>
+                                <input type="text" class="form-control-profile" id="txtComunidad">
+                            </div>
+
+                            <div class="profile-actions-flex">
+                                <button class="btn-profile-cancel" id="btnCancelarPerfil">Cancelar</button>
+                                <button class="btn-profile-save" id="btnGuardarPerfil">Guardar cambios</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-side-column">
+                        <div class="panel">
+                            <div class="panel-header-simple">
+                                <h3>Seguridad e Integridad de Datos</h3>
+                            </div>
+                            <div class="security-status-list">
+                                <div class="status-item">
+                                    <i class="fa-solid fa-shield-halved safe-icon"></i>
+                                    <div>
+                                        <h5>Protección de Datos Activa</h5>
+                                        <p>Tus datos sensibles se encuentran encriptados localmente mediante algoritmos SHA-256.</p>
+                                    </div>
+                                </div>
+                                <div class="status-item">
+                                    <i class="fa-solid fa-user-check check-icon"></i>
+                                    <div>
+                                        <h5>Identidad Verificada</h5>
+                                        <p>Nivel de acceso autorizado para validación y emisión de alertas de emergencia críticas.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="perfil.js"></script>
+</body>
+</html>
