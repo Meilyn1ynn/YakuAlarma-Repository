@@ -4,9 +4,19 @@
 const menuToggle = document.getElementById("menuToggle");
 const sidebar = document.getElementById("sidebar");
 
-menuToggle.addEventListener("click", () => {
-    sidebar.classList.toggle("active");
-});
+if (menuToggle && sidebar) {
+    menuToggle.addEventListener("click", (e) => {
+        e.stopPropagation(); // Detiene propagación de burbujeo de eventos
+        sidebar.classList.toggle("active");
+    });
+
+    // Cerrar de forma nativa si se hace clic en el área principal de contenido
+    document.addEventListener("click", (e) => {
+        if (sidebar.classList.contains("active") && !sidebar.contains(e.target)) {
+            sidebar.classList.remove("active");
+        }
+    });
+}
 
 // ============================
 // FECHA Y HORA

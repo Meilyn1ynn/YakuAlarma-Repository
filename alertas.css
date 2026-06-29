@@ -1,6 +1,6 @@
-/* =========================
-   RESET & BASICS
-========================= */
+/* ==========================================================================
+   1. RESET, ENTORNO BASE & UTILIDADES
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -12,38 +12,57 @@ html, body {
     font-family: 'Inter', sans-serif;
     background: #f5f7fb;
     color: #1b263b;
+    overflow-x: hidden;
 }
 
-button {
+button, select, input {
     font-family: inherit;
 }
 
-/* =========================
-   APP MAIN WRAPPER
-========================= */
-.app {
-    display: flex;
-    min-height: 100vh;
+a { 
+    text-decoration: none; 
+    color: inherit; 
 }
 
-/* =========================
-   SIDEBAR
-========================= */
+.app { 
+    display: flex; 
+    min-height: 100vh; 
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+/* ==========================================================================
+   2. SIDEBAR CORPORATIVO
+   ========================================================================== */
 .sidebar {
     width: 270px;
+    min-width: 270px;
     background: #0b2c66;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
-    transition: .3s;
     position: fixed;
     left: 0;
     top: 0;
     height: 100vh;
     z-index: 999;
+    padding: 20px;
+    transition: left 0.3s ease;
     overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
 }
 
 .brand {
@@ -72,7 +91,6 @@ button {
     border-radius: 12px;
     font-weight: 500;
     color: white;
-    text-decoration: none;
     transition: .25s;
 }
 
@@ -92,7 +110,7 @@ button {
     font-weight: 700;
 }
 
-/* PERFIL Y LOGOUT INTERNO */
+/* Perfil y Logout Interno */
 .profile-card {
     display: flex;
     align-items: center;
@@ -102,8 +120,7 @@ button {
     border-radius: 14px;
     margin-bottom: 12px;
     color: white;
-    text-decoration: none;
-    transition: .3s;
+    transition: background 0.3s ease;
 }
 
 .profile-card:hover {
@@ -120,6 +137,7 @@ button {
     align-items: center;
     justify-content: center;
     font-size: 18px;
+    flex-shrink: 0;
 }
 
 .profile-card h4 {
@@ -145,27 +163,25 @@ button {
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
-    transition: .3s;
+    transition: background .3s;
 }
 
 .logout-btn:hover {
     background: #b61d1d;
 }
 
-/* =========================
-   MAIN CONTENT WRAPPER
-========================= */
+/* ==========================================================================
+   3. CONTENEDOR PRINCIPAL Y TOPBAR
+   ========================================================================== */
 .main {
     flex: 1;
     margin-left: 270px;
     display: flex;
     flex-direction: column;
-    transition: .3s;
+    width: calc(100% - 270px);
+    transition: margin 0.3s ease, width 0.3s ease;
 }
 
-/* =========================
-   TOPBAR
-========================= */
 .topbar {
     height: 75px;
     background: white;
@@ -203,6 +219,11 @@ button {
     cursor: pointer;
     font-size: 18px;
     color: #1b263b;
+    transition: background 0.2s;
+}
+
+.icon-btn:hover {
+    background: #e2e8f0;
 }
 
 .notification-badge {
@@ -241,14 +262,13 @@ button {
     color: #777;
 }
 
-/* =========================
-   VISTA INTERNA CONTENT
-========================= */
+/* Estructura de Paneles de Contenido */
 .content {
     padding: 25px;
     display: flex;
     flex-direction: column;
     gap: 22px;
+    width: 100%;
 }
 
 .page-title h1 {
@@ -262,13 +282,38 @@ button {
     color: #7b8794;
 }
 
-/* =========================
-   CARDS DE ALERTAS (RESPONSIVAS)
-========================= */
+.panel {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.05);
+    border: 1px solid #edf2f7;
+    min-width: 0;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+
+.panel-header h3 {
+    font-size: 18px;
+    color: #0b2c66;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   4. CARDS DE ALERTAS (MÉTRICAS / ESTADÍSTICAS)
+   ========================================================================== */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 18px;
+    width: 100%;
 }
 
 .card-stat {
@@ -279,12 +324,14 @@ button {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 5px 20px rgba(0,0,0,.04);
+    border: 1px solid #edf2f7;
 }
 
 .card-stat h4 {
     font-size: 13px;
     color: #6c757d;
     margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
 .card-stat h2 {
@@ -306,9 +353,10 @@ button {
     align-items: center;
     justify-content: center;
     font-size: 22px;
+    flex-shrink: 0;
 }
 
-/* Paletas específicas según riesgo */
+/* Paletas mapeadas con herencia limpia */
 .red h2, .red i { color: #d62828; }
 .red .stat-icon-wrapper { background: #ffe5e5; }
 
@@ -324,32 +372,15 @@ button {
 .blue h2, .blue i { color: #0077b6; }
 .blue .stat-icon-wrapper { background: #e6f2f7; }
 
-/* =========================
-   GRAFICOS Y MAPA GRID
-========================= */
+/* ==========================================================================
+   5. DASHBOARD GRID (MAPA Y GRÁFICOS LATERALES)
+   ========================================================================== */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 20px;
-}
-
-.panel {
-    background: white;
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.05);
-}
-
-.panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.panel-header h3 {
-    font-size: 18px;
-    color: #0b2c66;
+    width: 100%;
+    align-items: start;
 }
 
 #map {
@@ -357,15 +388,22 @@ button {
     height: 440px;
     border-radius: 14px;
     overflow: hidden;
+    border: 1px solid #edf2f7;
 }
 
 .filter-select {
     border: 1px solid #edf2f7;
     border-radius: 10px;
     padding: 8px 12px;
-    font-family: inherit;
     outline: none;
     background: #f8fafc;
+    cursor: pointer;
+    font-size: 13px;
+    transition: border-color 0.2s;
+}
+
+.filter-select:focus {
+    border-color: #0b2c66;
 }
 
 .side-panels {
@@ -380,9 +418,7 @@ button {
     width: 100%;
 }
 
-/* =========================
-   PROVINCIA PROGRESOS
-========================= */
+/* Barras de Progreso Regiones / Provincias */
 .province-bar {
     margin-bottom: 14px;
 }
@@ -407,11 +443,12 @@ button {
     display: block;
     height: 100%;
     border-radius: 10px;
+    transition: width 0.4s ease;
 }
 
-/* =========================
-   TABLAS Y PAGINADORES
-========================= */
+/* ==========================================================================
+   6. CONTROLES, TABLAS Y PAGINADORES
+   ========================================================================== */
 .table-panel {
     margin-top: 5px;
 }
@@ -419,7 +456,10 @@ button {
 .table-actions {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 18px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .table-actions input {
@@ -429,6 +469,13 @@ button {
     padding: 10px 14px;
     outline: none;
     background: #f8fafc;
+    font-size: 13px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.table-actions input:focus {
+    border-color: #0b2c66;
+    background: white;
 }
 
 .btn-primary {
@@ -442,10 +489,19 @@ button {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-size: 13px;
+    transition: background 0.2s;
 }
 
+.btn-primary:hover {
+    background: #061b40;
+}
+
+/* Estructura de Tabla Avanzada */
 .table-container {
     overflow-x: auto;
+    width: 100%;
+    border-radius: 8px;
 }
 
 table {
@@ -458,24 +514,36 @@ table th {
     color: white;
     padding: 14px;
     text-align: left;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
 table td {
     padding: 14px;
     border-bottom: 1px solid #edf2f7;
     font-size: 14px;
+    color: #2d3748;
+    vertical-align: middle;
+}
+
+table tr {
+    transition: background 0.2s;
 }
 
 table tr:hover {
     background: #f8fafc;
 }
 
+/* Badges de Riesgo y Estado */
 .risk {
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
+    display: inline-block;
+    text-align: center;
 }
 
 .risk.alto { background: #ffe5e5; color: #d62828; }
@@ -500,14 +568,24 @@ table tr:hover {
     background: #f1f4f9;
     cursor: pointer;
     color: #4a5568;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
 }
 
+.actions button:hover {
+    background: #e2e8f0;
+    color: #0b2c66;
+}
+
+/* Paginador Centrado */
 .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
-    margin-top: 15px;
+    gap: 8px;
+    margin-top: 20px;
 }
 
 .pagination button {
@@ -517,26 +595,59 @@ table tr:hover {
     background: white;
     border-radius: 8px;
     cursor: pointer;
+    font-weight: 600;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
 }
 
-/* =========================
-   RESPONSIVE LAYOUTS
-========================= */
+.pagination button:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.pagination button.active {
+    background: #0b2c66;
+    color: white;
+    border-color: #0b2c66;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE BREAKPOINTS (MEDIA QUERIES)
+   ========================================================================== */
+
+/* 1. Monitores Medios y Laptops Estándar */
 @media(max-width: 1400px) {
     .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* 2. Pantallas de Portátiles Pequeñas */
+@media(max-width: 1200px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+    #map { height: 380px; }
+}
+
+/* 3. Tablets y Menús Colapsables por JS (.sidebar.active) */
 @media(max-width: 992px) {
     .sidebar { left: -270px; }
     .sidebar.active { left: 0; }
-    .main { margin-left: 0; }
-    .sidebar.active + .main { margin-left: 0; }
-    .dashboard-grid { grid-template-columns: 1fr; }
+    .main { margin-left: 0; width: 100%; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* 4. Smartphones y Dispositivos Móviles */
 @media(max-width: 576px) {
-    .stats-grid { grid-template-columns: 1fr; }
-    .table-actions { flex-direction: column; gap: 10px; }
+    .content { padding: 15px; gap: 16px; }
+    .topbar { padding: 0 15px; }
+    
+    .page-title h1 { font-size: 26px; }
+    .stats-grid { grid-template-columns: 1fr; gap: 14px; }
+    
+    .table-actions { flex-direction: column; align-items: stretch; gap: 12px; }
     .table-actions input { width: 100%; }
+    .btn-primary { justify-content: center; }
+    
+    #map { height: 250px; }
 }
