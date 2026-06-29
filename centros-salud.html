@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Centros de Salud</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="centros-salud.css">
+</head>
+
+<body>
+    <div class="app">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="menu.html"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a>
+                    <a href="alertas.html"><i class="fa-solid fa-triangle-exclamation"></i> Alertas Activas</a>
+                    <a href="mapa-riesgos.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de Riesgos</a>
+                    <a class="active" href="centros-salud.html"><i class="fa-solid fa-hospital"></i> Centros de Salud</a>
+                    <a href="instituciones.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticas.html"><i class="fa-solid fa-cloud-rain"></i> Estadísticas Climáticas</a>
+                    <a href="reportes.html"><i class="fa-solid fa-file-lines"></i> Reportes Ciudadanos</a>
+                    <a href="usuarios.html"><i class="fa-solid fa-users-gear"></i> Gestión de Usuarios</a>
+                    <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Melina De la Cruz</h4>
+                        <span>Gestor Municipal</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/huaral.png" alt="Huaral">
+                        <div>
+                            <small>Municipalidad de</small>
+                            <strong>Huaral</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-title">
+                    <h1>Centros de Salud</h1>
+                    <p>Ubicación y disponibilidad de centros de salud cercanos</p>
+                </div>
+
+                <div class="health-metrics-grid">
+                    <div class="card-metric total">
+                        <div>
+                            <small>Total de centros</small>
+                            <h2 id="mTotal">0</h2>
+                            <span>En la región</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-hospital"></i></div>
+                    </div>
+                    <div class="card-metric disponible">
+                        <div>
+                            <small>Disponibles</small>
+                            <h2 id="mDisponible">0</h2>
+                            <span id="pDisponible">0% del total</span>
+                        </div>
+                        <div class="metric-icon check"><i class="fa-solid fa-circle-check"></i></div>
+                    </div>
+                    <div class="card-metric limitada">
+                        <div>
+                            <small>Atención limitada</small>
+                            <h2 id="mLimitada">0</h2>
+                            <span id="pLimitada">0% del total</span>
+                        </div>
+                        <div class="metric-icon alert"><i class="fa-solid fa-circle-exclamation"></i></div>
+                    </div>
+                    <div class="card-metric saturado">
+                        <div>
+                            <small>Saturados</small>
+                            <h2 id="mSaturado">0</h2>
+                            <span id="pSaturado">0% del total</span>
+                        </div>
+                        <div class="metric-icon danger"><i class="fa-solid fa-hospital-user"></i></div>
+                    </div>
+                    <div class="card-metric fuera">
+                        <div>
+                            <small>Fuera de servicio</small>
+                            <h2 id="mFuera">0</h2>
+                            <span id="pFuera">0% del total</span>
+                        </div>
+                        <div class="metric-icon off"><i class="fa-solid fa-power-off"></i></div>
+                    </div>
+                </div>
+
+                <div class="health-central-grid">
+                    
+                    <div class="health-left-side-panels">
+                        <div class="panel filters-panel">
+                            <div class="panel-header">
+                                <h3>Filtros</h3>
+                                <button id="btnLimpiar" class="btn-clear-link">Limpiar</button>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>Buscar centro</label>
+                                <div class="search-input-wrapper">
+                                    <input type="text" id="searchHealth" placeholder="Buscar por nombre...">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label>Estado</label>
+                                <div class="checkbox-list">
+                                    <label><input type="checkbox" name="statusFilter" value="Disponible"> <span class="dot-status disponible"></span> Disponible</label>
+                                    <label><input type="checkbox" name="statusFilter" value="Atención limitada"> <span class="dot-status limitada"></span> Atención limitada</label>
+                                    <label><input type="checkbox" name="statusFilter" value="Saturado"> <span class="dot-status saturado"></span> Saturado</label>
+                                    <label><input type="checkbox" name="statusFilter" value="Fuera de servicio"> <span class="dot-status fuera"></span> Fuera de servicio</label>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label>Distancia máxima</label>
+                                <select id="filterDistance" class="form-select">
+                                    <option value="Todas">Seleccionar distancia</option>
+                                    <option value="5">Menos de 5 km</option>
+                                    <option value="10">Menos de 10 km</option>
+                                    <option value="20">Menos de 20 km</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label>Tipo de establecimiento</label>
+                                <select id="filterType" class="form-select">
+                                    <option value="Todos">Todos los tipos</option>
+                                    <option value="Centro de Salud">Centro de Salud</option>
+                                    <option value="Puesto de Salud">Puesto de Salud</option>
+                                </select>
+                            </div>
+
+                            <button id="btnAplicarFiltros" class="btn-primary-health">
+                                <i class="fa-solid fa-filter"></i> Aplicar filtros
+                            </button>
+                        </div>
+
+                        <div class="panel list-panel">
+                            <div class="panel-header">
+                                <h3>Lista de centros de salud</h3>
+                                <a href="#tablaCompletaSection" class="view-all-link">Ver todos</a>
+                            </div>
+                            <div id="sidebarHealthList" class="health-quick-list">
+                                </div>
+                            <button id="btnVerTodosCentros" class="btn-outline-center">Ver todos los centros</button>
+                        </div>
+                    </div>
+
+                    <div class="panel map-panel-container">
+                        <div class="panel-header">
+                            <h3>Mapa de centros de salud</h3>
+                        </div>
+                        <div class="map-wrapper">
+                            <div id="map"></div>
+                            <button id="btnUbicacion" class="btn-location-overlay">
+                                <i class="fa-solid fa-location-crosshairs"></i> Mi ubicación
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel table-panel" id="tablaCompletaSection">
+                    <div class="panel-header">
+                        <h3>Centros de salud cercanos</h3>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Centro de salud</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Capacidad</th>
+                                    <th>Personal</th>
+                                    <th>Servicios disponibles</th>
+                                    <th>Distancia</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaCentrosBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="centros-salud.js"></script>
+</body>
+
+</html>
