@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Gestión de Usuarios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="usuarios.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+                <nav class="menu">
+                    <a href="menu.html"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a>
+                    <a href="alertas.html"><i class="fa-solid fa-triangle-exclamation"></i> Alertas Activas</a>
+                    <a href="mapa-riesgos.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de Riesgos</a>
+                    <a href="centros-salud.html"><i class="fa-solid fa-hospital"></i> Centros de Salud</a>
+                    <a href="instituciones.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticas.html"><i class="fa-solid fa-cloud-rain"></i> Estadísticas Climáticas</a>
+                    <a href="reportes.html"><i class="fa-solid fa-file-lines"></i> Reportes Ciudadanos</a>
+                    <a class="active" href="usuarios.html"><i class="fa-solid fa-users-gear"></i> Gestión de Usuarios</a>
+                    <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                </nav>
+            </div>
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4 id="sidebarMenuNombre">Melina De la Cruz</h4>
+                        <span id="sidebarMenuRol">Gestor Municipal</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/huaral.png" alt="Huaral">
+                        <div>
+                            <small>Municipalidad de</small>
+                            <strong>Huaral</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-header-flex">
+                    <div class="page-title">
+                        <h1>Gestión de Usuarios</h1>
+                        <p>Administra los usuarios del sistema y sus permisos</p>
+                    </div>
+                </div>
+
+                <div class="user-metrics-grid">
+                    <div class="card-metric">
+                        <div class="metric-info">
+                            <small>Total de usuarios</small>
+                            <h2 id="txtTotal">0</h2>
+                            <span class="sub-txt">Usuarios registrados</span>
+                        </div>
+                        <div class="metric-icon blue-icon"><i class="fa-solid fa-users"></i></div>
+                    </div>
+                    <div class="card-metric">
+                        <div class="metric-info">
+                            <small>Usuarios activos</small>
+                            <h2 id="txtActivos">0</h2>
+                            <span class="trend up" id="pctActivos">0% del total</span>
+                        </div>
+                        <div class="metric-icon green-icon"><i class="fa-solid fa-user-check"></i></div>
+                    </div>
+                    <div class="card-metric">
+                        <div class="metric-info">
+                            <small>Inactivos</small>
+                            <h2 id="txtInactivos">0</h2>
+                            <span class="trend down" id="pctInactivos">0% del total</span>
+                        </div>
+                        <div class="metric-icon orange-icon"><i class="fa-solid fa-user-slash"></i></div>
+                    </div>
+                    <div class="card-metric">
+                        <div class="metric-info">
+                            <small>Suspendidos</small>
+                            <h2 id="txtSuspendidos">0</h2>
+                            <span class="trend red" id="pctSuspendidos">0% del total</span>
+                        </div>
+                        <div class="metric-icon red-icon"><i class="fa-solid fa-user-xmark"></i></div>
+                    </div>
+                    <div class="card-metric">
+                        <div class="metric-info">
+                            <small>Administradores</small>
+                            <h2 id="txtAdmins">0</h2>
+                            <span class="trend shield" id="pctAdmins">0% del total</span>
+                        </div>
+                        <div class="metric-icon navy-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    </div>
+                </div>
+
+                <div class="user-main-grid">
+                    
+                    <div class="panel table-panel">
+                        <div class="table-header-controls">
+                            <div class="tabs-usuarios">
+                                <button class="tab-btn active" data-filter="todos">Todos los usuarios</button>
+                                <button class="tab-btn" data-filter="Activo">Activos</button>
+                                <button class="tab-btn" data-filter="Inactivo">Inactivos</button>
+                                <button class="tab-btn" data-filter="Suspendido">Suspendidos</button>
+                            </div>
+                            <div class="search-actions">
+                                <div class="search-box">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="text" id="inputBuscar" placeholder="Buscar usuario...">
+                                </div>
+                                <button class="btn-action-outline"><i class="fa-solid fa-sliders"></i> Filtros</button>
+                                <button id="btnNuevoUsuario" class="btn-action-green"><i class="fa-solid fa-plus"></i> Nuevo usuario</button>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Rol</th>
+                                        <th>Comunidad / Área</th>
+                                        <th>Estado</th>
+                                        <th>Último acceso</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaUsuariosBody">
+                                    </tbody>
+                            </table>
+                        </div>
+                        <div class="table-footer">
+                            <span id="infoPaginacion">Mostrando 1-8 de 426 usuarios</span>
+                            <div class="pagination">
+                                <button disabled><i class="fa-solid fa-chevron-left"></i></button>
+                                <button class="active">1</button>
+                                <button>2</button>
+                                <button>3</button>
+                                <span>...</span>
+                                <button>54</button>
+                                <button><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user-side-column">
+                        <div class="panel chart-panel-donut">
+                            <h3>Usuarios por rol</h3>
+                            <div class="canvas-donut-container">
+                                <canvas id="chartRoles"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="panel chart-panel-line">
+                            <h3>Actividad de nuevos usuarios <small style="float:right; color:#718096">Últimos 7 días</small></h3>
+                            <div class="canvas-line-container">
+                                <canvas id="chartActividad"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="panel quick-actions-panel">
+                            <h3>Acciones rápidas</h3>
+                            <div class="actions-list">
+                                <button class="action-item-btn" id="qaNuevoUsuario">
+                                    <div class="action-icon bg-green"><i class="fa-solid fa-user-plus"></i></div>
+                                    <div class="action-text">
+                                        <strong>Crear nuevo usuario</strong>
+                                        <span>Registra un nuevo usuario en el sistema</span>
+                                    </div>
+                                </button>
+                                <button class="action-item-btn" id="qaAsignarRoles">
+                                    <div class="action-icon bg-blue"><i class="fa-solid fa-user-shield"></i></div>
+                                    <div class="action-text">
+                                        <strong>Asignar roles</strong>
+                                        <span>Gestiona los roles y permisos</span>
+                                    </div>
+                                </button>
+                                <button class="action-item-btn" id="qaImportarUsuarios">
+                                    <div class="action-icon bg-purple"><i class="fa-solid fa-file-import"></i></div>
+                                    <div class="action-text">
+                                        <strong>Importar usuarios</strong>
+                                        <span>Carga usuarios desde un archivo CSV</span>
+                                    </div>
+                                </button>
+                                <button class="action-item-btn" id="qaVerRegistros">
+                                    <div class="action-icon bg-orange"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                                    <div class="action-text">
+                                        <strong>Ver registros de actividad</strong>
+                                        <span>Historial de acciones de usuarios</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="user-bottom-grid">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Distribución de usuarios por comunidad</h3>
+                            <a href="#" class="view-all-link">Ver detalle</a>
+                        </div>
+                        <div class="canvas-bar-container">
+                            <canvas id="chartComunidades"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="panel verification-panel">
+                        <div class="panel-header">
+                            <h3>Estado de verificación de usuarios</h3>
+                            <a href="#" class="view-all-link">Ver detalle</a>
+                        </div>
+                        <div class="verification-content">
+                            <div class="canvas-semi-donut">
+                                <canvas id="chartVerificacion"></canvas>
+                                <div class="semi-donut-text">
+                                    <h2 id="txtPctVerificados">92%</h2>
+                                    <span>Verificados</span>
+                                </div>
+                            </div>
+                            <div class="verification-legends" id="legendVerificacion">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="modalUsuario">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrar Nuevo Usuario</h2>
+                <button class="close-modal" id="btnCerrarModal">&times;</button>
+            </div>
+            <form id="formUsuario">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" required placeholder="Ej. Juan Pérez">
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" required placeholder="ejemplo@email.com">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="rol">Rol</label>
+                        <select id="rol" required>
+                            <option value="Ciudadano">Ciudadano</option>
+                            <option value="Coordinador">Coordinador</option>
+                            <option value="Gestor Municipal">Gestor Municipal</option>
+                            <option value="Institución">Institución</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="comunidad">Comunidad / Área</label>
+                        <input type="text" id="comunidad" required placeholder="Ej. Villa Rica">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="estado">Estado Inicial</label>
+                    <select id="estado" required>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                        <option value="Suspendido">Suspendido</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancelar" id="btnCancelarForm">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Registrar Usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="usuarios.js"></script>
+</body>
+</html>
