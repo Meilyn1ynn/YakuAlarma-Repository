@@ -758,27 +758,6 @@ body {
     transform:scale(1.2);
 }
 
-/* RESPONSIVE */
-
-@media(max-width:768px){
-
-    .card{
-        width: 90vw;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .card img{
-        width: 180px;
-        height: 180px;
-        margin-top: 20px;
-    }
-
-    .titulo-seccion h2{
-        font-size: 32px;
-    }
-}
-
 /* ========================= */
 /* CONTACTANOS */
 /* ========================= */
@@ -889,26 +868,6 @@ body {
 .dot.active{
     background:#073D64;
     transform:scale(1.2);
-}
-
-/* RESPONSIVE */
-
-@media(max-width:768px){
-
-    .card-contacto{
-        min-width:100%;
-        flex-direction:column;
-        text-align:center;
-    }
-
-    .card-contacto img{
-        width:150px;
-        height:150px;
-    }
-
-    .titulo-seccion h2{
-        font-size:32px;
-    }
 }
 
 /* ========================================
@@ -1028,183 +987,165 @@ body {
 }
 
 /* ========================================
-   RESPONSIVE
+   RESPONSIVE UNIFICADO Y CORREGIDO
 ======================================== */
+
+/* 1. ESTILOS BASE DEL BOTÓN (Para pantallas grandes va oculto) */
+.menu-toggle {
+  display: none; 
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1100; 
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 3px;
+  background-color: #073D64; 
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Animación de la 'X' */
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+
+/* 2. PANTALLAS MEDIANAS Y GRANDES (Hasta 1000px) */
 @media (max-width: 1000px) {
   .Menu_Horizontal { 
     gap: 1rem; 
     font-size: 0.95rem; 
   }
-  
   .hero { 
     flex-direction: column; 
     text-align: center; 
   }
-  
-  .hero-text h1 {
-    font-size: 2.2rem;
-  }
-  
-  .hero-image { 
-    text-align: center; 
-  }
-  
-  .hero-image img { 
-    max-width: 400px; 
-  }
-  
-  .stats-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .caracteristicas-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .proceso-steps {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .testimonios-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .precios-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .historia-contenido { 
-    flex-direction: column; 
-  }
-
-  .proposito-contenido { 
-    flex-direction: column; 
-  }
-
-  .mision-contenido { 
-    flex-direction: column; 
-  }
-
-  .footer-content {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
+  .hero-text h1 { font-size: 2.2rem; }
+  .hero-image { text-align: center; }
+  .hero-image img { max-width: 400px; }
+  .stats-container { grid-template-columns: repeat(2, 1fr); }
+  .caracteristicas-grid { grid-template-columns: repeat(2, 1fr); }
+  .proceso-steps { grid-template-columns: repeat(2, 1fr); }
+  .testimonios-grid { grid-template-columns: 1fr; }
+  .proposito-contenido, .mision-contenido { flex-direction: column; }
+  .footer-content { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
 
-@media (max-width: 600px) {
-  body {
-    padding-top: 70px;
+
+/* 3. DISPOSITIVOS MÓVILES (Hasta 768px) -> Aquí ocurre la magia del menú */
+@media (max-width: 768px) {
+  /* Forzamos a que se muestre el botón hamburguesa */
+  .menu-toggle {
+    display: flex !important;
   }
-  
-  .container { 
-    padding: 0.8rem 14px;
-    flex-wrap: wrap;
+
+  /* Cambiamos el contenedor del menú para que sea lateral */
+  .menu {
+    position: fixed;
+    top: 0;
+    right: -100%; 
+    width: 280px;  
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+    padding: 100px 2rem 2rem; 
+    transition: right 0.4s ease;
+    z-index: 1050;
+    overflow-y: auto; 
   }
-  
-  .Menu_Horizontal { 
-    display: none; 
+
+  /* Cuando JS añade la clase active, se desliza a la pantalla */
+  .menu.active {
+    right: 0; 
   }
-  
-  .hero-text h1 {
-    font-size: 1.8rem;
-  }
-  
-  .hero-text p {
-    font-size: 1rem;
-  }
-  
-  .hero-buttons {
+
+  /* Aseguramos que la lista se vuelva vertical y NO se oculte */
+  .Menu_Horizontal {
+    display: flex !important; 
     flex-direction: column;
-  }
-  
-  .stats-container {
-    grid-template-columns: 1fr;
+    align-items: flex-start;
     gap: 1.5rem;
   }
-  
-  .caracteristicas-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .proceso-steps {
-    grid-template-columns: 1fr;
-  }
-  
-  .beneficios-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .footer-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .cta-final h2 {
-    font-size: 1.8rem;
+
+  .Menu_Horizontal li {
+    width: 100%;
   }
 
+  .Menu_Horizontal li a {
+    font-size: 1.1rem;
+    width: 100%;
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
 
-  /* --- OCULTAR MENÚ EN CELULAR Y MOSTRAR BOTÓN HAMBURGUESA --- */
-@media (max-width: 768px) {
+  /* Submenús internos integrados */
+  .Menu_Vertical {
+    position: static; 
+    display: block;   
+    box-shadow: none;
+    padding-left: 1.5rem;
+    margin-top: 0;
+    background-color: #fafafa;
+    border-radius: 0;
+  }
+  
+  .Menu_Vertical li a {
+    font-size: 0.95rem;
+    border-bottom: none;
+    padding: 8px 0;
+  }
 
-    /* Oculta el menú normal */
-    .topheader .menu {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: white;
-        padding: 20px 0;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
+  /* Ajustes de distribución en la barra superior */
+  .container {
+    justify-content: space-between; 
+  }
 
-    /* Cuando se active */
-    .topheader .menu.active {
-        display: block;
-    }
+  .btn-primary {
+    margin-left: auto;
+    margin-right: 15px; /* Deja espacio para el botón hamburguesa */
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
 
-    /* Crear botón hamburguesa SIN HTML extra */
-    .topheader::after {
-        content: "☰";
-        font-size: 32px;
-        color: #1e7a38;
-        position: absolute;
-        right: 20px;
-        top: 18px;
-        cursor: pointer;
-        font-weight: 800;
-    }
-
-    /* Cuando se active, cambia icono a X */
-    .topheader.open::after {
-        content: "✖";
-        font-size: 30px;
-    }
-
-    /* Ajustar header para móvil */
-    .topheader .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    /* Ajustar menú vertical */
-    .Menu_Horizontal {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-
-    .Menu_Vertical {
-        position: static;
-        background: none;
-        box-shadow: none;
-    }
-
-    .Menu_Vertical li {
-        padding: 5px 0;
-    }
+  /* Ajustes extras de tus tarjetas en móvil */
+  .card, .card-contacto {
+    min-width: 100%;
+    flex-direction: column;
+    text-align: center;
+  }
+  .card img {
+    width: 180px;
+    height: 180px;
+    margin-top: 20px;
+  }
+  .titulo-seccion h2 { font-size: 32px; }
 }
 
 
+/* 4. PANTALLAS ULTRA PEQUEÑAS (Hasta 600px) */
+@media (max-width: 600px) {
+  body { padding-top: 70px; }
+  .container { padding: 0.8rem 14px; }
+  .hero-text h1 { font-size: 1.8rem; }
+  .hero-text p { font-size: 1rem; }
+  .hero-buttons { flex-direction: column; }
+  .stats-container, .caracteristicas-grid, .proceso-steps, .beneficios-grid, .footer-content {
+    grid-template-columns: 1fr;
+  }
+  .cta-final h2 { font-size: 1.8rem; }
 }
