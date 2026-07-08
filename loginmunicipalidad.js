@@ -33,13 +33,12 @@ function validarEmail(email) {
 
 // ============================
 // Simulación de autenticación
-// (puedes reemplazar con tu backend real)
 // ============================
 function autenticar(email, password) {
 
     // Usuario de prueba (puedes cambiarlo)
     const usuarioDemo = {
-        correo: "usuario@demo.com",
+        correo: "usuario@yakualarma.com",
         password: "123456"
     };
 
@@ -85,16 +84,10 @@ form.addEventListener("submit", (e) => {
 
     // Redirección (cambia por tu dashboard real)
     setTimeout(() => {
-        window.location.href = "dashboard.html";
+        window.location.href = "menu.html";
     }, 1200);
 });
 
-form.addEventListener("button", (e) => {
-    e.preventDefault();
-        setTimeout(() => {
-        window.location.href = "loginmunicipalidad.html";
-    }, 1200);
-});
 
 // ============================
 // Mostrar mensajes en pantalla

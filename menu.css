@@ -36,7 +36,7 @@ a {
 }
 
 /* ==========================================================================
-   2. SIDEBAR CORPORATIVO
+   2. SIDEBAR CORPORATIVO CON SCROLL CORREGIDO
    ========================================================================== */
 .sidebar {
     width: 270px;
@@ -51,36 +51,45 @@ a {
     top: 0;
     height: 100vh;
     z-index: 999;
-    padding: 20px;
     transition: left 0.3s ease;
-    overflow-y: auto;
 }
 
-.sidebar::-webkit-scrollbar {
+.sidebar-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 20px 10px 20px;
+}
+
+.sidebar-scroll-container::-webkit-scrollbar {
     width: 6px;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.sidebar-scroll-container::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
 }
 
-.brand {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
+.sidebar-footer {
+    padding: 10px 20px 20px 20px;
+    background: #0b2c66;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.brand img {
-    width: 170px;
-    max-width: 100%;
-    object-fit: contain;
+.brand { 
+    display: flex; 
+    justify-content: center; 
+    margin-bottom: 30px; 
 }
 
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.brand img { 
+    width: 170px; 
+    object-fit: contain; 
+}
+
+.menu { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
 }
 
 .menu a {
@@ -91,95 +100,89 @@ a {
     border-radius: 12px;
     font-weight: 500;
     color: white;
-    transition: .25s;
+    transition: .25s ease;
 }
 
-.menu a i {
-    width: 22px;
-    text-align: center;
-    font-size: 18px;
+.menu a i { 
+    width: 22px; 
+    text-align: center; 
+    font-size: 18px; 
 }
 
-.menu a:hover {
-    background: rgba(255, 255, 255, .12);
+.menu a:hover { 
+    background: rgba(255, 255, 255, .12); 
 }
 
-.menu a.active {
-    background: white;
-    color: #0b2c66;
-    font-weight: 700;
+.menu a.active { 
+    background: white; 
+    color: #0b2c66; 
+    font-weight: 700; 
 }
 
-/* Perfil y Logout Interno */
-.profile-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 15px;
-    background: rgba(255, 255, 255, .08);
-    border-radius: 14px;
-    margin-bottom: 12px;
-    color: white;
-    transition: background 0.3s ease;
+.profile-card { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    padding: 15px; 
+    background: rgba(255, 255, 255, .08); 
+    border-radius: 14px; 
+    margin-bottom: 12px; 
+    color: white; 
 }
 
-.profile-card:hover {
-    background: rgba(255, 255, 255, .15);
-}
-
-.profile-avatar {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: white;
-    color: #0b2c66;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+.profile-avatar { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    background: white; 
+    color: #0b2c66; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 18px; 
     flex-shrink: 0;
 }
 
-.profile-card h4 {
-    font-size: 14px;
-    margin-bottom: 2px;
+.profile-card h4 { 
+    font-size: 14px; 
+    margin-bottom: 2px; 
 }
 
-.profile-card span {
-    font-size: 12px;
-    opacity: .8;
+.profile-card span { 
+    font-size: 12px; 
+    opacity: .8; 
 }
 
-.logout-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px;
-    background: #d62828;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .3s;
+.logout-btn { 
+    width: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 12px; 
+    background: #d62828; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background 0.2s;
 }
 
 .logout-btn:hover {
-    background: #b61d1d;
+    background: #b52020;
 }
 
 /* ==========================================================================
    3. CONTENEDOR PRINCIPAL Y TOPBAR
    ========================================================================== */
-.main {
-    flex: 1;
-    margin-left: 270px;
-    display: flex;
-    flex-direction: column;
+.main { 
+    flex: 1; 
+    margin-left: 270px; 
+    display: flex; 
+    flex-direction: column; 
     width: calc(100% - 270px);
-    transition: margin 0.3s ease, width 0.3s ease;
+    transition: margin 0.3s ease, width 0.3s ease; 
 }
 
 .topbar {
@@ -195,30 +198,30 @@ a {
     z-index: 100;
 }
 
-.top-left button {
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-    color: #0b2c66;
+.top-left button { 
+    background: none; 
+    border: none; 
+    font-size: 22px; 
+    cursor: pointer; 
+    color: #0b2c66; 
 }
 
-.top-right {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.top-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 18px; 
 }
 
-.icon-btn {
-    position: relative;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: none;
-    background: #f1f4f9;
-    cursor: pointer;
-    font-size: 18px;
-    color: #1b263b;
+.icon-btn { 
+    position: relative; 
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%; 
+    border: none; 
+    background: #f1f4f9; 
+    cursor: pointer; 
+    font-size: 18px; 
+    color: #1b263b; 
     transition: background 0.2s;
 }
 
@@ -226,43 +229,40 @@ a {
     background: #e2e8f0;
 }
 
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -3px;
-    background: #d62828;
-    color: white;
-    font-size: 11px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.notification-badge { 
+    position: absolute; 
+    top: -5px; 
+    right: -3px; 
+    background: #d62828; 
+    color: white; 
+    font-size: 11px; 
+    width: 18px; 
+    height: 18px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
 }
 
-.municipality {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    padding-left: 10px;
+.municipality { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    cursor: pointer; 
 }
 
-.municipality img {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
+.municipality img { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    object-fit: cover; 
 }
 
-.municipality small {
-    display: block;
-    font-size: 11px;
-    color: #777;
+.municipality small { 
+    display: block; 
+    font-size: 11px; 
+    color: #777; 
 }
-
-
 /* ==========================================================================
    4. SECCIÓN DE CONTENIDO PRINCIPAL Y PANELES comunes
    ========================================================================== */
@@ -374,18 +374,18 @@ a {
 /* ==========================================================================
    6. GRID DE DASHBOARD CORREGIDO (Simetría de Alturas)
    ========================================================================== */
+/* Grid de Dashboard */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 20px;
     width: 100%;
-    align-items: stretch; /* Alínea la altura del mapa con el panel lateral */
+    align-items: stretch; 
 }
 
-/* Forzado de altura simétrica para los dos bloques principales */
 .dashboard-grid > .panel, 
 .side-panels {
-    height: 100%;
+    min-height: 100%;
 }
 
 .dashboard-grid > .panel {
@@ -397,7 +397,7 @@ a {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    justify-content: space-between; /* Distribución uniforme de subpaneles */
+    justify-content: space-between; 
 }
 
 /* Contenedor del Mapa */
@@ -565,6 +565,7 @@ table tr:hover {
     font-weight: 800;
 }
 
+
 /* ==========================================================================
    8. RESPONSIVE DESIGN (MEDIA QUERIES)
    ========================================================================== */
@@ -594,16 +595,3 @@ table tr:hover {
     #map { min-height: 350px; }
 }
 
-/* 4. Pantallas Pequeñas (Mobile M/S) */
-@media(max-width: 480px) {
-    .municipality strong, 
-    .municipality small { 
-        display: none; 
-    }
-    .icon-btn {
-        width: 38px;
-        height: 38px;
-    }
-    .centro-item { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .estado { align-self: flex-end; }
-}

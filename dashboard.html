@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+    <div class="app">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a class="active" href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+                    <a href="#" class="alert-menu-item"><i class="fa-solid fa-triangle-exclamation"></i> Reportar emergencia</a>
+                    <a href="#"><i class="fa-solid fa-map-location-dot"></i> Mapa de riesgos</a>
+                    <a href="#"><i class="fa-solid fa-bell"></i> Alertas activas <span class="badge-count" id="sidebarAlertCount">3</span></a>
+                    <a href="#"><i class="fa-solid fa-file-lines"></i> Mis reportes</a>
+                    <a href="#"><i class="fa-solid fa-hospital"></i> Centros de salud</a>
+                    <a href="#"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="#"><i class="fa-solid fa-chart-column"></i> Estadísticas climáticas</a>
+                    <a href="#"><i class="fa-solid fa-comments"></i> Comunicación comunitaria</a>
+                    <a href="#"><i class="fa-solid fa-route"></i> Refugios y rutas</a>
+                    <a href="#"><i class="fa-solid fa-gear"></i> Configuración</a>
+                    <a href="#"><i class="fa-solid fa-circle-question"></i> Ayuda</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Juan Pérez</h4>
+                        <span>Ciudadano</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/villa.jpg" alt="Villa Rica">
+                        <div>
+                            <small>Distrito de</small>
+                            <strong>Villa Rica</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+            <div class="page-title">
+                <h1>¡Hola, Juan! 👋</h1>
+                <p>
+                    Bienvenido a <strong>Yakualarma</strong>, juntos cuidamos nuestra comunidad.
+                </p>
+            </div>
+            <div class="stats-grid">
+                    <div class="stat-card border-red">
+                        <div class="stat-main">
+                            <small>ALERTAS ACTIVAS</small>
+                            <h2 id="activeAlertsNum">3</h2>
+                            <span>En tu zona</span>
+                        </div>
+                        <div class="stat-icon red-bg"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                        <button class="stat-btn">Ver detalles</button>
+                    </div>
+
+                    <div class="stat-card border-orange">
+                        <div class="stat-main">
+                            <small>REPORTES HOY</small>
+                            <h2 id="todayReportsNum">12</h2>
+                            <span>Enviados por la comunidad</span>
+                        </div>
+                        <div class="stat-icon orange-bg"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <button class="stat-btn">Ver reportes</button>
+                    </div>
+
+                    <div class="stat-card border-green">
+                        <div class="stat-main">
+                            <small>ZONAS EN RIESGO</small>
+                            <h2 id="riskZonesNum">5</h2>
+                            <span>En monitoreo</span>
+                        </div>
+                        <div class="stat-icon green-bg"><i class="fa-solid fa-location-dot"></i></div>
+                        <button class="stat-btn">Ver mapa</button>
+                    </div>
+
+                    <div class="stat-card border-blue">
+                        <div class="stat-main">
+                            <small>CENTROS DE SALUD</small>
+                            <h2 id="healthCentersNum">4</h2>
+                            <span>Cercanos a ti</span>
+                        </div>
+                        <div class="stat-icon blue-bg"><i class="fa-solid fa-square-plus"></i></div>
+                        <button class="stat-btn">Ver centros</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-middle-grid">
+                    <div class="panel map-panel">
+                        <div class="panel-header">
+                            <h3>Mapa de riesgos en tiempo real</h3>
+                            <a href="#" class="panel-link">Ver mapa completo <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="map-container-wrapper">
+                            <div id="map"></div>
+                        </div>
+                        <div class="map-legend">
+                            <span><span class="legend-dot red-dot"></span> Alerta alta</span>
+                            <span><span class="legend-dot orange-dot"></span> Alerta media</span>
+                            <span><span class="legend-dot yellow-dot"></span> Alerta baja</span>
+                            <span><span class="legend-dot green-dot"></span> Refugios</span>
+                            <span><span class="legend-dot blue-dot"></span> Tu ubicación</span>
+                        </div>
+                    </div>
+
+                    <div class="panel alerts-panel">
+                        <div class="panel-header">
+                            <h3>Alertas activas</h3>
+                            <a href="#" class="panel-link">Ver todas <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="alerts-list" id="activeAlertsContainer">
+                            </div>
+                    </div>
+
+                    <div class="panel actions-panel">
+                        <div class="panel-header">
+                            <h3>Acciones rápidas</h3>
+                        </div>
+                        <div class="actions-vertical-list">
+                            <button class="action-item-btn item-red">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <div>
+                                    <strong>Reportar emergencia</strong>
+                                    <small>Envía un reporte rápido</small>
+                                </div>
+                            </button>
+                            <button class="action-item-btn item-green">
+                                <i class="fa-solid fa-map"></i>
+                                <div>
+                                    <strong>Ver mapa de riesgos</strong>
+                                    <small>Consulta zonas de riesgo</small>
+                                </div>
+                            </button>
+                            <button class="action-item-btn item-blue">
+                                <i class="fa-solid fa-hospital"></i>
+                                <div>
+                                    <strong>Centros de salud</strong>
+                                    <small>Encuentra atención médica</small>
+                                </div>
+                            </button>
+                            <button class="action-item-btn item-purple">
+                                <i class="fa-solid fa-house-chimney-window"></i>
+                                <div>
+                                    <strong>Refugios y rutas</strong>
+                                    <small>Rutas de evacuación</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-bottom-grid">
+                    <div class="panel reports-panel">
+                        <div class="panel-header">
+                            <h3>Reportes recientes</h3>
+                            <a href="#" class="panel-link">Ver todos <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Ubicación</th>
+                                        <th>Hora</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportsTableBody">
+                                    </tbody>
+                            </table>
+                        </div>
+                        <button class="action-outline-btn">Mis reportes</button>
+                    </div>
+
+                    <div class="panel stats-community-panel">
+                        <div class="panel-header">
+                            <h3>Estadísticas de la comunidad</h3>
+                            <select class="select-timeframe"><option>Últimos 7 días</option></select>
+                        </div>
+                        <div class="badges-stats-inline">
+                            <div class="badge-mini-box">
+                                <strong id="totalReportsCount">38</strong>
+                                <small>Total de reportes</small>
+                            </div>
+                            <div class="badge-mini-box">
+                                <strong id="validatedReportsCount">22</strong>
+                                <small>Reportes validados</small>
+                            </div>
+                            <div class="badge-mini-box">
+                                <strong class="color-red" id="criticalZonesCount">5</strong>
+                                <small>Zonas críticas</small>
+                            </div>
+                            <div class="badge-mini-box">
+                                <strong class="color-green">98%</strong>
+                                <small>Tiempo de respuesta</small>
+                            </div>
+                        </div>
+                        <div class="chart-donut-wrapper">
+                            <div class="panel-subheading">Reportes por tipo</div>
+                            <div class="donut-container-flex">
+                                <div class="donut-chart-mock">
+                                    <svg viewBox="0 0 36 36" class="circular-chart">
+                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path id="donutSegment1" class="circle segment-1" stroke-dasharray="45 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path id="donutSegment2" class="circle segment-2" stroke-dasharray="25 100" stroke-dashoffset="-45" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path id="donutSegment3" class="circle segment-3" stroke-dasharray="20 100" stroke-dashoffset="-70" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path id="donutSegment4" class="circle segment-4" stroke-dasharray="10 100" stroke-dashoffset="-90" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    </svg>
+                                </div>
+                                <div class="donut-legend-list">
+                                    <div class="legend-item-row"><span><span class="l-dot d-blue"></span> Lluvias intensas</span><strong id="pLluvias">45% (17)</strong></div>
+                                    <div class="legend-item-row"><span><span class="l-dot d-orange"></span> Huaycos</span><strong id="pHuaycos">25% (10)</strong></div>
+                                    <div class="legend-item-row"><span><span class="l-dot d-yellow"></span> Deslizamientos</span><strong id="pDesl">20% (8)</strong></div>
+                                    <div class="legend-item-row"><span><span class="l-dot d-teal"></span> Inundaciones</span><strong id="pInund">10% (3)</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel weather-panel">
+                        <div class="panel-header">
+                            <h3>Condiciones climáticas</h3>
+                            <a href="#" class="panel-link">Ver más <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        
+                        <div class="weather-current-hero">
+                            <div class="hero-left">
+                                <i class="fa-solid fa-cloud-showers-heavy main-weather-icon"></i>
+                                <div>
+                                    <h2 id="currentTempText">18°C</h2>
+                                    <span>Lluvia ligera</span>
+                                </div>
+                            </div>
+                            <div class="hero-right-metrics">
+                                <span><i class="fa-solid fa-droplet"></i> Humedad: <strong id="wHumedad">82%</strong></span>
+                                <span><i class="fa-solid fa-wind"></i> Viento: <strong id="wViento">12 km/h</strong></span>
+                                <span><i class="fa-solid fa-compass"></i> Dirección: <strong>SE</strong></span>
+                                <span><i class="fa-solid fa-gauge-high"></i> Presión: <strong>1012 hPa</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="weather-forecast-week">
+                            <div class="forecast-day-column">
+                                <span>Hoy</span>
+                                <i class="fa-solid fa-cloud-showers-heavy"></i>
+                                <strong>18°C / 12°C</strong>
+                            </div>
+                            <div class="forecast-day-column">
+                                <span>Mañana</span>
+                                <i class="fa-solid fa-cloud-sun-rain"></i>
+                                <strong>19°C / 11°C</strong>
+                            </div>
+                            <div class="forecast-day-column">
+                                <span>Sáb</span>
+                                <i class="fa-solid fa-cloud"></i>
+                                <strong>20°C / 12°C</strong>
+                            </div>
+                            <div class="forecast-day-column">
+                                <span>Dom</span>
+                                <i class="fa-solid fa-cloud-sun"></i>
+                                <strong>21°C / 12°C</strong>
+                            </div>
+                            <div class="forecast-day-column">
+                                <span>Lun</span>
+                                <i class="fa-solid fa-sun"></i>
+                                <strong>20°C / 11°C</strong>
+                            </div>
+                        </div>
+
+                        <div class="weather-footer-credits">
+                            <span>Fuente: SENAMHI</span>
+                            <span id="weatherTimestamp">Actualizado: 02/05/2026 11:00 a. m.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

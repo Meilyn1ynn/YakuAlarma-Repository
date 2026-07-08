@@ -49,7 +49,7 @@ body {
 
 .login-left {
     flex: 1;
-    background: url(imagenes/login.jpg) no-repeat center;
+    background: url(imagenes/loginmunicipal.jpg) no-repeat center;
     background-size: cover;
     color: white;
     padding: 4rem 3rem;
@@ -180,25 +180,6 @@ body {
 }
 
 .btn-login:hover {
-    opacity: 0.85;
-}
-
-.btn-municipalidad {
-    margin: 10px 0 20px 0;
-    width: 100%;
-    padding: 0.9rem;
-    border: none;
-    background: transparent;
-    color: #073D65;
-    font-size: 1rem;
-    border: 2px solid #073D65;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: 0.3s;
-}
-
-.btn-municipalidad:hover {
     opacity: 0.85;
 }
 

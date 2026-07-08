@@ -1,167 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YakuAlarma - Dashboard</title>
-    
-    <!-- Google Fonts -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <!-- Leaflet -->
-    <link rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <link rel="stylesheet" href="menu.css">
 </head>
 
 <body>
     <div class="app">
 
-    <!-- ================= SIDEBAR ================= -->
-    <aside class="sidebar" id="sidebar">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
 
-        <div>
-
-            <div class="brand">
-
-                <!-- CAMBIAR IMAGEN -->
-                <img src="imagenes/logo2.PNG" alt="YakuAlarma">
-
+                <nav class="menu">
+                    <a class="active" href="menu.html"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a>
+                    <a href="alertas.html"><i class="fa-solid fa-triangle-exclamation"></i> Alertas Activas</a>
+                    <a href="mapa-riesgos.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de Riesgos</a>
+                    <a href="centros-salud.html"><i class="fa-solid fa-hospital"></i> Centros de Salud</a>
+                    <a href="instituciones.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticas.html"><i class="fa-solid fa-cloud-rain"></i> Estadísticas Climáticas</a>
+                    <a href="reportes.html"><i class="fa-solid fa-file-lines"></i> Reportes Ciudadanos</a>
+                    <a href="usuarios.html"><i class="fa-solid fa-users-gear"></i> Gestión de Usuarios</a>
+                    <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                </nav>
             </div>
 
-            <nav class="menu">
-
-                <a class="active" href="#">
-                    <i class="fa-solid fa-table-cells-large"></i>
-                    Dashboard
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Melina De la Cruz</h4>
+                        <span>Gestor Municipal</span>
+                    </div>
                 </a>
-
-                <a href="alertas.html">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    Alertas Activas
-                </a>
-
-                <a href="mapa-riesgos.html">
-                    <i class="fa-regular fa-map"></i>
-                    Mapa de Riesgos
-                </a>
-
-                <a href="centros-salud.html">
-                    <i class="fa-solid fa-circle-plus"></i>
-                    Centros de Salud
-                </a>
-
-                <a href="instituciones.html">
-                    <i class="fa-solid fa-building"></i>
-                    Instituciones
-                </a>
-
-                <a href="estadisticas.html">
-                    <i class="fa-solid fa-cloud-rain"></i>
-                    Estadísticas Climáticas
-                </a>
-
-                <a href="reportes.html">
-                    <i class="fa-regular fa-file-lines"></i>
-                    Reportes Ciudadanos
-                </a>
-
-                <a href="usuarios.html">
-                    <i class="fa-solid fa-users"></i>
-                    Gestión de Usuarios
-                </a>
-
-                <a href="configuracion.html">
-                    <i class="fa-solid fa-gear"></i>
-                    Configuración
-                </a>
-
-            </nav>
-
-        </div>
-
-        <div>
-
-            <a href="perfil.html" class="profile-card">
-
-    <div class="profile-avatar">
-        <i class="fa-regular fa-user"></i>
-    </div>
-
-    <div>
-        <h4>Melina De la Cruz</h4>
-        <span>Gestor Municipal</span>
-    </div>
-
-</a>
-
-            <a class="logout-btn" href="login.html">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Cerrar sesión
-            </a>
-
-        </div>
-
-    </aside>
-
-    <!-- ================= MAIN ================= -->
-    <main class="main">
-
-        <!-- HEADER -->
-        <header class="topbar">
-
-            <div class="top-left">
-
-                <button id="menuToggle">
-                    <i class="fa-solid fa-bars"></i>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
                 </button>
-
             </div>
+        </aside>
 
-            <div class="top-right">
-
-                <button class="icon-btn">
-                    <i class="fa-regular fa-bell"></i>
-                    <span class="notification-badge" id="notificaciones">3</span>
-                </button>
-
-                <button class="icon-btn">
-                    <i class="fa-regular fa-envelope"></i>
-                    <span class="notification-badge" id="mensajes">2</span>
-                </button>
-
-                <div class="municipality">
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
                         <img src="imagenes/huaral.png" alt="Huaral">
                         <div>
                             <small>Municipalidad de</small>
                             <strong>Huaral</strong>
                         </div>
                         <i class="fa-solid fa-chevron-down"></i>
+                    </div>
                 </div>
+            </header>
 
-            </div>
-
-        </header>
-
-        <!-- CONTENIDO -->
-        <section class="content">
-
+            <section class="content">
             <div class="page-title">
-
                 <h1>Dashboard</h1>
-
                 <p>
                     Resumen de situación -
                     <span id="fechaActual"></span>
                 </p>
-
             </div>
-
             <!-- CARDS -->
             <div class="stats-grid">
 
@@ -420,19 +336,12 @@
             </div>
 
         </section>
+        </main>
+    </div>
 
-    </main>
-
-</div>
-
-<!-- Leaflet -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- JS -->
-<script src="menu.js"></script>
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="menu.js"></script>
 </body>
+
 </html>
