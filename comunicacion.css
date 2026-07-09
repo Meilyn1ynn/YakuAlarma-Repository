@@ -263,3 +263,250 @@ a {
     font-size: 11px; 
     color: #777; 
 }
+
+/* ==========================================================================
+   ESTRUCTURA DE SUB-SECCIONES DINÁMICAS (TABS)
+   ========================================================================== */
+.content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0b2c66;
+}
+
+.page-title p {
+    margin-top: 6px;
+    color: #7b8794;
+}
+/* ==========================================================================
+   PESTÁNAS DE NAVEGACIÓN SUPERIOR DEL CHAT
+   ========================================================================== */
+.chat-tabs {
+    display: flex;
+    gap: 10px;
+    background: transparent;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 2px;
+    overflow-x: auto;
+}
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.tab-btn:hover { color: #0b2c66; }
+.tab-btn.active {
+    color: #0b2c66;
+    border-bottom-color: #2a9d8f;
+}
+
+/* ==========================================================================
+   WORKSPACE GRID SYSTEM (3 COLUMNAS)
+   ========================================================================== */
+.comunidad-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr 320px;
+    gap: 20px;
+    height: calc(100vh - 250px);
+    min-height: 550px;
+    align-items: stretch;
+}
+
+/* PANELES BASE */
+.chat-list-panel, .chat-window-panel, .chat-sidebar-panel {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #edf2f7;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* --- COLUMNA 1: LISTA DE COMUNIDADES --- */
+.search-box {
+    padding: 15px;
+    display: flex;
+    gap: 8px;
+    position: relative;
+}
+.search-box input {
+    width: 100%;
+    padding: 10px 12px 10px 35px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    border-radius: 10px;
+    font-size: 13px;
+    outline: none;
+}
+.search-icon {
+    position: absolute;
+    left: 27px;
+    top: 27px;
+    color: #94a3b8;
+}
+.filter-btn, .add-community-btn, .menu-dots-btn {
+    width: 38px; height: 38px; border-radius: 10px; border: 1px solid #e2e8f0;
+    background: #f8fafc; cursor: pointer; color: #475569; display: flex; align-items: center; justify-content: center;
+}
+.list-header {
+    display: flex; justify-content: space-between; align-items: center; padding: 5px 15px;
+}
+.list-header h3 { font-size: 15px; color: #0b2c66; font-weight: 700; }
+.communities-list {
+    flex: 1; overflow-y: auto; padding: 10px 15px; display: flex; flex-direction: column; gap: 8px;
+}
+.chat-item {
+    display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 12px;
+    cursor: pointer; transition: background 0.2s ease; border: 1px solid transparent;
+}
+.chat-item:hover { background: #f1f5f9; }
+.chat-item.active { background: #e8f5e9; border-color: #c8e6c9; }
+.chat-item img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
+.chat-item-info { flex: 1; min-width: 0; }
+.chat-item-info div { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;}
+.chat-item-info h4 { font-size: 14px; color: #1e293b; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+.chat-item-info span { font-size: 11px; color: #94a3b8; }
+.chat-item-info p { font-size: 12px; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge-count { background: #2a9d8f; color: white; font-size: 11px; font-weight: bold; padding: 2px 7px; border-radius: 10px; }
+.view-all-btn { margin: 10px 15px 15px; padding: 10px; background: none; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px; font-weight: 500; color: #0b2c66; cursor: pointer; }
+
+/* --- COLUMNA 2: VENTANA DE CHAT ACTIVO --- */
+.chat-window-header {
+    padding: 15px 20px; border-bottom: 1px solid #edf2f7; display: flex; justify-content: space-between; align-items: center; background: #fff;
+}
+.active-community-info h3 { font-size: 16px; color: #0b2c66; font-weight: 700; }
+.active-community-info p { font-size: 12px; color: #2a9d8f; font-weight: 500; }
+
+.tab-view { display: none; flex: 1; flex-direction: column; overflow: hidden; background: #fafbfc; }
+.tab-view.active { display: flex; }
+
+/* CONTENEDOR DE MENSAJES */
+.messages-container {
+    flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px;
+}
+.msg-row { display: flex; gap: 12px; max-width: 75%; }
+.msg-row.received { align-self: flex-start; }
+.msg-row.sent { align-self: flex-end; flex-direction: row-reverse; }
+.msg-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.msg-bubble { padding: 12px 15px; border-radius: 14px; position: relative; font-size: 13.5px; line-height: 1.5; }
+.received .msg-bubble { background: white; border: 1px solid #e2e8f0; border-top-left-radius: 0; }
+.sent .msg-bubble { background: #e8f5e9; border: 1px solid #c8e6c9; border-top-right-radius: 0; }
+.msg-author { font-size: 12px; font-weight: 700; color: #0b2c66; margin-bottom: 4px; display: block; }
+.msg-meta { display: flex; justify-content: flex-end; align-items: center; gap: 5px; margin-top: 4px; font-size: 10px; color: #94a3b8; }
+.msg-attachment-link { display: flex; align-items: center; gap: 8px; padding: 8px; background: rgba(0,0,0,0.04); border-radius: 8px; margin-top: 5px; color: #0b2c66; font-weight: 500; font-size: 12px; }
+
+/* MENSAJE DE COORDINADOR */
+.msg-row.coordinator-notice { max-width: 100%; width: 100%; align-self: center; }
+.coordinator-box { background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 12px 15px; width: 100%; display: flex; gap: 12px; align-items: flex-start; }
+.coordinator-box i { color: #f59e0b; font-size: 16px; margin-top: 2px; }
+.coordinator-body h5 { font-size: 13px; color: #1e293b; font-weight: 700; margin-bottom: 2px; }
+.coordinator-body p { font-size: 12.5px; color: #475569; }
+
+/* ÁREA DE INPUT */
+.chat-input-area {
+    padding: 15px 20px; background: white; border-top: 1px solid #edf2f7; display: flex; align-items: center; gap: 12px;
+}
+.attach-btn, .emoji-btn { background: none; border: none; font-size: 18px; color: #64748b; cursor: pointer; transition: color 0.2s; }
+.attach-btn:hover, .emoji-btn:hover { color: #0b2c66; }
+.input-wrapper { flex: 1; position: relative; display: flex; flex-direction: column; }
+.chat-input-area input {
+    width: 100%; padding: 12px 15px; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 25px; outline: none; font-size: 13.5px;
+}
+.file-preview-badge { font-size: 11px; background: #e2e8f0; color: #334155; padding: 4px 10px; border-radius: 10px; margin-top: 5px; align-self: flex-start; }
+.send-btn { width: 42px; height: 42px; border-radius: 50%; background: #0b2c66; color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background 0.2s; }
+.send-btn:hover { background: #2a9d8f; }
+
+/* --- VISTAS INTERNAS ADICIONALES (EXTENDIDAS) --- */
+.extended-panel-view { padding: 20px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 15px; }
+.extended-panel-view h3 { font-size: 16px; color: #0b2c66; margin-bottom: 5px; }
+.map-panel-view { flex: 1; display: flex; flex-direction: column; position: relative; }
+.map-actions-bar { padding: 10px 15px; background: white; border-bottom: 1px solid #edf2f7; }
+#liveMap { flex: 1; width: 100%; background: #e5e7eb; }
+
+/* --- COLUMNA 3: SIDEBAR DERECHO DE DETALLES --- */
+.chat-sidebar-panel { padding: 15px; overflow-y: auto; gap: 15px; background: #f8fafc; border-left: 1px solid #edf2f7; }
+.side-widget { background: white; border-radius: 12px; border: 1px solid #e2e8f0; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+.side-widget h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #475569; font-weight: 700; margin-bottom: 2px; }
+.widget-header { display: flex; justify-content: space-between; align-items: center; }
+.widget-header a { font-size: 12px; color: #2a9d8f; font-weight: 600; text-decoration: none; }
+.widget-com-profile { display: flex; flex-direction: column; align-items: center; text-center: center; padding: 10px 0; }
+.widget-com-profile img { width: 70px; height: 70px; border-radius: 14px; object-fit: cover; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.widget-com-profile h4 { font-size: 15px; color: #1e293b; font-weight: 700; }
+.widget-com-profile span { font-size: 12px; color: #2a9d8f; font-weight: 500; }
+.widget-desc { font-size: 12.5px; color: #64748b; line-height: 1.4; text-align: center; }
+.widget-action-btn { padding: 10px; border-radius: 8px; border: 1px solid #0b2c66; background: white; color: #0b2c66; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.widget-action-btn:hover { background: #0b2c66; color: white; }
+
+/* REPRODUCTORES DE AUDIO */
+.audio-player-ui { display: flex; align-items: center; gap: 10px; background: #f8fafc; padding: 8px 12px; border-radius: 10px; border: 1px solid #e2e8f0; width: 100%; }
+.play-track-btn { background: none; border: none; color: #2a9d8f; font-size: 16px; cursor: pointer; }
+.audio-wave-simulation { flex: 1; height: 20px; display: flex; align-items: center; gap: 2px; }
+.audio-wave-simulation span { display: inline-block; width: 3px; height: 60%; background: #cbd5e1; border-radius: 2px; }
+.audio-wave-simulation.playing span { animation: waveSim 1s ease-in-out infinite alternate; }
+/* Simulación barras desiguales */
+.audio-wave-simulation span:nth-child(2n) { height: 40%; }
+.audio-wave-simulation span:nth-child(3n) { height: 80%; }
+.audio-time { font-size: 11px; color: #64748b; font-variant-numeric: tabular-nums; }
+
+.voice-list-mini, .audio-list-extended { display: flex; flex-direction: column; gap: 10px; }
+.voice-user-info { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: #334155; }
+.voice-user-info img { width: 24px; height: 24px; border-radius: 50%; }
+
+/* REQUISITOS ADICIONALES (UBICACIÓN Y AVISOS) */
+.btn-location-share { background: #2a9d8f; color: white; border: none; padding: 11px 15px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s; width: 100%; }
+.btn-location-share:hover { background: #228075; }
+.locations-shared-count { text-align: center; font-size: 12.5px; color: #475569; margin-top: 5px; cursor: pointer; font-weight: 500; }
+.locations-shared-count:hover { color: #2a9d8f; }
+
+.alert-card-custom { background: #fff5f5; border: 1px solid #fee2e2; border-left: 4px solid #ef4444; border-radius: 8px; padding: 12px; display: flex; gap: 10px; }
+.alert-card-custom i { color: #ef4444; font-size: 16px; margin-top: 2px; }
+.alert-card-content h5 { font-size: 13px; color: #991b1b; font-weight: 700; margin-bottom: 2px; }
+.alert-card-content p { font-size: 12px; color: #7f1d1d; line-height: 1.4; }
+.alert-card-content small { font-size: 10.5px; color: #b91c1c; display: block; margin-top: 4px; }
+
+/* ANIMACIONES UTILIDADES */
+@keyframes waveSim { 0% { transform: scaleY(0.3); } 100% { transform: scaleY(1.1); } }
+.text-center { text-align: center; }
+
+/* ==========================================================================
+   7. RESPONSIVE BREAKPOINTS (MEDIA QUERIES)
+   ========================================================================== */
+@media(max-width: 1300px) {
+    .comunidad-grid { grid-template-columns: 260px 1fr; }
+    .chat-sidebar-panel { display: none; } /* Ocultar el lateral derecho en laptops */
+}
+
+@media(max-width: 992px) {
+    .sidebar { left: -270px; }
+    .sidebar.active { left: 0; }
+    .main { margin-left: 0; width: 100%; }
+    .comunidad-grid { grid-template-columns: 1fr; height: auto; }
+    .chat-list-panel { height: 350px; }
+    .chat-window-panel { height: 500px; }
+}
+
+@media(max-width: 576px) {
+    .content { padding: 15px; gap: 15px; }
+    .chat-tabs { gap: 0; }
+    .tab-btn { padding: 10px 12px; font-size: 13px; }
+    .chat-window-panel { height: 450px; }
+    .msg-row { max-width: 90%; }
+}
