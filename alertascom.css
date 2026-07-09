@@ -1,6 +1,23 @@
 /* ==========================================================================
    1. RESET, ENTORNO BASE & UTILIDADES
    ========================================================================== */
+:root {
+    --primary-blue: #0b2c66;
+    --sidebar-blue: #081f4a;
+    --border-color: #cbd5e1;
+    --text-muted: #64748b;
+    
+    /* Colores vibrantes y contextuales */
+    --color-alta: #dc2626;
+    --color-alta-bg: #fee2e2;
+    --color-media: #f97316;
+    --color-media-bg: #ffedd5;
+    --color-baja: #eab308;
+    --color-baja-bg: #fef9c3;
+    --color-info: #10b981;
+    --color-info-bg: #d1fae5;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -355,392 +372,523 @@ a {
     color: #777; 
 }
 
-/* Estructura de Paneles de Contenido */
 .content {
-    padding: 25px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    width: 100%;
+    gap: 24px;
 }
 
 .page-title h1 {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
-    color: #0b2c66;
+    color: #0f172a;
 }
 
 .page-title p {
-    margin-top: 6px;
-    color: #7b8794;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
 }
 
-.panel {
-    background: white;
-    border-radius: 18px;
-    padding: 20px;
-    box-shadow: 0 5px 20px rgba(0,0,0,.05);
-    border: 1px solid #edf2f7;
-    min-width: 0;
-}
-
-.panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 10px;
-}
-
-.panel-header h3 {
-    font-size: 18px;
-    color: #0b2c66;
-    font-weight: 700;
-}
-
-/* ==========================================================================
-   4. CARDS DE ALERTAS (MÉTRICAS / ESTADÍSTICAS)
-   ========================================================================== */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 18px;
-    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
 }
 
 .card-stat {
-    background: white;
-    border-radius: 18px;
+    background-color: white;
+    border-radius: 14px;
     padding: 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,.04);
-    border: 1px solid #edf2f7;
+    gap: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.stat-icon-container {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
 }
 
 .card-stat h4 {
-    font-size: 13px;
-    color: #6c757d;
-    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
     text-transform: uppercase;
 }
 
 .card-stat h2 {
-    font-size: 34px;
+    font-size: 24px;
     font-weight: 700;
-    margin-bottom: 6px;
+    margin: 2px 0;
 }
 
 .card-stat span {
-    font-size: 13px;
-    color: #7b8794;
+    font-size: 11px;
+    color: var(--text-muted);
 }
 
-.stat-icon-wrapper {
-    width: 50px;
-    height: 50px;
+/* Mapeo de colores estables */
+.red .stat-icon-container { background-color: var(--color-alta-bg); color: var(--color-alta); }
+.orange .stat-icon-container { background-color: var(--color-media-bg); color: var(--color-media); }
+.yellow .stat-icon-container { background-color: var(--color-baja-bg); color: var(--color-baja); }
+.green .stat-icon-container { background-color: var(--color-info-bg); color: var(--color-info); }
+.green h2 { font-size: 16px !important; color: #065f46; }
+
+/* ==========================================================================
+   5. DASHBOARD GRID DE FEED DE ALERTAS
+   ========================================================================== */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+}
+
+.alerts-feed-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.alerts-feed-section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.sort-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.filter-select-inline {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 6px 12px;
+    background-color: white;
+    font-size: 13px;
+}
+
+.alerts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Fila de Tarjeta de Alerta Dinámica */
+.alert-card-row {
+    background-color: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 85px 1fr 180px 180px;
+    gap: 20px;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.alert-card-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-type-icon-wrapper {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
+    font-size: 20px;
 }
 
-/* Paletas mapeadas con herencia limpia */
-.red h2, .red i { color: #d62828; }
-.red .stat-icon-wrapper { background: #ffe5e5; }
+.badge-severity {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+}
 
-.orange h2, .orange i { color: #f77f00; }
-.orange .stat-icon-wrapper { background: #fff0db; }
+/* Clases específicas de severidad */
+.alert-card-row.alta { border-left: 5px solid var(--color-alta); }
+.alert-card-row.alta .alert-type-icon-wrapper { background-color: var(--color-alta-bg); color: var(--color-alta); }
+.alert-card-row.alta .badge-severity { background-color: var(--color-alta); color: white; }
 
-.yellow h2, .yellow i { color: #fcbf49; }
-.yellow .stat-icon-wrapper { background: #fff8e7; }
+.alert-card-row.media { border-left: 5px solid var(--color-media); }
+.alert-card-row.media .alert-type-icon-wrapper { background-color: var(--color-media-bg); color: var(--color-media); }
+.alert-card-row.media .badge-severity { background-color: var(--color-media); color: white; }
 
-.green h2, .green i { color: #2a9d8f; }
-.green .stat-icon-wrapper { background: #e8f6f4; }
+.alert-card-row.baja { border-left: 5px solid var(--color-baja); }
+.alert-card-row.baja .alert-type-icon-wrapper { background-color: var(--color-baja-bg); color: #854d0e; }
+.alert-card-row.baja .badge-severity { background-color: var(--color-baja); color: #854d0e; }
 
-.blue h2, .blue i { color: #0077b6; }
-.blue .stat-icon-wrapper { background: #e6f2f7; }
+.alert-card-row.informativa { border-left: 5px solid var(--color-info); }
+.alert-card-row.informativa .alert-type-icon-wrapper { background-color: var(--color-info-bg); color: var(--color-info); }
+.alert-card-row.informativa .badge-severity { background-color: var(--color-info); color: white; }
+
+.alert-card-center h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.alert-zone-tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin: 4px 0;
+}
+
+.alert-card-center p {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+}
+
+.alert-meta-info {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+.alert-card-zones h5 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.alert-card-zones ul li {
+    font-size: 12px;
+    color: #334155;
+    list-style: none;
+    margin-bottom: 3px;
+}
+
+.alert-card-zones ul li::before {
+    content: "• ";
+    color: var(--border-color);
+}
+
+/* Mini mapa interactivo real */
+.alert-mini-map-container {
+    height: 85px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    z-index: 10;
+}
+
+.alert-card-right-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-view-details {
+    padding: 8px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.btn-view-details:hover {
+    background-color: var(--primary-blue);
+    color: white;
+}
 
 /* ==========================================================================
-   5. DASHBOARD GRID (MAPA Y GRÁFICOS LATERALES)
+   6. PANEL DE FILTROS (DISEÑO SOLICITADO Y VIVO)
    ========================================================================== */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    width: 100%;
-    align-items: start;
-}
-
-#map {
-    width: 100%;
-    height: 440px;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #edf2f7;
-}
-
-.filter-select {
-    border: 1px solid #edf2f7;
-    border-radius: 10px;
-    padding: 8px 12px;
-    outline: none;
-    background: #f8fafc;
-    cursor: pointer;
-    font-size: 13px;
-    transition: border-color 0.2s;
-}
-
-.filter-select:focus {
-    border-color: #0b2c66;
-}
-
-.side-panels {
+.filters-sidebar-panel {
+    background-color: white;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.chart-container {
-    position: relative;
-    height: 180px;
-    width: 100%;
-}
-
-/* Barras de Progreso Regiones / Provincias */
-.province-bar {
-    margin-bottom: 14px;
-}
-
-.province-info {
+.filter-box-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.clear-filters-link {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+}
+
+/* Checkbox personalizado interactivo con check */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 13px;
     font-weight: 500;
+    cursor: pointer;
+    position: relative;
 }
 
-.progress {
-    width: 100%;
-    height: 8px;
-    background: #edf2f7;
-    border-radius: 10px;
-    overflow: hidden;
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
 }
 
-.progress span {
+.custom-checkbox {
+    width: 18px;
+    height: 18px;
+    background-color: #f1f5f9;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+/* Cuando se selecciona cambie a color azul con check */
+.checkbox-container input:checked ~ .custom-checkbox {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.custom-checkbox::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .custom-checkbox::after {
     display: block;
-    height: 100%;
-    border-radius: 10px;
-    transition: width 0.4s ease;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+.red-dot { background-color: var(--color-alta); }
+.orange-dot { background-color: var(--color-media); }
+.yellow-dot { background-color: var(--color-baja); }
+.green-dot { background-color: var(--color-info); }
+
+.filter-select-element {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #f8fafc;
+    font-size: 13px;
+}
+
+.btn-apply-filters {
+    width: 100%;
+    padding: 12px;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-apply-filters:hover {
+    background-color: #059669;
 }
 
 /* ==========================================================================
-   6. CONTROLES, TABLAS Y PAGINADORES
+   7. HISTORIAL Y FEEDBACK
    ========================================================================== */
-.table-panel {
-    margin-top: 5px;
+.history-panel {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.table-actions {
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.history-link { color: #2563eb; }
+
+.history-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-    gap: 15px;
 }
 
-.table-actions input {
-    width: 280px;
-    border: 1px solid #edf2f7;
-    border-radius: 10px;
-    padding: 10px 14px;
-    outline: none;
-    background: #f8fafc;
-    font-size: 13px;
-    transition: border-color 0.2s, background 0.2s;
-}
-
-.table-actions input:focus {
-    border-color: #0b2c66;
-    background: white;
-}
-
-.btn-primary {
-    background: #0b2c66;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 16px;
-    font-weight: 600;
-    cursor: pointer;
+.history-item-left {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    transition: background 0.2s;
+    gap: 10px;
 }
 
-.btn-primary:hover {
-    background: #061b40;
+.history-item-left i {
+    width: 32px;
+    height: 32px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
 }
 
-/* Estructura de Tabla Avanzada */
-.table-container {
-    overflow-x: auto;
-    width: 100%;
-    border-radius: 8px;
-}
+.history-item-left h5 { font-size: 13px; font-weight: 600; }
+.history-item-left small { font-size: 11px; color: var(--text-muted); }
+.badge-status-closed { font-size: 11px; background: #d1fae5; color: #065f46; padding: 2px 6px; border-radius: 4px; font-weight: 600;}
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table th {
-    background: #0b2c66;
-    color: white;
+.feedback-box {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
     padding: 14px;
-    text-align: left;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-}
-
-table td {
-    padding: 14px;
-    border-bottom: 1px solid #edf2f7;
-    font-size: 14px;
-    color: #2d3748;
-    vertical-align: middle;
-}
-
-table tr {
-    transition: background 0.2s;
-}
-
-table tr:hover {
-    background: #f8fafc;
-}
-
-/* Badges de Riesgo y Estado */
-.risk {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    display: inline-block;
     text-align: center;
 }
 
-.risk.alto { background: #ffe5e5; color: #d62828; }
-.risk.medio { background: #fff0db; color: #f77f00; }
-.risk.bajo { background: #e8f6f4; color: #2a9d8f; }
+.feedback-box p { font-size: 12px; font-weight: 700; color: #166534; }
+.feedback-box small { font-size: 11px; color: #166534; display: block; margin: 4px 0; }
+.btn-report-error { width: 100%; padding: 6px; background: white; border: 1px solid #bbf7d0; border-radius: 6px; color: #166534; font-weight: 600; font-size: 11px; cursor: pointer;}
 
-.estado {
-    color: #d62828;
-    font-weight: 600;
-}
-
-.actions {
+/* Banners inferior e info */
+.info-banner {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 14px;
     display: flex;
-    gap: 6px;
-}
-
-.actions button {
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: #f1f4f9;
-    cursor: pointer;
-    color: #4a5568;
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    transition: background 0.15s, color 0.15s;
 }
+.info-banner-left { display: flex; gap: 10px; color: #1e40af; font-size: 13px; }
+.btn-secondary-light { padding: 6px 12px; background: white; border: 1px solid #bfdbfe; color: #1e40af; border-radius: 6px; font-size: 12px; font-weight: 600; }
 
-.actions button:hover {
-    background: #e2e8f0;
-    color: #0b2c66;
-}
-
-/* Paginador Centrado */
-.pagination {
+.emergency-footer-banner {
+    background: #fef2f2;
+    border: 1px solid #fee2e2;
+    border-radius: 14px;
+    padding: 16px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
-    margin-top: 20px;
 }
-
-.pagination button {
-    width: 36px;
-    height: 36px;
-    border: 1px solid #edf2f7;
-    background: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #4a5568;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.pagination button:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-}
-
-.pagination button.active {
-    background: #0b2c66;
-    color: white;
-    border-color: #0b2c66;
-}
+.emergency-footer-left { display: flex; align-items: center; gap: 12px; }
+.phone-pulse-icon { width: 36px; height: 36px; background: #fee2e2; color: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.emergency-number-badge { background: #dc2626; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 800; }
 
 /* ==========================================================================
-   7. RESPONSIVE BREAKPOINTS (MEDIA QUERIES)
+   8. VENTANA MODAL CON MAPA REALS CORREGIDO
    ========================================================================== */
-
-/* 1. Monitores Medios y Laptops Estándar */
-@media(max-width: 1400px) {
-    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-/* 2. Pantallas de Portátiles Pequeñas */
-@media(max-width: 1200px) {
-    .dashboard-grid { grid-template-columns: 1fr; }
-    #map { height: 380px; }
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+.modal-card {
+    background-color: white;
+    width: 550px;
+    max-width: 92%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
 }
 
-/* 3. Tablets y Menús Colapsables por JS (.sidebar.active) */
-@media(max-width: 992px) {
-    .sidebar { left: -270px; }
-    .sidebar.active { left: 0; }
-    .main { margin-left: 0; width: 100%; }
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+.modal-header { padding: 16px 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+.close-modal-x { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+.modal-body { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.alert-badge-pill { padding: 4px 12px; border-radius: 20px; color: white; font-weight: 700; font-size: 11px; display: inline-block; }
+.modal-divider { height: 1px; background-color: #e2e8f0; }
+.modal-desc-text { font-size: 13px; color: #334155; background: #f8fafc; padding: 10px; border-radius: 8px; }
+.modal-list { padding-left: 16px; font-size: 13px; }
+
+/* Contenedor del mapa real del modal */
+.modal-real-map {
+    height: 180px;
+    background-color: #f1f5f9;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    z-index: 10;
 }
 
-/* 4. Smartphones y Dispositivos Móviles */
-@media(max-width: 576px) {
-    .content { padding: 15px; gap: 16px; }
-    .topbar { padding: 0 15px; }
-    
-    .page-title h1 { font-size: 26px; }
-    .stats-grid { grid-template-columns: 1fr; gap: 14px; }
-    
-    .table-actions { flex-direction: column; align-items: stretch; gap: 12px; }
-    .table-actions input { width: 100%; }
-    .btn-primary { justify-content: center; }
-    
-    #map { height: 250px; }
-}
+.modal-footer { padding: 12px 24px; border-top: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: flex-end; }
+.btn-primary-modal { padding: 8px 16px; background-color: var(--primary-blue); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+
+/* Media Queries Responsivas Básicas */
+@media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .dashboard-layout { grid-template-columns: 1fr; } }
+@media (max-width: 992px) { .sidebar { left: -280px; } .sidebar.active { left: 0; } .main { margin-left: 0; width: 100%; } }

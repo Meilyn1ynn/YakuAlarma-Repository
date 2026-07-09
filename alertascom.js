@@ -1,16 +1,15 @@
-// ============================
-// MENU RESPONSIVE
-// ============================
+// ==========================================
+// 1. MANEJO DEL MENU LATERAL RESPONSIVE
+// ==========================================
 const menuToggle = document.getElementById("menuToggle");
 const sidebar = document.getElementById("sidebar");
 
 if (menuToggle && sidebar) {
     menuToggle.addEventListener("click", (e) => {
-        e.stopPropagation(); // Detiene propagación de burbujeo de eventos
+        e.stopPropagation();
         sidebar.classList.toggle("active");
     });
 
-    // Cerrar de forma nativa si se hace clic en el área principal de contenido
     document.addEventListener("click", (e) => {
         if (sidebar.classList.contains("active") && !sidebar.contains(e.target)) {
             sidebar.classList.remove("active");
@@ -18,244 +17,288 @@ if (menuToggle && sidebar) {
     });
 }
 
-// ============================
-// FECHA Y HORA
-// ============================
-function actualizarFechaHora(){
-    const ahora = new Date();
-    document.getElementById("horaActual").textContent =
-        ahora.toLocaleTimeString('es-PE',{ hour:'2-digit', minute:'2-digit' });
-    document.getElementById("fechaActual").textContent =
-        ahora.toLocaleDateString('es-PE');
-}
-actualizarFechaHora();
-setInterval(actualizarFechaHora, 1000);
-
-// ============================
-// DATOS DE MUESTRA
-// ============================
-const tipos = ["Inundación", "Deslizamiento", "Lluvia intensa", "Huayco", "Tormenta eléctrica"];
-const provincias = ["Huaral", "Chancay", "Aucallama", "Atavillos", "Pacaraos"];
-const riesgos = ["Alto", "Medio", "Bajo"];
-const descripciones = [
-    "Incremento del caudal del río.", "Posible deslizamiento de tierra.",
-    "Precipitaciones intensas.", "Flujo de lodo y piedras.",
-    "Actividad eléctrica constante.", "Zona bajo monitoreo.",
-    "Riesgo de inundación urbana.", "Emergencia reportada por vecinos."
+// ==========================================
+// 2. DATA DE ALERTAS ACTIVAS (CON COORDENADAS)
+// ==========================================
+const databaseAlertas = [
+    {
+        id: "ALT-001",
+        tipo: "Lluvia intensa",
+        nivel: "Alta",
+        zonaPrincipal: "En tu zona",
+        descripcion: "Se prevén lluvias de moderada a fuerte intensidad en las próximas horas.",
+        tiempo: "Hoy, 10:30 a. m.",
+        fuente: "SENAMHI",
+        zonasAfectadas: ["Villa Rica", "Naranjal", "Palcazu"],
+        coords: [-10.7394, -75.2714] // Coordenadas de Villa Rica / Selva Central aprox
+    },
+    {
+        id: "ALT-002",
+        tipo: "Riesgo de huaycos",
+        nivel: "Media",
+        zonaPrincipal: "Zona de quebradas",
+        descripcion: "Posible activación de quebradas por acumulación de lluvias.",
+        tiempo: "Hoy, 09:15 a. m.",
+        fuente: "COER",
+        zonasAfectadas: ["Quebrada Honda", "Sector La Esperanza"],
+        coords: [-10.7550, -75.2600]
+    },
+    {
+        id: "ALT-003",
+        tipo: "Viento fuerte",
+        nivel: "Baja",
+        zonaPrincipal: "En tu zona",
+        descripcion: "Vientos con velocidades de hasta 35 km/h. Asegura objetos y evita zonas expuestas.",
+        tiempo: "Ayer, 04:45 p. m.",
+        fuente: "SENAMHI",
+        zonasAfectadas: ["Villa Rica", "San Pedro"],
+        coords: [-10.7300, -75.2850]
+    },
+    {
+        id: "ALT-004",
+        tipo: "Inundación",
+        nivel: "Informativa",
+        zonaPrincipal: "Ribera del Río",
+        descripcion: "Monitoreo preventivo sobre el margen izquierdo del caudal principal.",
+        tiempo: "08/05/2026, 11:00 a. m.",
+        fuente: "INDECI",
+        zonasAfectadas: ["Naranjal", "San Pedro"],
+        coords: [-10.7480, -75.2900]
+    }
 ];
 
-let alertas = [];
+let alertasMostradas = [...databaseAlertas];
+let mapInstances = {}; // Almacenamiento de mapas activos
+let modalMapInstance = null; // Instancia global del mapa del modal
 
-function generarAlertas(){
-    alertas = [];
-    const cantidad = Math.floor(Math.random() * 15) + 10;
-    for(let i=1; i<=cantidad; i++){
-        const tipo = tipos[Math.floor(Math.random()*tipos.length)];
-        const provincia = provincias[Math.floor(Math.random()*provincias.length)];
-        const riesgo = riesgos[Math.floor(Math.random()*riesgos.length)];
-        const descripcion = descripciones[Math.floor(Math.random()*descripciones.length)];
+// ==========================================
+// 3. RENDERIZADO DE CONTADORES ESTADÍSTICOS
+// ==========================================
+function actualizarContadores() {
+    const alta = databaseAlertas.filter(a => a.nivel === "Alta").length;
+    const media = databaseAlertas.filter(a => a.nivel === "Media").length;
+    const baja = databaseAlertas.filter(a => a.nivel === "Baja").length;
 
-        alertas.push({
-            id: `ALT-2026-${String(i).padStart(4,'0')}`,
-            tipo,
-            provincia,
-            riesgo,
-            descripcion,
-            estado: "Activa",
-            fecha: new Date().toLocaleDateString(),
-            hora: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
-        });
+    document.getElementById("count-alta").textContent = alta;
+    document.getElementById("count-media").textContent = media;
+    document.getElementById("count-baja").textContent = baja;
+}
+
+function obtenerIconoEvento(tipo) {
+    switch (tipo) {
+        case "Lluvia intensa": return "fa-cloud-showers-heavy";
+        case "Riesgo de huaycos": return "fa-triangle-exclamation";
+        case "Viento fuerte": return "fa-wind";
+        case "Inundación": return "fa-house-flood-water";
+        default: return "fa-bell";
     }
 }
-generarAlertas();
 
-// ============================
-// ACTUALIZAR CONTADORES METRICOS
-// ============================
-function actualizarCards(){
-    document.getElementById("totalAlertas").textContent = alertas.length;
-    document.getElementById("altoCount").textContent = alertas.filter(a=>a.riesgo==="Alto").length;
-    document.getElementById("medioCount").textContent = alertas.filter(a=>a.riesgo==="Medio").length;
-    document.getElementById("bajoCount").textContent = alertas.filter(a=>a.riesgo==="Bajo").length;
-}
-actualizarCards();
+// ==========================================
+// 4. RENDERIZACIÓN DINÁMICA DE TARJETAS Y MAPAS
+// ==========================================
+function renderAlertCards(lista) {
+    const container = document.getElementById("alertsContainer");
+    container.innerHTML = "";
 
-// ============================
-// MAPA LEAFLET
-// ============================
-const map = L.map('map').setView([-11.495,-77.207], 10);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-}).addTo(map);
+    // Limpiar mapas antiguos del registro para evitar fugas de memoria
+    mapInstances = {};
 
-let markers = [];
-function colorRiesgo(riesgo){
-    if(riesgo==="Alto") return "#d62828";
-    if(riesgo==="Medio") return "#f77f00";
-    return "#2a9d8f";
-}
-
-function cargarMapa(){
-    markers.forEach(m => map.removeLayer(m));
-    markers = [];
-    alertas.forEach(alerta => {
-        const lat = -11.3 + Math.random()*0.5;
-        const lng = -77.4 + Math.random()*0.5;
-        const marker = L.circleMarker([lat,lng], {
-            radius: 9,
-            fillColor: colorRiesgo(alerta.riesgo),
-            color: "#fff",
-            weight: 2,
-            fillOpacity: 1
-        })
-        .bindPopup(`<b>${alerta.tipo}</b><br>${alerta.provincia}<br>Riesgo: ${alerta.riesgo}`)
-        .addTo(map);
-        markers.push(marker);
-    });
-}
-cargarMapa();
-
-// ============================
-// CONFIGURACIÓN CHART 
-// ============================
-const ctx = document.getElementById("tipoChart");
-const tipoChart = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-        labels: tipos,
-        datasets: [{
-            data: [],
-            backgroundColor: ["#0077b6", "#d62828", "#fcbf49", "#7209b7", "#2a9d8f"]
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 12 } } }
+    if (lista.length === 0) {
+        container.innerHTML = `
+            <div style="text-align:center; padding: 40px; color:#64748b; background:white; border-radius:16px;">
+                <i class="fa-solid fa-folder-open" style="font-size:32px; margin-bottom:10px;"></i>
+                <p>No se encontraron alertas activas con los filtros seleccionados.</p>
+            </div>`;
+        return;
     }
-});
 
-function actualizarGrafico(){
-    const valores = tipos.map(tipo => alertas.filter(a=>a.tipo===tipo).length);
-    tipoChart.data.datasets[0].data = valores;
-    tipoChart.update();
-}
-actualizarGrafico();
+    lista.forEach(alerta => {
+        const claseSeveridad = alerta.nivel.toLowerCase();
+        const icono = obtenerIconoEvento(alerta.tipo);
+        const listaZonasLI = alerta.zonasAfectadas.map(z => `<li>${z}</li>`).join("");
+        const mapId = `map-${alerta.id}`;
 
-// ============================
-// BARRAS PROVINCIAS
-// ============================
-function actualizarBarras(){
-    const contenedor = document.getElementById("provinceBars");
-    contenedor.innerHTML = "";
-    provincias.forEach((prov, index) => {
-        const total = alertas.filter(a=>a.provincia===prov).length;
-        const porcentaje = alertas.length > 0 ? (total / alertas.length) * 100 : 0;
-        const colores = ["#d62828", "#f77f00", "#fcbf49", "#2a9d8f", "#0077b6"];
-
-        contenedor.innerHTML += `
-        <div class="province-bar">
-            <div class="province-info"><span>${prov}</span><span>${total}</span></div>
-            <div class="progress"><span style="width:${porcentaje}%; background:${colores[index]};"></span></div>
-        </div>`;
-    });
-}
-actualizarBarras();
-
-// ============================
-// RENDER TABLA PAGINADA
-// ============================
-const filasPorPagina = 6;
-let paginaActual = 1;
-
-function renderTabla(datos){
-    const inicio = (paginaActual-1) * filasPorPagina;
-    const fin = inicio + filasPorPagina;
-    const datosPagina = datos.slice(inicio, fin);
-    const tbody = document.getElementById("tablaAlertas");
-    tbody.innerHTML = "";
-
-    datosPagina.forEach(alerta => {
-        let claseRiesgo = alerta.riesgo.toLowerCase();
-        tbody.innerHTML += `
-        <tr>
-            <td><strong>${alerta.id}</strong></td>
-            <td>${alerta.tipo}</td>
-            <td>${alerta.provincia}</td>
-            <td><span class="risk ${claseRiesgo}">${alerta.riesgo}</span></td>
-            <td>${alerta.descripcion}</td>
-            <td>${alerta.hora}</td>
-            <td><span class="estado">● ${alerta.estado}</span></td>
-            <td>
-                <div class="actions">
-                    <button title="Ver"><i class="fa-solid fa-eye"></i></button>
-                    <button title="Editar"><i class="fa-solid fa-pen"></i></button>
-                    <button title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+        const cardHTML = `
+            <div class="alert-card-row ${claseSeveridad}">
+                <div class="alert-card-left">
+                    <div class="alert-type-icon-wrapper">
+                        <i class="fa-solid ${icono}"></i>
+                    </div>
+                    <span class="badge-severity">${alerta.nivel}</span>
                 </div>
-            </td>
-        </tr>`;
+                
+                <div class="alert-card-center">
+                    <h4>${alerta.tipo}</h4>
+                    <div class="alert-zone-tag">${alerta.zonaPrincipal}</div>
+                    <p>${alerta.descripcion}</p>
+                    <div class="alert-meta-info">
+                        <span><i class="fa-regular fa-clock"></i> ${alerta.tiempo}</span>
+                        <span><i class="fa-solid fa-building-shield"></i> Fuente: ${alerta.fuente}</span>
+                    </div>
+                </div>
+
+                <div class="alert-card-zones">
+                    <h5>Zonas afectadas</h5>
+                    <ul>
+                        ${listaZonasLI}
+                    </ul>
+                </div>
+
+                <div class="alert-card-right-actions">
+                    <div id="${mapId}" class="alert-mini-map-container"></div>
+                    <button class="btn-view-details" onclick="abrirModalDetalles('${alerta.id}')">
+                        Ver detalles <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHTML;
+    });
+
+    // Inicializar mapas reales Leaflet después de insertar el HTML
+    lista.forEach(alerta => {
+        const mapId = `map-${alerta.id}`;
+        const mapElement = document.getElementById(mapId);
+        if (mapElement) {
+            const map = L.map(mapId, {
+                center: alerta.coords,
+                zoom: 13,
+                zoomControl: false,
+                attributionControl: false
+            });
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+            // Agregar un radio de impacto estético según el nivel
+            const colorImpacto = alerta.nivel === 'Alta' ? '#dc2626' : (alerta.nivel === 'Media' ? '#f97316' : '#eab308');
+            L.circle(alerta.coords, {
+                color: colorImpacto,
+                fillColor: colorImpacto,
+                fillOpacity: 0.3,
+                radius: 400
+            }).addTo(map);
+
+            mapInstances[alerta.id] = map;
+        }
     });
 }
-renderTabla(alertas);
 
-// ============================
-// FILTROS Y BUSCADORES
-// ============================
-const searchInput = document.getElementById("searchInput");
-searchInput.addEventListener("keyup", () => {
-    const texto = searchInput.value.toLowerCase();
-    const filtrados = alertas.filter(a => 
-        a.tipo.toLowerCase().includes(texto) ||
-        a.provincia.toLowerCase().includes(texto) ||
-        a.id.toLowerCase().includes(texto)
-    );
-    paginaActual = 1;
-    document.getElementById("pageNumber").textContent = paginaActual;
-    renderTabla(filtrados);
-});
+// ==========================================
+// 5. MOTOR DE FILTRADO Y ORDENAMIENTO
+// ==========================================
+function filtrarYAplicarAlertas() {
+    const checkboxes = document.querySelectorAll(".filter-checkbox-level");
+    const nivelesSeleccionados = [];
+    checkboxes.forEach(chk => {
+        if (chk.checked) nivelesSeleccionados.push(chk.value);
+    });
 
-const tipoFiltro = document.getElementById("tipoFiltro");
-tipoFiltro.addEventListener("change", () => {
-    const valor = tipoFiltro.value;
-    const filtrados = valor === "Todos" ? alertas : alertas.filter(a => a.tipo === valor);
-    paginaActual = 1;
-    document.getElementById("pageNumber").textContent = paginaActual;
-    renderTabla(filtrados);
-});
+    const tipoEvento = document.getElementById("filterEventType").value;
+    const zonaSeleccionada = document.getElementById("filterZone").value;
+    const fuenteSeleccionada = document.getElementById("filterSource").value;
 
-// PAGINACION
-document.getElementById("nextPage").addEventListener("click", () => {
-    if(paginaActual * filasPorPagina < alertas.length) {
-        paginaActual++;
-        renderTabla(alertas);
-        document.getElementById("pageNumber").textContent = paginaActual;
+    alertasMostradas = databaseAlertas.filter(alerta => {
+        const cumpleNivel = nivelesSeleccionados.includes(alerta.nivel);
+        const cumpleTipo = (tipoEvento === "Todos" || alerta.tipo === tipoEvento);
+        const cumpleZona = (zonaSeleccionada === "Todas" || alerta.zonasAfectadas.includes(zonaSeleccionada));
+        const cumpleFuente = (fuenteSeleccionada === "Todas" || alerta.fuente === fuenteSeleccionada);
+
+        return cumpleNivel && cumpleTipo && cumpleZona && cumpleFuente;
+    });
+
+    const criterioOrden = document.getElementById("sortAlerts").value;
+    if (criterioOrden === "antiguas") {
+        alertasMostradas.reverse();
     }
-});
-document.getElementById("prevPage").addEventListener("click", () => {
-    if(paginaActual > 1){
-        paginaActual--;
-        renderTabla(alertas);
-        document.getElementById("pageNumber").textContent = paginaActual;
-    }
+
+    renderAlertCards(alertasMostradas);
+}
+
+document.getElementById("applyFiltersBtn").addEventListener("click", filtrarYAplicarAlertas);
+document.getElementById("sortAlerts").addEventListener("change", filtrarYAplicarAlertas);
+
+document.getElementById("clearFiltersBtn").addEventListener("click", () => {
+    document.querySelectorAll(".filter-checkbox-level").forEach(chk => chk.checked = true);
+    document.getElementById("filterEventType").value = "Todos";
+    document.getElementById("filterZone").value = "Todas";
+    document.getElementById("filterSource").value = "Todas";
+    filtrarYAplicarAlertas();
 });
 
-// EXPORTACION
-document.getElementById("exportBtn").addEventListener("click", () => {
-    let csv = "ID,Tipo,Provincia,Riesgo,Descripcion\n";
-    alertas.forEach(a => { csv += `${a.id},${a.tipo},${a.provincia},${a.riesgo},${a.descripcion}\n`; });
-    const blob = new Blob([csv], {type: "text/csv"});
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "alertas.csv";
-    link.click();
+// ==========================================
+// 6. CONTROL DE VENTANA MODAL CON MAPA INTEGRADO
+// ==========================================
+const modal = document.getElementById("detailsModal");
+const closeModalX = document.getElementById("closeModalBtn");
+const closeModalBtnSec = document.getElementById("closeModalBtnSecondary");
+
+function abrirModalDetalles(idAlerta) {
+    const alerta = databaseAlertas.find(a => a.id === idAlerta);
+    if (!alerta) return;
+
+    document.getElementById("modalTitle").textContent = alerta.tipo;
+    document.getElementById("modalSource").textContent = alerta.fuente;
+    document.getElementById("modalTime").textContent = alerta.tiempo;
+    document.getElementById("modalDescription").textContent = alerta.descripcion;
+
+    const badge = document.getElementById("modalLevelBadge");
+    badge.textContent = alerta.nivel.toUpperCase();
+    
+    badge.style.backgroundColor = "var(--color-info)";
+    if (alerta.nivel === "Alta") badge.style.backgroundColor = "var(--color-alta)";
+    if (alerta.nivel === "Media") badge.style.backgroundColor = "var(--color-media)";
+    if (alerta.nivel === "Baja") badge.style.backgroundColor = "var(--color-baja)";
+
+    const listContainer = document.getElementById("modalZonesList");
+    listContainer.innerHTML = alerta.zonasAfectadas.map(z => `<li>${z}</li>`).join("");
+
+    modal.classList.add("open");
+
+    // Inicializar o reubicar el mapa dentro del modal
+    setTimeout(() => {
+        if (!modalMapInstance) {
+            modalMapInstance = L.map('modalMap', {
+                zoomControl: true,
+                attributionControl: false
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(modalMapInstance);
+        }
+        
+        modalMapInstance.setView(alerta.coords, 14);
+        
+        // Limpiar capas previas si existen en el mapa del modal
+        modalMapInstance.eachLayer((layer) => {
+            if (layer instanceof L.Circle) {
+                modalMapInstance.removeLayer(layer);
+            }
+        });
+
+        const colorImpacto = alerta.nivel === 'Alta' ? '#dc2626' : (alerta.nivel === 'Media' ? '#f97316' : '#eab308');
+        L.circle(alerta.coords, {
+            color: colorImpacto,
+            fillColor: colorImpacto,
+            fillOpacity: 0.3,
+            radius: 500
+        }).addTo(modalMapInstance);
+
+        modalMapInstance.invalidateSize();
+    }, 300);
+}
+
+function cerrarModal() {
+    modal.classList.remove("open");
+}
+
+closeModalX.addEventListener("click", cerrarModal);
+closeModalBtnSec.addEventListener("click", cerrarModal);
+
+window.addEventListener("click", (e) => {
+    if (e.target === modal) cerrarModal();
 });
 
-// REFRESCO TOTAL CADA 60 SEG
-setInterval(() => {
-    generarAlertas();
-    actualizarCards();
-    actualizarGrafico();
-    actualizarBarras();
-    renderTabla(alertas);
-    cargarMapa();
-}, 60000);
+// ==========================================
+// 7. INICIALIZACIÓN
+// ==========================================
+actualizarContadores();
+renderAlertCards(alertasMostradas);

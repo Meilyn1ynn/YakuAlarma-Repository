@@ -70,142 +70,221 @@
             </header>
 
             <section class="content">
-
                 <div class="page-title">
                     <h1>Alertas Activas</h1>
-                    <p>Monitoreo en tiempo real de alertas y emergencias</p>
+                    <p>Mantente informado sobre los peligros y emergencias en tu comunidad</p>
                 </div>
 
                 <div class="stats-grid">
                     <div class="card-stat red">
+                        <div class="stat-icon-container"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
                         <div>
-                            <h4>Total de alertas activas</h4>
-                            <h2 id="totalAlertas">0</h2>
+                            <h4>Alertas altas</h4>
+                            <h2 id="count-alta">0</h2>
                             <span>Requieren atención</span>
                         </div>
-                        <div class="stat-icon-wrapper">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                        </div>
                     </div>
-
                     <div class="card-stat orange">
+                        <div class="stat-icon-container"><i class="fa-solid fa-triangle-exclamation"></i></div>
                         <div>
-                            <h4>Riesgo alto</h4>
-                            <h2 id="altoCount">0</h2>
-                            <span>Atención inmediata</span>
-                        </div>
-                        <div class="stat-icon-wrapper">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <h4>Alertas medias</h4>
+                            <h2 id="count-media">0</h2>
+                            <span>Mantente informado</span>
                         </div>
                     </div>
-
                     <div class="card-stat yellow">
+                        <div class="stat-icon-container"><i class="fa-solid fa-bell"></i></div>
                         <div>
-                            <h4>Riesgo medio</h4>
-                            <h2 id="medioCount">0</h2>
+                            <h4>Alertas bajas</h4>
+                            <h2 id="count-baja">0</h2>
+                            <span>Precaución</span>
+                        </div>
+                    </div>
+                    <div class="card-stat green">
+                        <div class="stat-icon-container"><i class="fa-solid fa-circle-check"></i></div>
+                        <div>
+                            <h4>Sin alertas críticas</h4>
+                            <h2>Tu zona segura</h2>
                             <span>Monitoreo constante</span>
                         </div>
-                        <div class="stat-icon-wrapper">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                        </div>
-                    </div>
-
-                    <div class="card-stat green">
-                        <div>
-                            <h4>Riesgo bajo</h4>
-                            <h2 id="bajoCount">0</h2>
-                            <span>Sin peligro inmediato</span>
-                        </div>
-                        <div class="stat-icon-wrapper">
-                            <i class="fa-solid fa-circle-check"></i>
-                        </div>
-                    </div>
-
-                    <div class="card-stat blue">
-                        <div>
-                            <h4>Última actualización</h4>
-                            <h2 id="horaActual">00:00</h2>
-                            <span id="fechaActual">--/--/----</span>
-                        </div>
-                        <div class="stat-icon-wrapper">
-                            <i class="fa-solid fa-rotate"></i>
-                        </div>
                     </div>
                 </div>
 
-                <div class="dashboard-grid">
-                    <div class="panel map-panel">
-                        <div class="panel-header">
-                            <h3>Mapa de alertas en tiempo real</h3>
-                            <select id="tipoFiltro" class="filter-select">
-                                <option value="Todos">Todos los tipos</option>
-                                <option value="Inundación">Inundación</option>
-                                <option value="Deslizamiento">Deslizamiento</option>
-                                <option value="Lluvia intensa">Lluvia intensa</option>
-                                <option value="Huayco">Huayco</option>
-                                <option value="Tormenta eléctrica">Tormenta eléctrica</option>
+                <div class="dashboard-layout">
+                    <div class="alerts-feed-section">
+                        <h3>Lista de alertas</h3>
+                        <div class="sort-bar">
+                            <label for="sortAlerts">Ordenar por:</label>
+                            <select id="sortAlerts" class="filter-select-inline">
+                                <option value="recientes">Más recientes</option>
+                                <option value="antiguas">Más antiguas</option>
                             </select>
                         </div>
-                        <div id="map"></div>
+
+                        <div id="alertsContainer" class="alerts-container"></div>
+                        
+                        <div class="info-banner">
+                            <div class="info-banner-left">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <div>
+                                    <strong>Recomendaciones generales</strong>
+                                    <p>Mantente informado, sigue las indicaciones de las autoridades y cuida a tu comunidad.</p>
+                                </div>
+                            </div>
+                            <button class="btn-secondary-light">Ver recomendaciones</button>
+                        </div>
                     </div>
 
-                    <div class="side-panels">
-                        <div class="panel">
-                            <div class="panel-header">
-                                <h3>Alertas por tipo</h3>
+                    <div class="filters-sidebar-panel">
+                        <div class="filter-box-header">
+                            <span><i class="fa-solid fa-filter"></i> Filtros</span>
+                            <button id="clearFiltersBtn" class="clear-filters-link">Limpiar filtros</button>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label">Nivel de alerta</label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="filter-checkbox-level" value="Alta" checked>
+                                <span class="custom-checkbox"></span> Alta <span class="dot red-dot"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="filter-checkbox-level" value="Media" checked>
+                                <span class="custom-checkbox"></span> Media <span class="dot orange-dot"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="filter-checkbox-level" value="Baja" checked>
+                                <span class="custom-checkbox"></span> Baja <span class="dot yellow-dot"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" class="filter-checkbox-level" value="Informativa" checked>
+                                <span class="custom-checkbox"></span> Informativa <span class="dot green-dot"></span>
+                            </label>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="filterEventType" class="filter-label">Tipo de evento</label>
+                            <select id="filterEventType" class="filter-select-element">
+                                <option value="Todos">Todos los eventos</option>
+                                <option value="Lluvia intensa">Lluvia intensa</option>
+                                <option value="Riesgo de huaycos">Riesgo de huaycos</option>
+                                <option value="Viento fuerte">Viento fuerte</option>
+                                <option value="Inundación">Inundación</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="filterZone" class="filter-label">Zona</label>
+                            <select id="filterZone" class="filter-select-element">
+                                <option value="Todas">Todas las zonas</option>
+                                <option value="Villa Rica">Villa Rica</option>
+                                <option value="Naranjal">Naranjal</option>
+                                <option value="Palcazu">Palcazu</option>
+                                <option value="Quebrada Honda">Quebrada Honda</option>
+                                <option value="Sector La Esperanza">Sector La Esperanza</option>
+                                <option value="San Pedro">San Pedro</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="filterSource" class="filter-label">Fuente</label>
+                            <select id="filterSource" class="filter-select-element">
+                                <option value="Todas">Todas las fuentes</option>
+                                <option value="SENAMHI">SENAMHI</option>
+                                <option value="COER">COER</option>
+                                <option value="INDECI">INDECI</option>
+                            </select>
+                        </div>
+
+                        <button id="applyFiltersBtn" class="btn-apply-filters">Aplicar filtros</button>
+
+                        <div class="history-panel">
+                            <div class="history-header">
+                                <span>Últimas alertas cerradas</span>
+                                <a href="#" class="history-link">Ver historial</a>
                             </div>
-                            <div class="chart-container">
-                                <canvas id="tipoChart"></canvas>
+                            <div class="history-item">
+                                <div class="history-item-left">
+                                    <i class="fa-solid fa-mountain-sun"></i>
+                                    <div>
+                                        <h5>Deslizamiento de tierra</h5>
+                                        <small>Ayer, 01:20 p. m.</small>
+                                    </div>
+                                </div>
+                                <span class="badge-status-closed">Cerrada</span>
+                            </div>
+                            <div class="history-item">
+                                <div class="history-item-left">
+                                    <i class="fa-solid fa-house-flood-water"></i>
+                                    <div>
+                                        <h5>Inundación</h5>
+                                        <small>10/05/2026, 08:15 a. m.</small>
+                                    </div>
+                                </div>
+                                <span class="badge-status-closed">Cerrada</span>
+                            </div>
+                            <div class="history-item">
+                                <div class="history-item-left">
+                                    <i class="fa-solid fa-wind"></i>
+                                    <div>
+                                        <h5>Viento fuerte</h5>
+                                        <small>09/05/2026, 05:40 p. m.</small>
+                                    </div>
+                                </div>
+                                <span class="badge-status-closed">Cerrada</span>
                             </div>
                         </div>
 
-                        <div class="panel">
-                            <div class="panel-header">
-                                <h3>Alertas por provincia</h3>
-                            </div>
-                            <div id="provinceBars"></div>
+                        <div class="feedback-box">
+                            <p>¿Recibiste una alerta que no corresponde?</p>
+                            <small>Repórtala para ayudarnos a mejorar.</small>
+                            <button class="btn-report-error">Reportar alerta incorrecta</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="panel table-panel">
-                    <div class="table-actions">
-                        <input type="text" id="searchInput" placeholder="Buscar alerta...">
-                        <button id="exportBtn" class="btn-primary">
-                            <i class="fa-solid fa-download"></i> Exportar
-                        </button>
+                <div class="emergency-footer-banner">
+                    <div class="emergency-footer-left">
+                        <div class="phone-pulse-icon"><i class="fa-solid fa-phone-flip"></i></div>
+                        <div>
+                            <strong>En caso de emergencia grave</strong>
+                            <p>Comunícate inmediatamente con la línea de emergencia</p>
+                        </div>
                     </div>
-
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tipo</th>
-                                    <th>Ubicación</th>
-                                    <th>Riesgo</th>
-                                    <th>Descripción</th>
-                                    <th>Hora</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaAlertas">
-                                </tbody>
-                        </table>
-                    </div>
-
-                    <div class="pagination">
-                        <button id="prevPage"><i class="fa-solid fa-chevron-left"></i></button>
-                        <span id="pageNumber">1</span>
-                        <button id="nextPage"><i class="fa-solid fa-chevron-right"></i></button>
+                    <div class="emergency-number-badge">
+                        <i class="fa-solid fa-phone"></i> 115 <span>Línea de emergencia</span>
                     </div>
                 </div>
-
             </section>
         </main>
     </div>
 
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detalles de la Alerta</h3>
+                <button id="closeModalBtn" class="close-modal-x">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info-grid">
+                    <div class="modal-badge-wrapper">
+                        <span id="modalLevelBadge" class="alert-badge-pill">ALTA</span>
+                    </div>
+                    <p><strong>Fuente emisora:</strong> <span id="modalSource">--</span></p>
+                    <p><strong>Fecha y Hora de registro:</strong> <span id="modalTime">--</span></p>
+                    <div class="modal-divider"></div>
+                    <p><strong>Descripción detallada del peligro:</strong></p>
+                    <p id="modalDescription" class="modal-desc-text">--</p>
+                    <div class="modal-divider"></div>
+                    <p><strong>Zonas comprometidas / bajo riesgo:</strong></p>
+                    <ul id="modalZonesList" class="modal-list"></ul>
+                </div>
+                <div id="modalMap" class="modal-real-map"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModalBtnSecondary" class="btn-primary-modal">Entendido / Cerrar</button>
+            </div>
+        </div>
+    </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="alertascom.js"></script>
