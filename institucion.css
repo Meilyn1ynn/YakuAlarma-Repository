@@ -1,0 +1,474 @@
+/* ==========================================================================
+   1. RESET, ENTORNO BASE & UTILIDADES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: #f5f7fb;
+    color: #1b263b;
+    overflow-x: hidden;
+}
+
+button, select, input {
+    font-family: inherit;
+}
+
+a { 
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.app { 
+    display: flex; 
+    min-height: 100vh; 
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+/* ==========================================================================
+   2. SIDEBAR CORPORATIVO CON SCROLL CORREGIDO
+   ========================================================================== */
+.sidebar {
+    width: 270px;
+    min-width: 270px;
+    background: #0b2c66;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 999;
+    transition: left 0.3s ease;
+}
+
+.sidebar-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 20px 10px 20px;
+}
+
+.sidebar-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.sidebar-footer {
+    padding: 10px 20px 20px 20px;
+    background: #0b2c66;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.brand { 
+    display: flex; 
+    justify-content: center; 
+    margin-bottom: 30px; 
+}
+
+.brand img { 
+    width: 170px; 
+    object-fit: contain; 
+}
+
+.menu { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: white;
+    transition: .25s ease;
+}
+
+.menu a i { 
+    width: 22px; 
+    text-align: center; 
+    font-size: 18px; 
+}
+
+.menu a:hover { 
+    background: rgba(255, 255, 255, .12); 
+}
+
+.menu a.active { 
+    background: white; 
+    color: #0b2c66; 
+    font-weight: 700; 
+}
+
+.profile-card { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    padding: 15px; 
+    background: rgba(255, 255, 255, .08); 
+    border-radius: 14px; 
+    margin-bottom: 12px; 
+    color: white; 
+}
+
+.profile-avatar { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    background: white; 
+    color: #0b2c66; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 18px; 
+    flex-shrink: 0;
+}
+
+.profile-card h4 { 
+    font-size: 14px; 
+    margin-bottom: 2px; 
+}
+
+.profile-card span { 
+    font-size: 12px; 
+    opacity: .8; 
+}
+
+.logout-btn { 
+    width: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 12px; 
+    background: #d62828; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: #b52020;
+}
+
+/* ==========================================================================
+   3. CONTENEDOR PRINCIPAL Y TOPBAR
+   ========================================================================== */
+.main { 
+    flex: 1; 
+    margin-left: 270px; 
+    display: flex; 
+    flex-direction: column; 
+    width: calc(100% - 270px);
+    transition: margin 0.3s ease, width 0.3s ease; 
+}
+
+.topbar {
+    height: 75px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: 1px solid #e8edf5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-left button { 
+    background: none; 
+    border: none; 
+    font-size: 22px; 
+    cursor: pointer; 
+    color: #0b2c66; 
+}
+
+.top-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 18px; 
+}
+
+.icon-btn { 
+    position: relative; 
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%; 
+    border: none; 
+    background: #f1f4f9; 
+    cursor: pointer; 
+    font-size: 18px; 
+    color: #1b263b; 
+    transition: background 0.2s;
+}
+
+.icon-btn:hover {
+    background: #e2e8f0;
+}
+
+.notification-badge { 
+    position: absolute; 
+    top: -5px; 
+    right: -3px; 
+    background: #d62828; 
+    color: white; 
+    font-size: 11px; 
+    width: 18px; 
+    height: 18px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.municipality { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    cursor: pointer; 
+}
+
+.municipality img { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+}
+
+.municipality small { 
+    display: block; 
+    font-size: 11px; 
+    color: #777; 
+}
+/* VIEW INTERNA */
+.content { 
+    padding: 25px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 22px;
+    width: 100%;
+}
+
+.page-title h1 { font-size: 32px; font-weight: 800; color: #0b2c66; }
+.page-title p { margin-top: 6px; color: #7b8794; }
+
+.panel { 
+    background: white; 
+    border-radius: 18px; 
+    padding: 20px; 
+    box-shadow: 0 5px 20px rgba(0,0,0,.04);
+    min-width: 0; /* Permite que las cajas colapsen correctamente si el espacio es reducido */
+}
+
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.panel-header h3 { font-size: 15px; color: #0b2c66; font-weight: 700; }
+.view-all-link { color: #0077b6; font-size: 12px; font-weight: 600; }
+
+/* ==========================================================================
+   4. METRIC CARDS SUPERIORES AUTO-RESPONSIVOS
+   ========================================================================== */
+.inst-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+.card-metric {
+    background: white;
+    border-radius: 16px;
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #edf2f7;
+}
+.card-metric small { font-size: 12px; color: #718096; font-weight: 500; display: block; margin-bottom: 4px; }
+.card-metric h2 { font-size: 26px; font-weight: 800; margin-bottom: 4px; }
+.card-metric span { font-size: 11px; color: #a0aec0; font-weight: 500; }
+.metric-icon { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+
+.total h2 { color: #0b2c66; }
+.total .metric-icon { background: #e6f0fa; color: #0b2c66; }
+.conectadas h2 { color: #2a9d8f; }
+.conectadas .metric-icon { background: #e6f6f4; color: #2a9d8f; }
+.alerta h2 { color: #ea580c; }
+.alerta .metric-icon { background: #fff0eb; color: #ea580c; }
+.sin-conexion h2 { color: #718096; }
+.sin-conexion .metric-icon { background: #f1f5f9; color: #718096; }
+.respuesta h2 { color: #0077b6; }
+.respuesta .metric-icon { background: #e6f2f7; color: #0077b6; }
+
+/* ==========================================================================
+   5. GRID CENTRAL CORREGIDO (Sin desbordes)
+   ========================================================================== */
+.inst-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px; /* Evita anchos excesivos fijos */
+    gap: 20px;
+    width: 100%;
+}
+
+.table-panel { 
+    padding: 20px; 
+    display: flex; 
+    flex-direction: column;
+    min-width: 0; 
+}
+
+.table-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.table-header-actions h3 { font-size: 16px; color: #0b2c66; font-weight: 700; }
+.table-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.search-box { position: relative; }
+.search-box input { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 32px 8px 12px; font-size: 13px; width: 200px; outline: none; background: #f8fafc; }
+.search-box i { position: absolute; right: 10px; top: 10px; color: #a0aec0; font-size: 12px; }
+
+.btn-filter-table { border: 1px solid #e2e8f0; background: white; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #4a5568; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+.btn-filter-table:hover { background: #f8fafc; border-color: #0b2c66; }
+
+/* Contenedor adaptativo de tablas */
+.table-container { 
+    overflow-x: auto; 
+    width: 100%;
+}
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    min-width: 650px; /* Asegura legibilidad interna sin romper la estructura externa */
+}
+table th { background: #f8fafc; color: #4a5568; padding: 12px 14px; text-align: left; font-size: 11px; font-weight: 700; border-bottom: 1px solid #edf2f7; text-transform: uppercase; letter-spacing: 0.3px; }
+table td { padding: 14px; border-bottom: 1px solid #edf2f7; font-size: 13px; vertical-align: middle; }
+
+/* Componentes de la Tabla */
+.badge-status { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; display: inline-block; }
+.badge-status.conectada { background: #e8f6f4; color: #2a9d8f; }
+.badge-status.en-alerta { background: #fff0eb; color: #ea580c; }
+.badge-status.sin-conexion { background: #f1f5f9; color: #718096; }
+
+.conn-icon { font-size: 14px; }
+.conn-icon.conectada { color: #2a9d8f; }
+.conn-icon.en-alerta { color: #ea580c; }
+.conn-icon.sin-conexion { color: #718096; }
+
+.alert-count-badge { background: #f1f4f9; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #4a5568; }
+.alert-count-badge.has-alerts { background: #ffe5e5; color: #d62828; }
+
+.actions-row { display: flex; gap: 4px; }
+.actions-row button { border: none; width: 30px; height: 30px; border-radius: 6px; background: #f1f4f9; cursor: pointer; color: #4a5568; font-size: 12px; }
+.actions-row button:hover { background: #e2e8f0; color: #0b2c66; }
+
+.table-footer-pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 12px; color: #718096; }
+.pagination-buttons { display: flex; gap: 8px; align-items: center; }
+.pagination-buttons button { width: 32px; height: 32px; border: 1px solid #e2e8f0; background: white; border-radius: 6px; cursor: pointer; }
+.pagination-buttons span { font-weight: 700; color: #1b263b; padding: 0 4px; }
+
+/* LADO DERECHO */
+.inst-right-column { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.map-panel-container { padding: 14px; }
+.map-wrapper { border-radius: 12px; overflow: hidden; margin-bottom: 10px; }
+#map { width: 100%; height: 200px; }
+
+.map-legend-inline { display: flex; justify-content: space-between; font-size: 11px; font-weight: 500; color: #718096; padding: 0 4px; }
+.dot-status { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+.dot-status.conectada { background: #2a9d8f; }
+.dot-status.alerta { background: #ea580c; }
+.dot-status.sin-conexion { background: #a0aec0; }
+
+.activity-timeline { display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
+.activity-item { display: flex; gap: 12px; align-items: flex-start; }
+.act-time { font-size: 11px; font-weight: 600; color: #a0aec0; min-width: 55px; padding-top: 2px; }
+.act-dot-wrapper { position: relative; padding-top: 4px; }
+.act-dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; }
+.act-dot.conectada { background: #2a9d8f; }
+.act-dot.alerta { background: #d62828; }
+.act-dot.info { background: #0077b6; }
+.act-desc h4 { font-size: 12px; font-weight: 700; color: #1a202c; }
+.act-desc p { font-size: 11px; color: #718096; margin-top: 2px; }
+
+/* ==========================================================================
+   6. FILA INFERIOR DE GRÁFICOS REAJUSTADA
+   ========================================================================== */
+.inst-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+.chart-box { display: flex; flex-direction: column; min-width: 0; }
+.chart-box h3 { font-size: 14px; color: #0b2c66; font-weight: 700; margin-bottom: 15px; }
+.canvas-wrapper { position: relative; height: 160px; width: 100%; flex: 1; }
+
+.gauge-wrapper { display: flex; justify-content: center; align-items: center; }
+.gauge-center-text { position: absolute; text-align: center; top: 52%; transform: translateY(-50%); }
+.gauge-center-text h2 { font-size: 24px; font-weight: 800; color: #0b2c66; }
+.gauge-center-text p { font-size: 10px; color: #718096; font-weight: 500; }
+
+.gauge-html-legend {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a5568;
+    flex-wrap: wrap;
+}
+.g-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+.g-dot.conectada { background: #2a9d8f; }
+.g-dot.alerta { background: #ea580c; }
+.g-dot.sin-conexion { background: #718096; }
+
+/* ==========================================================================
+   7. RESPONSIVE LAYOUT BREAKPOINTS (Control de pantalla completo)
+   ========================================================================== */
+@media(max-width: 1400px) {
+    .inst-main-grid { 
+        grid-template-columns: 1fr; /* Coloca el mapa abajo de la tabla si no hay espacio */
+    }
+    .inst-charts-grid { 
+        grid-template-columns: 1fr; /* Apila los gráficos verticalmente */
+    }
+}
+
+@media(max-width: 992px) {
+    .sidebar { 
+        left: -270px; 
+    }
+    .sidebar.active { 
+        left: 0; 
+    }
+    .main { 
+        margin-left: 0; 
+        width: 100%;
+    }
+}

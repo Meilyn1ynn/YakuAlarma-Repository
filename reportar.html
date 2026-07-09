@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Reportar Emergencia</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="reportar.css">
+</head>
+<body>
+    <div id="validation-toast" class="toast-error">⚠️ Debe de llenar todos los campos requeridos para continuar.</div>
+    <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+                    <a class="active" href="reportar.html"><i class="fa-solid fa-triangle-exclamation"></i> Reportar emergencia</a>
+                    <a href="mapacom.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de riesgos</a>
+                    <a href="alertascom.html"><i class="fa-solid fa-bell"></i> Alertas activas</a>
+                    <a href="misreportes.html"><i class="fa-solid fa-file-lines"></i> Mis reportes</a>
+                    <a href="centros.html"><i class="fa-solid fa-hospital"></i> Centros de salud</a>
+                    <a href="institucion.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticacom.html"><i class="fa-solid fa-chart-column"></i> Estadísticas climáticas</a>
+                    <a href="comunicacion.html"><i class="fa-solid fa-comments"></i> Comunicación comunitaria</a>
+                    <a href="refugios.html"><i class="fa-solid fa-route"></i> Refugios y rutas</a>
+                    <a href="configuracioncom.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                    <a href="ayuda.html"><i class="fa-solid fa-circle-question"></i> Ayuda</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Juan Pérez</h4>
+                        <span>Ciudadano</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/villa.jpg" alt="Villa Rica">
+                        <div>
+                            <small>Distrito de</small>
+                            <strong>Villa Rica</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-title">
+                    <h1>Reportar emergencia</h1>
+                    <p>Sigue los pasos para registrar tu reporte de manera rápida y sencilla.</p>
+                </div>
+
+                <div class="content-container">
+                    <section class="progress-bar-container">
+                        <div class="progress-step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Tipo de emergencia</div>
+                        </div>
+                        <div class="progress-step" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Detalles del evento</div>
+                        </div>
+                        <div class="progress-step" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Ubicación</div>
+                        </div>
+                        <div class="progress-step" data-step="4">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Nivel de intensidad</div>
+                        </div>
+                        <div class="progress-step" data-step="5">
+                            <div class="step-number">5</div>
+                            <div class="step-label">Revisión</div>
+                        </div>
+                        <div class="progress-step" data-step="6">
+                            <div class="step-number">6</div>
+                            <div class="step-label">Confirmation</div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="step-panel active" id="stepPanel1">
+                <div class="panel-header">
+                    <h2>1. Tipo de emergencia</h2>
+                    <p>Selecciona el tipo de evento que estás reportando.</p>
+                </div>
+                <div class="grid-cards">
+                    <div class="emergency-card selected" data-value="Lluvias intensas" style="--card-color: #3182ce;">
+                        <i class="fa-solid fa-cloud-showers-heavy"></i>
+                        <strong>Lluvias intensas</strong>
+                    </div>
+                    <div class="emergency-card" data-value="Huayco" style="--card-color: #8b4513;">
+                        <i class="fa-solid fa-hill-rockslide"></i>
+                        <strong>Huayco</strong>
+                    </div>
+                    <div class="emergency-card" data-value="Deslizamiento" style="--card-color: #718096;">
+                        <i class="fa-solid fa-mound"></i>
+                        <strong>Deslizamiento</strong>
+                    </div>
+                    <div class="emergency-card" data-value="Inundación" style="--card-color: #2b6cb0;">
+                        <i class="fa-solid fa-house-flood-water"></i>
+                        <strong>Inundación</strong>
+                    </div>
+                    <div class="emergency-card" data-value="Viento fuerte" style="--card-color: #319795;">
+                        <i class="fa-solid fa-wind"></i>
+                        <strong>Viento fuerte</strong>
+                    </div>
+                    <div class="emergency-card" data-value="Otro" style="--card-color: #4a5568;">
+                        <i class="fa-solid fa-ellipsis"></i>
+                        <strong>Otro</strong>
+                    </div>
+                </div>
+                <div class="panel-footer-actions">
+                    <button class="btn-nav btn-next" data-dir="1">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel2">
+                <div class="panel-header">
+                    <h2>2. Detalles del evento</h2>
+                    <p>Cuéntanos más sobre lo que está ocurrió.</p>
+                </div>
+                <div class="form-group">
+                    <label>Descripción del evento <span>*</span></label>
+                    <textarea id="txtDescripcion" class="form-control" rows="3" placeholder="Lluvias de moderada a fuerte intensidad desde aproximadamente las 9:00 a.m."></textarea>
+                </div>
+                <div class="row-grid">
+                    <div class="form-group">
+                        <label>Fecha del evento <span>*</span></label>
+                        <input type="date" id="txtFecha" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Hora del evento <span>*</span></label>
+                        <input type="time" id="txtHora" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>¿Desde cuándo ocurre? <span>*</span></label>
+                    <select id="txtDuracion" class="form-control">
+                        <option value="">Seleccione una opción</option>
+                        <option value="Hace menos de 1 hora">Hace menos de 1 hora</option>
+                        <option value="Hace 1 - 3 horas" selected>Hace 1 - 3 horas</option>
+                        <option value="Hace más de 3 horas">Hace más de 3 horas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Adjuntar imagen de evidencia <span style="color:var(--text-muted); font-weight:normal;">(Opcional)</span></label>
+                    <div class="file-upload-wrapper">
+                        <i class="fa-solid fa-camera upload-icon"></i>
+                        <span>Haga clic para adjuntar o arrastrar una imagen</span>
+                        <input type="file" id="fileEvidencia" accept="image/*">
+                    </div>
+                    <div id="upload-preview-name" style="margin-top:5px; font-size:0.85rem; color:var(--success); font-weight:600;"></div>
+                </div>
+                <div class="panel-footer-actions">
+                    <button class="btn-nav btn-prev" data-dir="-1"><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav btn-next" data-dir="1">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel3">
+                <div class="panel-header">
+                    <h2>3. Ubicación del evento</h2>
+                    <p>Confirma tu ubicación o selecciona en el mapa.</p>
+                </div>
+                <div class="map-buttons">
+                    <button class="btn-map-action active-gps" id="btnGpsActual"><i class="fa-solid fa-location-crosshairs"></i> Mi ubicación actual</button>
+                    <button class="btn-map-action" id="btnGpsManual"><i class="fa-solid fa-map-pin"></i> Seleccionar en mapa</button>
+                </div>
+                <div class="form-group">
+                    <label>Dirección aproximada <span>*</span></label>
+                    <input type="text" id="txtDireccion" class="form-control" value="Quebrada Honda, Comunidad Naranjal, Distrito Villa Rica">
+                </div>
+                <div id="map-container"></div>
+                <div class="panel-footer-actions">
+                    <button class="btn-nav btn-prev" data-dir="-1"><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav btn-next" data-dir="1">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel4">
+                <div class="panel-header">
+                    <h2>4. Nivel de intensidad</h2>
+                    <p>¿Qué tan severo es el evento?</p>
+                </div>
+                <div class="intensity-container">
+                    <div class="intensity-card" data-level="Bajo" style="--int-color: var(--success);">
+                        <i class="fa-solid fa-leaf"></i>
+                        <strong>Bajo</strong>
+                        <p>Sin riesgo inmediato</p>
+                    </div>
+                    <div class="intensity-card selected" data-level="Medio" style="--int-color: var(--warning);">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <strong>Medio</strong>
+                        <p>Riesgo moderado</p>
+                    </div>
+                    <div class="intensity-card" data-level="Alto" style="--int-color: var(--danger);">
+                        <i class="fa-solid fa-radiation"></i>
+                        <strong>Alto</strong>
+                        <p>Riesgo importante</p>
+                    </div>
+                    <div class="intensity-card" data-level="Crítico" style="--int-color: #b71c1c;">
+                        <i class="fa-solid fa-skull-crossbones"></i>
+                        <strong>Crítico</strong>
+                        <p>Peligro inminente</p>
+                    </div>
+                </div>
+                <div class="intensity-info-box" id="infoBoxContainer">
+                    <i class="fa-solid fa-circle-info" id="infoBoxIcon"></i>
+                    <div>
+                        <strong>Nivel Medio</strong>
+                        <p id="lblIntensityDesc">El evento puede causar afectaciones leves a moderadas.</p>
+                    </div>
+                </div>
+                <div class="panel-footer-actions">
+                    <button class="btn-nav btn-prev" data-dir="-1"><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav btn-next" data-dir="1">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel5">
+                <div class="panel-header">
+                    <h2>5. Revisión del reporte</h2>
+                    <p>Verifica la información antes de enviar tu reporte.</p>
+                </div>
+                <div class="review-layout">
+                    <div class="review-list">
+                        <div class="review-item">
+                            <div class="review-icon-box" id="revIconTipo"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                            <div class="review-data">
+                                <label>Tipo de emergencia</label>
+                                <p id="revTipo">-</p>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-icon-box text-muted"><i class="fa-solid fa-align-left"></i></div>
+                            <div class="review-data">
+                                <label>Descripción</label>
+                                <p id="revDesc">-</p>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-icon-box text-muted"><i class="fa-solid fa-calendar-days"></i></div>
+                            <div class="review-data">
+                                <label>Fecha y hora</label>
+                                <p id="revFechaHora">-</p>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-icon-box text-muted"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="review-data">
+                                <label>Ubicación</label>
+                                <p id="revUbicacion">-</p>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <div class="review-icon-box" id="revIconIntensidad"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <div class="review-data">
+                                <label>Nivel de intensidad</label>
+                                <p id="revIntensidad">-</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-image-pane">
+                        <label style="font-size:0.8rem; color:var(--text-muted); font-weight:600; display:block; margin-bottom:8px;">Evidencia Adjunta</label>
+                        <div class="image-placeholder-box" id="revImageContainer">
+                            <i class="fa-solid fa-image-not-supported" style="font-size:2rem; margin-bottom:5px;"></i>
+                            <p id="revImageAltText">No se adjuntó imagen</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel-footer-actions">
+                    <button class="btn-nav btn-prev" data-dir="-1"><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+                    <button class="btn-nav btn-submit" id="btnEnviarReporte">Enviar reporte <i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+            <div class="step-panel" id="stepPanel6">
+                <div class="success-screen">
+                    <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+                    <h2>Reporte enviado con éxito</h2>
+                    <p style="color: var(--text-muted); max-width: 420px; font-size: 0.9rem;">
+                        Tu reporte será revisado por las autoridades y la comunidad de forma inmediata.
+                    </p>
+                    <div class="success-card-info">
+                        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Código de reporte</span>
+                        <div class="code-box">
+                            <span id="lblCodigoGenerado">YA-2026-0502-00123</span>
+                            <button id="btnCopiarCodigo" title="Copiar Código"><i class="fa-regular fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <button class="btn-dashboard-redirect" id="btnIrMisReportes">Ver mis reportes</button>
+                    <a href="#" id="btnRegistrarOtro" style="font-size: 0.85rem; color: var(--primary); font-weight: bold; text-decoration: none; margin-top: 5px;">Registrar otro reporte</a>
+                </div>
+            </div>
+
+            <footer class="footer-notice">
+                En caso de emergencia grave, comunícate a la línea de emergencia: <span>115</span>
+            </footer>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="reportar.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="claro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Configuración</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        
+    <link rel="stylesheet" href="configuracioncom.css">
+</head>
+<body>
+        <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+                    <a href="reportar.html"><i class="fa-solid fa-triangle-exclamation"></i> Reportar emergencia</a>
+                    <a href="mapacom.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de riesgos</a>
+                    <a href="alertascom.html"><i class="fa-solid fa-bell"></i> Alertas activas</a>
+                    <a href="misreportes.html"><i class="fa-solid fa-file-lines"></i> Mis reportes</a>
+                    <a href="centros.html"><i class="fa-solid fa-hospital"></i> Centros de salud</a>
+                    <a href="institucion.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticacom.html"><i class="fa-solid fa-chart-column"></i> Estadísticas climáticas</a>
+                    <a href="comunicacion.html"><i class="fa-solid fa-comments"></i> Comunicación comunitaria</a>
+                    <a href="refugios.html"><i class="fa-solid fa-route"></i> Refugios y rutas</a>
+                    <a class="active" href="configuracioncom.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                    <a href="ayuda.html"><i class="fa-solid fa-circle-question"></i> Ayuda</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Juan Pérez</h4>
+                        <span>Ciudadano</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/villa.jpg" alt="Villa Rica">
+                        <div>
+                            <small>Distrito de</small>
+                            <strong>Villa Rica</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+                        <section class="content">
+                <div class="page-title">
+                    <h1 data-i18n="settings-title">Configuración</h1>
+                    <p data-i18n="settings-subtitle">Personaliza el sistema según las necesidades de tu comunidad</p>
+                </div>
+
+                <div class="config-shortcuts-grid">
+                    <div class="card-shortcut" onclick="scrollToSection('notificaciones')">
+                        <div class="shortcut-icon icon-blue"><i class="fa-regular fa-bell"></i></div>
+                        <div>
+                            <h4 data-i18n="sc-notif-title">Notificaciones</h4>
+                            <p data-i18n="sc-notif-desc">Alertas y avisos</p>
+                        </div>
+                    </div>
+                    <div class="card-shortcut" onclick="scrollToSection('seguridad')">
+                        <div class="shortcut-icon icon-purple"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h4 data-i18n="sc-security-title">Seguridad</h4>
+                            <p data-i18n="sc-security-desc">Contraseña y acceso</p>
+                        </div>
+                    </div>
+                    <div class="card-shortcut" onclick="scrollToSection('idioma')">
+                        <div class="shortcut-icon icon-orange"><i class="fa-solid fa-globe"></i></div>
+                        <div>
+                            <h4 data-i18n="sc-lang-title">Idioma y región</h4>
+                            <p data-i18n="sc-lang-desc">Formatos globales</p>
+                        </div>
+                    </div>
+                    <div class="card-shortcut" onclick="scrollToSection('respaldo')">
+                        <div class="shortcut-icon icon-green"><i class="fa-solid fa-database"></i></div>
+                        <div>
+                            <h4 data-i18n="sc-data-title">Respaldo y datos</h4>
+                            <p data-i18n="sc-data-desc">Copias de seguridad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-main-grid">
+                    
+                    <div class="config-column">
+                        <div class="panel">
+                            <div class="panel-header-simple">
+                                <h3 data-i18n="section-appearance">Apariencia del sistema</h3>
+                            </div>
+                            
+                            <div class="setting-group">
+                                <label data-i18n="app-theme">Tema de la aplicación</label>
+                                <div class="theme-selector-grid">
+                                    <button class="btn-theme active" data-theme-set="claro">
+                                        <i class="fa-regular fa-sun"></i> <span data-i18n="theme-light">Claro</span>
+                                    </button>
+                                    <button class="btn-theme" data-theme-set="oscuro">
+                                        <i class="fa-regular fa-moon"></i> <span data-i18n="theme-dark">Oscuro</span>
+                                    </button>
+                                    <button class="btn-theme" data-theme-set="sistema">
+                                        <i class="fa-solid fa-desktop"></i> <span data-i18n="theme-system">Sistema</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="setting-group">
+                                <label data-i18n="app-color">Color principal</label>
+                                <div class="color-picker-flex">
+                                    <span class="color-dot active" data-color="#2a9d8f" style="background: #2a9d8f;"></span>
+                                    <span class="color-dot" data-color="#023e8a" style="background: #023e8a;"></span>
+                                    <span class="color-dot" data-color="#7209b7" style="background: #7209b7;"></span>
+                                    <span class="color-dot" data-color="#f77f00" style="background: #f77f00;"></span>
+                                    <span class="color-dot" data-color="#d62828" style="background: #d62828;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel" id="section-idioma">
+                            <div class="panel-header-simple">
+                                <h3 data-i18n="sc-lang-title">Idioma y región</h3>
+                            </div>
+
+                            <div class="setting-group">
+                                <label data-i18n="lang-select">Idioma de la aplicación</label>
+                                <select class="form-select" id="langSelector">
+                                    <option value="es">Español</option>
+                                    <option value="en">English</option>
+                                    <option value="qu">Quechua</option>
+                                    <option value="ay">Aymara</option>
+                                    <option value="sh">Shipibo</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label data-i18n="date-format">Formato de fecha</label>
+                                <select class="form-select">
+                                    <option>DD/MM/YYYY</option>
+                                    <option>MM/DD/YYYY</option>
+                                    <option>YYYY-MM-DD</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label data-i18n="timezone">Zona horaria</label>
+                                <select class="form-select">
+                                    <option>(GMT-05:00) Lima - Perú</option>
+                                    <option>(GMT-04:00) La Paz - Bolivia</option>
+                                    <option>(GMT-06:00) Ciudad de México</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-group">
+                                <label data-i18n="units">Unidades de medida</label>
+                                <select class="form-select">
+                                    <option data-i18n="unit-metric">Métrico (°C, km/h, mm)</option>
+                                    <option data-i18n="unit-imperial">Imperial (°F, mph, inches)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="config-column">
+                        <div class="panel" id="section-notificaciones">
+                            <div class="panel-header-simple">
+                                <h3 data-i18n="notif-preferences">Preferencias de notificaciones</h3>
+                            </div>
+
+                            <div class="toggle-list">
+                                <div class="toggle-item">
+                                    <div>
+                                        <h5 data-i18n="notif-emerg">Alertas de emergencia</h5>
+                                        <p data-i18n="notif-emerg-desc">Recibe notificaciones de alertas críticas y peligros inminentes.</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <div>
+                                        <h5 data-i18n="notif-citizen">Reportes ciudadanos</h5>
+                                        <p data-i18n="notif-citizen-desc">Recibe avisos sobre nuevos reportes de incidencias vecinales.</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <div>
+                                        <h5 data-i18n="notif-weather">Boletines climáticos</h5>
+                                        <p data-i18n="notif-weather-desc">Informes periódicos sobre predicciones meteorológicas.</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <div>
+                                        <h5 data-i18n="notif-inst">Instituciones</h5>
+                                        <p data-i18n="notif-inst-desc">Actualizaciones de ministerios, policía y entidades de salud.</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="toggle-item">
+                                    <div>
+                                        <h5 data-i18n="notif-reminders">Recordatorios</h5>
+                                        <p data-i18n="notif-reminders-desc">Recordatorios sobre tareas programadas del sistema.</p>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel" id="section-seguridad">
+                            <div class="panel-header-simple">
+                                <h3 data-i18n="security-config">Configuración de seguridad</h3>
+                            </div>
+
+                            <div class="action-list">
+                                <div class="action-row" onclick="alert('Funcionalidad para reestablecer credenciales')">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-lock row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="sec-pass">Cambiar contraseña</h5>
+                                            <p data-i18n="sec-pass-desc">Actualiza tus credenciales de acceso regularmente.</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right arrow-indicator"></i>
+                                </div>
+
+                                <div class="action-row-static">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-shield-circle-check row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="sec-2fa">Verificación en dos pasos</h5>
+                                            <p data-i18n="sec-2fa-desc">Añade una capa de seguridad extra vinculando tu celular.</p>
+                                        </div>
+                                    </div>
+                                    <span class="status-badge green-badge" data-i18n="sec-active">Activado</span>
+                                </div>
+
+                                <div class="action-row" onclick="alert('Desplegando lista de sesiones activas...')">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-laptop-tablet row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="sec-sessions">Sesiones activas</h5>
+                                            <p data-i18n="sec-sessions-desc">Gestiona los dispositivos con una sesión abierta.</p>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right arrow-indicator"></i>
+                                </div>
+
+                                <div class="action-row-static select-row">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-hourglass-half row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="sec-lock">Bloqueo automático</h5>
+                                            <p data-i18n="sec-lock-desc">Bloquea la sesión de forma autónoma por inactividad.</p>
+                                        </div>
+                                    </div>
+                                    <select class="form-select-sm">
+                                        <option data-i18n="time-15">15 minutos</option>
+                                        <option selected data-i18n="time-30">30 minutos</option>
+                                        <option data-i18n="time-60">1 hora</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel" id="section-respaldo">
+                            <div class="panel-header-simple">
+                                <h3 data-i18n="backup-maintenance">Respaldo y mantenimiento</h3>
+                            </div>
+
+                            <div class="action-list">
+                                <div class="action-row-static">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-cloud-arrow-up row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="back-auto">Respaldo automático</h5>
+                                            <p data-i18n="back-auto-desc">Copias redundantes del sistema en la nube gubernamental.</p>
+                                        </div>
+                                    </div>
+                                    <span class="status-badge green-badge" data-i18n="sec-active">Activado</span>
+                                </div>
+
+                                <div class="action-row-static select-row">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-arrows-rotate row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="back-freq">Frecuencia de respaldo</h5>
+                                            <p data-i18n="back-freq-desc">Define cada cuánto tiempo se ejecutan los backups.</p>
+                                        </div>
+                                    </div>
+                                    <select class="form-select-sm">
+                                        <option data-i18n="freq-hourly">Cada hora</option>
+                                        <option selected data-i18n="freq-daily">Diario</option>
+                                        <option data-i18n="freq-weekly">Semanal</option>
+                                    </select>
+                                </div>
+
+                                <div class="action-row-static">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-clock-rotate-left row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="back-last">Último respaldo realizado</h5>
+                                            <p id="backupDateElement">02/05/2026 02:30 AM</p>
+                                        </div>
+                                    </div>
+                                    <span class="status-badge green-badge" data-i18n="back-success">Exitoso</span>
+                                </div>
+
+                                <div class="action-row-static">
+                                    <div class="action-left-side">
+                                        <i class="fa-solid fa-trash-can row-icon"></i>
+                                        <div>
+                                            <h5 data-i18n="maint-cache">Limpiar caché de la app</h5>
+                                            <p data-i18n="maint-cache-desc">Libera espacio local en el navegador eliminando archivos temporales.</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn-maint-outline" id="btnClearCache" data-i18n="maint-btn">Limpiar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="configuracioncom.js"></script>
+</body>
+
+</html>

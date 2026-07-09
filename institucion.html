@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Instituciones</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="institucion.css">
+</head>
+<body>
+        <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+                    <a href="reportar.html"><i class="fa-solid fa-triangle-exclamation"></i> Reportar emergencia</a>
+                    <a href="mapacom.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de riesgos</a>
+                    <a href="alertascom.html"><i class="fa-solid fa-bell"></i> Alertas activas</a>
+                    <a href="misreportes.html"><i class="fa-solid fa-file-lines"></i> Mis reportes</a>
+                    <a href="centros.html"><i class="fa-solid fa-hospital"></i> Centros de salud</a>
+                    <a class="active" href="institucion.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticacom.html"><i class="fa-solid fa-chart-column"></i> Estadísticas climáticas</a>
+                    <a href="comunicacion.html"><i class="fa-solid fa-comments"></i> Comunicación comunitaria</a>
+                    <a href="refugios.html"><i class="fa-solid fa-route"></i> Refugios y rutas</a>
+                    <a href="configuracioncom.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                    <a href="ayuda.html"><i class="fa-solid fa-circle-question"></i> Ayuda</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Juan Pérez</h4>
+                        <span>Ciudadano</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/villa.jpg" alt="Villa Rica">
+                        <div>
+                            <small>Distrito de</small>
+                            <strong>Villa Rica</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-title">
+                    <h1>Instituciones</h1>
+                    <p>Gestión y monitoreo de instituciones y entidades conectadas al sistema</p>
+                </div>
+
+                <div class="inst-metrics-grid">
+                    <div class="card-metric total">
+                        <div>
+                            <small>Total de instituciones</small>
+                            <h2 id="mTotal">0</h2>
+                            <span>Conectadas al sistema</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-building"></i></div>
+                    </div>
+                    <div class="card-metric conectadas">
+                        <div>
+                            <small>Conectadas</small>
+                            <h2 id="mConectadas">0</h2>
+                            <span id="pConectadas">0% del total</span>
+                        </div>
+                        <div class="metric-icon wifi"><i class="fa-solid fa-wifi"></i></div>
+                    </div>
+                    <div class="card-metric alerta">
+                        <div>
+                            <small>En alerta</small>
+                            <h2 id="mAlerta">0</h2>
+                            <span id="pAlerta">0% del total</span>
+                        </div>
+                        <div class="metric-icon bell"><i class="fa-solid fa-bell"></i></div>
+                    </div>
+                    <div class="card-metric sin-conexion">
+                        <div>
+                            <small>Sin conexión</small>
+                            <h2 id="mSinConexion">0</h2>
+                            <span id="pSinConexion">0% del total</span>
+                        </div>
+                        <div class="metric-icon off"><i class="fa-solid fa-wifi"></i></div>
+                    </div>
+                    <div class="card-metric respuesta">
+                        <div>
+                            <small>Tiempo promedio de respuesta</small>
+                            <h2 id="mRespuesta">0 min</h2>
+                            <span>Últimos 7 días</span>
+                        </div>
+                        <div class="metric-icon clock"><i class="fa-solid fa-clock"></i></div>
+                    </div>
+                </div>
+
+                <div class="inst-main-grid">
+                    
+                    <div class="panel table-panel">
+                        <div class="table-header-actions">
+                            <h3>Lista de instituciones</h3>
+                            <div class="table-controls">
+                                <div class="search-box">
+                                    <input type="text" id="searchInst" placeholder="Buscar institución...">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <button class="btn-filter-table"><i class="fa-solid fa-sliders"></i> Filtros</button>
+                                <button id="exportCsvBtn" class="btn-filter-table"><i class="fa-solid fa-download"></i> Exportar</button>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Institución</th>
+                                        <th>Tipo</th>
+                                        <th>Estado</th>
+                                        <th>Conexión</th>
+                                        <th>Tiempo de respuesta</th>
+                                        <th>Alertas asignadas</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaInstBody">
+                                    </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-footer-pagination">
+                            <span id="tableInfoSpan">Mostrando 1 a 5 de 10 instituciones</span>
+                            <div class="pagination-buttons">
+                                <button id="prevPageBtn"><i class="fa-solid fa-chevron-left"></i></button>
+                                <span id="currentPageSpan">1</span>
+                                <button id="nextPageBtn"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inst-right-column">
+                        <div class="panel map-panel-container">
+                            <div class="panel-header">
+                                <h3>Mapa de instituciones</h3>
+                                <a href="#" class="view-all-link">Ver mapa completo →</a>
+                            </div>
+                            <div class="map-wrapper">
+                                <div id="map"></div>
+                            </div>
+                            <div class="map-legend-inline">
+                                <span><span class="dot-status conectada"></span> Conectada</span>
+                                <span><span class="dot-status alerta"></span> En alerta</span>
+                                <span><span class="dot-status sin-conexion"></span> Sin conexión</span>
+                            </div>
+                        </div>
+
+                        <div class="panel activity-panel">
+                            <div class="panel-header">
+                                <h3>Actividad reciente</h3>
+                                <a href="#" class="view-all-link">Ver todas</a>
+                            </div>
+                            <div class="activity-timeline" id="activityTimelineContainer">
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="inst-charts-grid">
+                    <div class="panel chart-box">
+                        <h3>Resumen de alertas por institución</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="chartAlertasInst"></canvas>
+                        </div>
+                    </div>
+                    <div class="panel chart-box">
+                        <h3>Tiempo de respuesta promedio</h3>
+                        <div class="canvas-wrapper">
+                            <canvas id="chartTiempoRespuesta"></canvas>
+                        </div>
+                    </div>
+                    <div class="panel chart-box">
+                        <h3>Estado de conexión</h3>
+                        <div class="canvas-wrapper gauge-wrapper">
+                            <canvas id="chartEstadoConexion"></canvas>
+                            <div class="gauge-center-text">
+                                <h2 id="gaugePercentage">0%</h2>
+                                <p>Instituciones conectadas</p>
+                            </div>
+                        </div>
+                        <div class="gauge-html-legend">
+                            <span><span class="g-dot conectada"></span> Conectadas</span>
+                            <span><span class="g-dot alerta"></span> En alerta</span>
+                            <span><span class="g-dot sin-conexion"></span> Sin conexión</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="institucion.js"></script>
+</body>
+
+</html>

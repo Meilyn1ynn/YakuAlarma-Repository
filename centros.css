@@ -1,0 +1,517 @@
+/* ==========================================================================
+   1. RESET, ENTORNO BASE & UTILIDADES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    background: #f5f7fb;
+    color: #1b263b;
+    overflow-x: hidden;
+}
+
+button, select, input {
+    font-family: inherit;
+}
+
+a { 
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.app { 
+    display: flex; 
+    min-height: 100vh; 
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+/* ==========================================================================
+   2. SIDEBAR CORPORATIVO CON SCROLL CORREGIDO
+   ========================================================================== */
+.sidebar {
+    width: 270px;
+    min-width: 270px;
+    background: #0b2c66;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 999;
+    transition: left 0.3s ease;
+}
+
+.sidebar-scroll-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 20px 10px 20px;
+}
+
+.sidebar-scroll-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.sidebar-footer {
+    padding: 10px 20px 20px 20px;
+    background: #0b2c66;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.brand { 
+    display: flex; 
+    justify-content: center; 
+    margin-bottom: 30px; 
+}
+
+.brand img { 
+    width: 170px; 
+    object-fit: contain; 
+}
+
+.menu { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: white;
+    transition: .25s ease;
+}
+
+.menu a i { 
+    width: 22px; 
+    text-align: center; 
+    font-size: 18px; 
+}
+
+.menu a:hover { 
+    background: rgba(255, 255, 255, .12); 
+}
+
+.menu a.active { 
+    background: white; 
+    color: #0b2c66; 
+    font-weight: 700; 
+}
+
+.profile-card { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    padding: 15px; 
+    background: rgba(255, 255, 255, .08); 
+    border-radius: 14px; 
+    margin-bottom: 12px; 
+    color: white; 
+}
+
+.profile-avatar { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    background: white; 
+    color: #0b2c66; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 18px; 
+    flex-shrink: 0;
+}
+
+.profile-card h4 { 
+    font-size: 14px; 
+    margin-bottom: 2px; 
+}
+
+.profile-card span { 
+    font-size: 12px; 
+    opacity: .8; 
+}
+
+.logout-btn { 
+    width: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 12px; 
+    background: #d62828; 
+    color: white; 
+    border: none; 
+    border-radius: 10px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: #b52020;
+}
+
+/* ==========================================================================
+   3. CONTENEDOR PRINCIPAL Y TOPBAR
+   ========================================================================== */
+.main { 
+    flex: 1; 
+    margin-left: 270px; 
+    display: flex; 
+    flex-direction: column; 
+    width: calc(100% - 270px);
+    transition: margin 0.3s ease, width 0.3s ease; 
+}
+
+.topbar {
+    height: 75px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: 1px solid #e8edf5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-left button { 
+    background: none; 
+    border: none; 
+    font-size: 22px; 
+    cursor: pointer; 
+    color: #0b2c66; 
+}
+
+.top-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 18px; 
+}
+
+.icon-btn { 
+    position: relative; 
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%; 
+    border: none; 
+    background: #f1f4f9; 
+    cursor: pointer; 
+    font-size: 18px; 
+    color: #1b263b; 
+    transition: background 0.2s;
+}
+
+.icon-btn:hover {
+    background: #e2e8f0;
+}
+
+.notification-badge { 
+    position: absolute; 
+    top: -5px; 
+    right: -3px; 
+    background: #d62828; 
+    color: white; 
+    font-size: 11px; 
+    width: 18px; 
+    height: 18px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.municipality { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    cursor: pointer; 
+}
+
+.municipality img { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+}
+
+.municipality small { 
+    display: block; 
+    font-size: 11px; 
+    color: #777; 
+}
+
+
+/* ==========================================================================
+   3. CONTENEDOR PRINCIPAL Y TOPBAR
+   ========================================================================== */
+.main { 
+    flex: 1; 
+    margin-left: 270px; 
+    display: flex; 
+    flex-direction: column; 
+    width: calc(100% - 270px);
+    transition: margin 0.3s ease, width 0.3s ease; 
+}
+
+.topbar {
+    height: 75px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: 1px solid #e8edf5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-left button { 
+    background: none; 
+    border: none; 
+    font-size: 22px; 
+    cursor: pointer; 
+    color: #0b2c66; 
+}
+
+.top-right { 
+    display: flex; 
+    align-items: center; 
+    gap: 18px; 
+}
+
+.icon-btn { 
+    position: relative; 
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%; 
+    border: none; 
+    background: #f1f4f9; 
+    cursor: pointer; 
+    font-size: 18px; 
+    color: #1b263b; 
+    transition: background 0.2s;
+}
+
+.icon-btn:hover {
+    background: #e2e8f0;
+}
+
+.notification-badge { 
+    position: absolute; 
+    top: -5px; 
+    right: -3px; 
+    background: #d62828; 
+    color: white; 
+    font-size: 11px; 
+    width: 18px; 
+    height: 18px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.municipality { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    cursor: pointer; 
+}
+
+.municipality img { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+}
+
+.municipality small { 
+    display: block; 
+    font-size: 11px; 
+    color: #777; 
+}
+
+/* Estructura común de las vistas */
+.content { padding: 25px; display: flex; flex-direction: column; gap: 22px; width: 100%; }
+.page-title h1 { font-size: 32px; font-weight: 800; color: #0b2c66; }
+.page-title p { margin-top: 6px; color: #7b8794; }
+
+.panel { background: white; border-radius: 18px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,.04); border: 1px solid #edf2f7; min-width: 0; }
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px; }
+.panel-header h3 { font-size: 16px; color: #0b2c66; font-weight: 700; }
+.view-all-link { color: #0077b6; font-size: 13px; font-weight: 600; }
+
+/* ==========================================================================
+   4. METRIC CARDS (SALUD / ESTADOS)
+   ========================================================================== */
+.health-metrics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; width: 100%; }
+.card-metric { background: white; border-radius: 16px; padding: 18px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #edf2f7; }
+.card-metric small { font-size: 12px; color: #718096; font-weight: 500; display: block; margin-bottom: 4px; }
+.card-metric h2 { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+.card-metric span { font-size: 11px; color: #a0aec0; font-weight: 500; }
+.metric-icon { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+
+.total h2 { color: #0b2c66; }
+.total .metric-icon { background: #e6f0fa; color: #0b2c66; }
+.disponible h2 { color: #2a9d8f; }
+.disponible .metric-icon { background: #e6f6f4; color: #2a9d8f; }
+.limitada h2 { color: #ea580c; }
+.limitada .metric-icon { background: #fff0eb; color: #ea580c; }
+.saturado h2 { color: #d62828; }
+.saturado .metric-icon { background: #ffe5e5; color: #d62828; }
+.fuera h2 { color: #718096; }
+.fuera .metric-icon { background: #f1f5f9; color: #718096; }
+
+/* ==========================================================================
+   5. ESTRUCTURA CENTRAL (FILTROS + MAPA DIRECCIONAL)
+   ========================================================================== */
+.health-central-grid { display: grid; grid-template-columns: 340px 1fr; gap: 20px; width: 100%; align-items: start; }
+.health-left-side-panels { display: flex; flex-direction: column; gap: 20px; }
+
+/* Grupo de Filtros avanzados */
+.btn-clear-link { background: none; border: none; color: #2a9d8f; font-weight: 600; font-size: 13px; cursor: pointer; }
+.filter-group { margin-bottom: 16px; }
+.filter-group label { display: block; font-size: 12px; font-weight: 700; color: #4a5568; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+.search-input-wrapper { position: relative; }
+.search-input-wrapper input { width: 100%; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 34px 10px 14px; font-size: 13px; outline: none; background: #f8fafc; transition: border-color 0.2s; }
+.search-input-wrapper input:focus { border-color: #2a9d8f; background: white; }
+.search-input-wrapper i { position: absolute; right: 12px; top: 12px; color: #a0aec0; font-size: 14px; }
+
+.checkbox-list { display: flex; flex-direction: column; gap: 10px; }
+.checkbox-list label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #4a5568; font-weight: 500; cursor: pointer; text-transform: none; margin: 0; }
+.checkbox-list input { cursor: pointer; width: 15px; height: 15px; }
+
+.dot-status { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.dot-status.disponible { background: #2a9d8f; }
+.dot-status.limitada { background: #ea580c; }
+.dot-status.saturado { background: #d62828; }
+.dot-status.fuera { background: #718096; }
+
+.form-select { width: 100%; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; font-size: 13px; color: #4a5568; background: #f8fafc; outline: none; }
+.btn-primary-health { width: 100%; background: #2a9d8f; color: white; border: none; border-radius: 10px; padding: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; transition: background 0.2s; }
+.btn-primary-health:hover { background: #22847a; }
+
+/* Panel contenedor de mapas interactivos */
+.map-panel-container { padding: 15px; display: flex; flex-direction: column; height: 100%; }
+.map-wrapper { position: relative; flex: 1; border-radius: 14px; overflow: hidden; width: 100%; }
+#map { width: 100%; height: 100%; min-height: 520px; border-radius: 14px; }
+
+.btn-location-overlay { position: absolute; bottom: 20px; right: 20px; background: white; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; color: #4a5568; z-index: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
+.btn-location-overlay:hover { background: #f8fafc; }
+
+/* Lista de centros de accesos rápidos */
+.health-quick-list { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 2px; }
+.health-quick-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #f8fafc; border: 1px solid #edf2f7; border-radius: 12px; cursor: pointer; transition: transform 0.2s, background-color 0.2s; gap: 10px; }
+.health-quick-item:hover { background: #f1f5f9; transform: translateX(3px); }
+
+.h-q-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.h-q-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: white; flex-shrink: 0; }
+.h-q-icon.disponible { background: #2a9d8f; }
+.h-q-icon.limitada { background: #ea580c; }
+.h-q-icon.saturado { background: #d62828; }
+.h-q-icon.fuera { background: #718096; }
+
+.h-q-info { min-width: 0; }
+.h-q-info h4 { font-size: 12px; font-weight: 700; color: #1a202c; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.h-q-info p { font-size: 11px; color: #718096; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.h-q-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.badge-status-sm { padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.badge-status-sm.disponible { background: #e6f6f4; color: #2a9d8f; }
+.badge-status-sm.limitada { background: #fff0eb; color: #ea580c; }
+.badge-status-sm.saturado { background: #ffe5e5; color: #d62828; }
+.badge-status-sm.fuera { background: #f1f5f9; color: #718096; }
+
+.h-q-right span { font-size: 11px; font-weight: 600; color: #4a5568; }
+.btn-go-location { background: none; border: none; color: #a0aec0; cursor: pointer; font-size: 12px; transition: color 0.15s; }
+.btn-go-location:hover { color: #0b2c66; }
+.btn-outline-center { width: 100%; margin-top: 12px; background: white; border: 1px solid #e2e8f0; padding: 10px; border-radius: 10px; font-size: 12px; font-weight: 600; color: #2a9d8f; cursor: pointer; transition: background 0.2s; }
+.btn-outline-center:hover { background: #f6fbfb; }
+
+/* ==========================================================================
+   6. TABLA INFERIOR DE DETALLE CAPACIDADES
+   ========================================================================== */
+.table-panel { margin-top: 5px; }
+.table-container { overflow-x: auto; width: 100%; border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; }
+table th { background: #0b2c66; color: white; padding: 14px; text-align: left; font-size: 13px; font-weight: 600; text-transform: uppercase; }
+table td { padding: 14px; border-bottom: 1px solid #edf2f7; font-size: 13px; color: #2d3748; vertical-align: middle; }
+table tr { transition: background 0.2s; }
+table tr:hover { background: #f8fafc; }
+
+/* Barras analíticas de capacidad internas */
+.capacity-container { width: 100px; flex-shrink: 0; }
+.capacity-text { font-size: 11px; font-weight: 700; color: #4a5568; margin-bottom: 4px; display: block; }
+.capacity-bar { width: 100%; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+.capacity-fill { height: 100%; border-radius: 10px; transition: width 0.3s ease; }
+.capacity-fill.low { background: #2a9d8f; }
+.capacity-fill.medium { background: #fcbf49; }
+.capacity-fill.high { background: #d62828; }
+
+.staff-info { font-size: 11px; color: #4a5568; font-weight: 500; line-height: 1.4; }
+.services-badges-wrapper { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.service-icon-tag { width: 28px; height: 28px; border-radius: 6px; background: #f1f4f9; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #4a5568; flex-shrink: 0; }
+.service-icon-tag.active { background: #e6f6f4; color: #2a9d8f; }
+.service-icon-tag.active.saturado { background: #ffe5e5; color: #d62828; }
+
+.btn-action-table { border: 1px solid #e2e8f0; background: white; color: #4a5568; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; white-space: nowrap; }
+.btn-action-table:hover { background: #f8fafc; border-color: #2a9d8f; color: #2a9d8f; }
+
+/* ==========================================================================
+   7. RESPONSIVE BREAKPOINTS (MEDIA QUERIES)
+   ========================================================================== */
+
+/* 1. Laptops Grandes y Reducción del Grid de Métricas superiores */
+@media(max-width: 1400px) {
+    .health-metrics-grid { grid-template-columns: repeat(3, 1fr); }
+    .health-central-grid { grid-template-columns: 1fr; }
+    #map { min-height: 450px; }
+}
+
+/* 2. Tablets en Modo Horizontal y Reajustes de Sidebar Clásica */
+@media(max-width: 992px) {
+    .sidebar { left: -270px; }
+    .sidebar.active { left: 0; }
+    .main { margin-left: 0; width: 100%; }
+    .health-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* 3. Smartphones y Pantallas Pequeñas */
+@media(max-width: 640px) {
+    .content { padding: 15px; gap: 16px; }
+    .topbar { padding: 0 15px; }
+    .page-title h1 { font-size: 26px; }
+    
+    .health-metrics-grid { grid-template-columns: 1fr; gap: 12px; }
+    #map { min-height: 350px; }
+    
+    /* Adaptaciones de la lista rápida en pantallas muy angostas */
+    .health-quick-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .h-q-right { width: 100%; justify-content: space-between; border-top: 1px solid #edf2f7; padding-top: 8px; }
+}

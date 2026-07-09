@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Mapa de riesgos</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="mapacom.css">
+</head>
+<body>
+        <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+                    <a href="reportar.html"><i class="fa-solid fa-triangle-exclamation"></i> Reportar emergencia</a>
+                    <a class="active" href="mapacom.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de riesgos</a>
+                    <a href="alertascom.html"><i class="fa-solid fa-bell"></i> Alertas activas</a>
+                    <a href="misreportes.html"><i class="fa-solid fa-file-lines"></i> Mis reportes</a>
+                    <a href="centros.html"><i class="fa-solid fa-hospital"></i> Centros de salud</a>
+                    <a href="institucion.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticacom.html"><i class="fa-solid fa-chart-column"></i> Estadísticas climáticas</a>
+                    <a href="comunicacion.html"><i class="fa-solid fa-comments"></i> Comunicación comunitaria</a>
+                    <a href="refugios.html"><i class="fa-solid fa-route"></i> Refugios y rutas</a>
+                    <a href="configuracioncom.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                    <a href="ayuda.html"><i class="fa-solid fa-circle-question"></i> Ayuda</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="perfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Juan Pérez</h4>
+                        <span>Ciudadano</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/villa.jpg" alt="Villa Rica">
+                        <div>
+                            <small>Distrito de</small>
+                            <strong>Villa Rica</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-title">
+                    <h1>Mapa de Riesgos</h1>
+                    <p>Visualización de zonas de riesgo y eventos en tiempo real</p>
+                </div>
+
+                <div class="map-dashboard-grid">
+                    
+                    <div class="map-left-column">
+                        <div class="map-filters-bar">
+                            <select id="filtroTipo" class="map-select">
+                                <option value="Todos">Todos los tipos</option>
+                                <option value="Inundación">Inundación</option>
+                                <option value="Deslizamiento">Deslizamiento</option>
+                                <option value="Lluvia intensa">Lluvia intensa</option>
+                                <option value="Huayco">Huayco</option>
+                                <option value="Tormenta eléctrica">Tormenta eléctrica</option>
+                            </select>
+
+                            <select id="filtroRiesgo" class="map-select">
+                                <option value="Todos">Nivel de riesgo</option>
+                                <option value="Muy Alto">Muy Alto</option>
+                                <option value="Alto">Alto</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Bajo">Bajo</option>
+                            </select>
+
+                            <div class="date-badge">
+                                <i class="fa-regular fa-calendar"></i> Últimas 24 horas
+                            </div>
+
+                            <button id="btnCapas" class="btn-capas">
+                                <i class="fa-solid fa-layer-group"></i> Capas
+                            </button>
+                        </div>
+
+                        <div class="map-wrapper">
+                            <div id="map"></div>
+                            
+                            <div class="map-legend-overlay">
+                                <h4>Nivel de riesgo</h4>
+                                <div class="legend-item"><span class="dot muy-alto"></span> Riesgo muy alto</div>
+                                <div class="legend-item"><span class="dot alto"></span> Riesgo alto</div>
+                                <div class="legend-item"><span class="dot medio"></span> Riesgo medio</div>
+                                <div class="legend-item"><span class="dot bajo"></span> Riesgo bajo</div>
+                                <div class="legend-item"><span class="dot sin-riesgo"></span> Sin riesgo</div>
+                            </div>
+
+                            <button id="toggleSat" class="btn-sat-overlay">
+                                <i class="fa-solid fa-earth-americas"></i> Ver en mapa satelital
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="map-right-column">
+                        <div class="panel">
+                            <h3>Filtros rápidos</h3>
+                            <div class="quick-filters-grid">
+                                <button class="q-filter active" data-type="Todos">
+                                    <div class="q-icon todos"><i class="fa-solid fa-border-all"></i></div>
+                                    <span>Todos</span>
+                                </button>
+                                <button class="q-filter" data-type="Inundación">
+                                    <div class="q-icon inundacion"><i class="fa-solid fa-cloud-showers-water"></i></div>
+                                    <span>Inundación</span>
+                                </button>
+                                <button class="q-filter" data-type="Deslizamiento">
+                                    <div class="q-icon deslizamiento"><i class="fa-solid fa-hill-rockslide"></i></div>
+                                    <span>Deslizamiento</span>
+                                </button>
+                                <button class="q-filter" data-type="Lluvia intensa">
+                                    <div class="q-icon lluvia"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                                    <span>Lluvia intensa</span>
+                                </button>
+                                <button class="q-filter" data-type="Huayco">
+                                    <div class="q-icon huayco"><i class="fa-solid fa-house-flood-water"></i></div>
+                                    <span>Huayco</span>
+                                </button>
+                                <button class="q-filter" data-type="Tormenta eléctrica">
+                                    <div class="q-icon tormenta"><i class="fa-solid fa-cloud-bolt"></i></div>
+                                    <span>Tormenta</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <h3>Resumen de riesgos</h3>
+                            <div class="risk-counter-grid">
+                                <div class="counter-box muy-alto">
+                                    <h2 id="cntMuyAlto">0</h2>
+                                    <span>Riesgo muy alto</span>
+                                </div>
+                                <div class="counter-box alto">
+                                    <h2 id="cntAlto">0</h2>
+                                    <span>Riesgo alto</span>
+                                </div>
+                                <div class="counter-box medio">
+                                    <h2 id="cntMedio">0</h2>
+                                    <span>Riesgo medio</span>
+                                </div>
+                                <div class="counter-box bajo">
+                                    <h2 id="cntBajo">0</h2>
+                                    <span>Riesgo bajo</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-bottom-panels-grid">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Eventos en el mapa</h3>
+                            <a href="#" class="view-all-link">Ver todos</a>
+                        </div>
+                        <div id="eventosTimelineList" class="timeline-list">
+                            </div>
+                    </div>
+
+                    <div class="panel">
+                        <h3>Capas de información</h3>
+                        <div class="layer-toggle-list">
+                            <div class="layer-item">
+                                <span><i class="fa-regular fa-map"></i> Zonas de riesgo</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="layer-item">
+                                <span><i class="fa-solid fa-circle-exclamation"></i> Eventos reportados</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="layer-item">
+                                <span><i class="fa-solid fa-hospital"></i> Centros de salud</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="layer-item">
+                                <span><i class="fa-solid fa-building"></i> Instituciones</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                            <div class="layer-item">
+                                <span><i class="fa-solid fa-water"></i> Ríos y quebradas</span>
+                                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel critical-section-panel">
+                    <div class="panel-header">
+                        <h3>Zonas críticas</h3>
+                        <a href="#" class="view-all-link">Ver todas</a>
+                    </div>
+                    <div id="zonasCriticasGrid" class="critical-cards-grid">
+                        </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="mapacom.js"></script>
+</body>
+
+</html>
