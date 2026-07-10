@@ -6,11 +6,10 @@ const sidebar = document.getElementById("sidebar");
 
 if (menuToggle && sidebar) {
     menuToggle.addEventListener("click", (e) => {
-        e.stopPropagation(); // Detiene propagación de burbujeo de eventos
+        e.stopPropagation(); 
         sidebar.classList.toggle("active");
     });
 
-    // Cerrar de forma nativa si se hace clic en el área principal de contenido
     document.addEventListener("click", (e) => {
         if (sidebar.classList.contains("active") && !sidebar.contains(e.target)) {
             sidebar.classList.remove("active");
@@ -20,27 +19,24 @@ if (menuToggle && sidebar) {
 
 // DEFINICIÓN DE NUEVA PALETA MAESTRA DE INCIDENCIAS
 const configuracionIncidencias = {
-    "Inundación":       { color: "#38bdf8", icono: "fa-solid fa-cloud-showers-water" },
-    "Deslizamiento":   { color: "#f97316", icono: "fa-solid fa-mountain" },
-    "Lluvias Intensas":{ color: "#eab308", icono: "fa-solid fa-cloud-showers-heavy" },
-    "Huayco":          { color: "#a855f7", icono: "fa-solid fa-house-flood-water huayco" },
-    "Tormenta":        { color: "#22c55e", icono: "fa-solid fa-cloud-bolt" }
+    "inundación":       { color: "#38bdf8", icono: "fa-solid fa-cloud-showers-water" },
+    "deslizamiento":    { color: "#f97316", icono: "fa-solid fa-mountain" },
+    "lluvias intensas": { color: "#eab308", icono: "fa-solid fa-cloud-showers-heavy" },
+    "huayco":           { color: "#a855f7", icono: "fa-solid fa-house-flood-water huayco" },
+    "tormenta":         { color: "#22c55e", icono: "fa-solid fa-cloud-bolt" },
+    "otro":             { color: "#64748b", icono: "fa-solid fa-ellipsis" }
 };
 
-// BANCO DE DATOS MAESTRO
-let reportesData = [
-    { id: 1024, ciudadano: "Carlos Mendoza", telefono: "+51 984 731 222", tipo: "Inundación", zona: "Av. Solar / Calle Derecha", fecha: "23/06/2026 18:20", descripcion: "Aniego masivo debido a desborde cercano.", estado: "Pendiente", riesgo: "Crítico", lat: -11.4930, lng: -77.2050, imagen: "img/reporte1.jpg" },
-    { id: 1023, ciudadano: "Ana María Rojas", telefono: "+51 912 345 678", tipo: "Deslizamiento", zona: "Subida a Contigo Perú", fecha: "23/06/2026 15:40", descripcion: "Piedras caídas bloqueando medio carril.", estado: "Pendiente", riesgo: "Alto", lat: -11.4880, lng: -77.1980, imagen: "img/reporte2.jpg" },
-    { id: 1022, ciudadano: "Jorge Luis Huamán", telefono: "+51 955 881 234", tipo: "Lluvias Intensas", zona: "Jr. Angaraes 412", fecha: "23/06/2026 11:15", descripcion: "Precipitación persistente genera estancamientos.", estado: "En Proceso", riesgo: "Medio", lat: -11.4960, lng: -77.2090, imagen: "img/reporte3.jpg" },
-    { id: 1021, ciudadano: "Sofía Delgado", telefono: "+51 966 123 789", tipo: "Huayco", zona: "Asoc. Vivienda La Soledad", fecha: "22/06/2026 21:30", descripcion: "Flujo de lodo moderado ingresando a vías secundarias.", estado: "En Proceso", riesgo: "Crítico", lat: -11.5020, lng: -77.2140, imagen: "img/reporte4.jpg" },
-    { id: 1020, ciudadano: "Ricardo Palomino", telefono: "+51 932 888 111", tipo: "Tormenta", zona: "Plaza de Armas de Huaral", fecha: "22/06/2026 09:10", descripcion: "Descargas eléctricas consecutivas.", estado: "Atendido", riesgo: "Bajo", lat: -11.4970, lng: -77.2070, imagen: "img/reporte5.webp" },
-    { id: 1019, ciudadano: "Elena Benavides", telefono: "+51 941 552 112", tipo: "Inundación", zona: "Urb. San Juan Bautista", fecha: "21/06/2026 17:05", descripcion: "Agua acumulada ingresando a veredas.", estado: "Pendiente", riesgo: "Alto", lat: -11.4910, lng: -77.2180, imagen: "img/reporte6.jpg" },
-    { id: 1018, ciudadano: "Marcos Quispe", telefono: "+51 915 224 336", tipo: "Deslizamiento", zona: "Av. Cahuas Cdra 5", fecha: "21/06/2026 14:00", descripcion: "Falsa alarma de derrumbe.", estado: "Descartado", riesgo: "Bajo", lat: -11.4950, lng: -77.2030, imagen: "img/reporte7.webp" },
-    { id: 1017, ciudadano: "Lucía Santillán", telefono: "+51 988 332 114", tipo: "Lluvias Intensas", zona: "Pasaje Los Geranios", fecha: "20/06/2026 08:45", descripcion: "Filtración en techos comunales.", estado: "Atendido", riesgo: "Medio", lat: -11.4850, lng: -77.2110, imagen: "img/reporte8.jpg" },
-    { id: 1016, ciudadano: "Pedro Gutiérrez", telefono: "+51 977 441 552", tipo: "Huayco", zona: "Calle Huando S/N", fecha: "19/06/2026 23:15", descripcion: "Desprendimiento en quebrada.", estado: "Atendido", riesgo: "Alto", lat: -11.4780, lng: -77.1890, imagen: "img/reporte9.jpg" },
-    { id: 1015, ciudadano: "Gabriel Tello", telefono: "+51 952 774 113", tipo: "Tormenta", zona: "Jr. Comercio 215", fecha: "19/06/2026 11:20", descripcion: "Fuertes vientos desprenden calaminas.", estado: "Pendiente", riesgo: "Medio", lat: -11.4980, lng: -77.2060, imagen: "img/reporte10.avif" }
+// BANCO DE DATOS MAESTRO (Precargados estáticos)
+let reportesPrecargados = [
+    { id: 1024, tipo: "Inundación", zona: "Av. Solar / Calle Derecha", fecha: "2026-06-23 a las 18:20", descripcion: "Aniego masivo debido a desborde cercano.", estado: "Pendiente", riesgo: "Crítico", lat: -11.4930, lng: -77.2050, imagen: "img/reporte1.jpg" },
+    { id: 1023, tipo: "Deslizamiento", zona: "Subida a Contigo Perú", fecha: "2026-06-23 a las 15:40", descripcion: "Piedras caídas bloqueando medio carril.", estado: "Pendiente", riesgo: "Alto", lat: -11.4880, lng: -77.1980, imagen: "img/reporte2.jpg" },
+    { id: 1022, tipo: "Lluvias intensas", zona: "Jr. Angaraes 412", fecha: "2026-06-23 a las 11:15", descripcion: "Precipitación persistente genera estancamientos.", estado: "En Proceso", riesgo: "Medio", lat: -11.4960, lng: -77.2090, imagen: "img/reporte3.jpg" },
+    { id: 1021, tipo: "Huayco", zona: "Asoc. Vivienda La Soledad", fecha: "2026-06-22 a las 21:30", descripcion: "Flujo de lodo moderado ingresando a vías secundarias.", estado: "En Proceso", riesgo: "Crítico", lat: -11.5020, lng: -77.2140, imagen: "img/reporte4.jpg" },
+    { id: 1020, tipo: "Tormenta", zona: "Plaza de Armas de Huaral", fecha: "2026-06-22 a las 09:10", descripcion: "Descargas eléctricas consecutivas.", estado: "Atendido", riesgo: "Bajo", lat: -11.4970, lng: -77.2070, imagen: "img/reporte5.webp" }
 ];
 
+let reportesData = [];
 let reporteSeleccionado = null;
 let filtroEstadoActual = "Todos";
 let paginaActual = 1;
@@ -51,9 +47,51 @@ let mapaDetalle = null;
 let marcadorDetalle = null;
 
 // ==========================================
+// CARGAR DATOS DESDE LOCALSTORAGE + PRECARGADOS
+// ==========================================
+function cargarHistorialDeReportes() {
+    // Leer lo generado por reportar.js
+    let historialLocal = JSON.parse(localStorage.getItem("misreportes_db")) || [];
+    
+    // Formatear los datos dinámicos que vienen del LocalStorage para que coincidan con la vista
+    let reportesFormateadosLocal = historialLocal.map(rep => {
+        // Parsear lat y lng desde la cadena de dirección si fuera necesario, o asignar por defecto Villa Rica
+        let latDefault = -10.7412;
+        let lngDefault = -75.2694;
+
+        if(rep.ubicacion && rep.ubicacion.includes("Coordenadas:")) {
+            try {
+                let coords = rep.ubicacion.replace("Coordenadas: ", "").split(" (Distrito Villa Rica)")[0].split(", ");
+                latDefault = parseFloat(coords[0]);
+                lngDefault = parseFloat(coords[1]);
+            } catch(e) {
+                console.log("Error parseando coordenadas del localStorage, usando valores por defecto.");
+            }
+        }
+
+        return {
+            id: rep.id,
+            tipo: rep.tipo,
+            zona: rep.ubicacion,
+            fecha: `${rep.fecha} a las ${rep.hora}`,
+            descripcion: rep.descripcion,
+            estado: "Pendiente", // Todo reporte recién enviado inicia como Pendiente
+            riesgo: rep.intensidad,
+            lat: latDefault,
+            lng: lngDefault,
+            imagen: rep.imagen || null // Base64 directo o null
+        };
+    });
+
+    // Combinar: Los nuevos reportes locales primero, seguidos de los estáticos precargados
+    reportesData = [...reportesFormateadosLocal, ...reportesPrecargados];
+}
+
+// ==========================================
 // INITIALIZATION DOM
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
+    cargarHistorialDeReportes();
     recalcularYRenderizarTodo();
     inicializarEventosFiltros();
     inicializarEventosAcciones();
@@ -106,13 +144,13 @@ function renderizarTablaPaginada(listaFiltrada) {
 
     registrosPaginaActual.forEach(rep => {
         const estadoClase = rep.estado.toLowerCase().replace(" ", "-");
-        const conf = configuracionIncidencias[rep.tipo] || { icono: "fa-solid fa-circle", color: "#64748b" };
+        // Convertimos a minúsculas para evitar problemas de concordancia
+        const conf = configuracionIncidencias[rep.tipo.toLowerCase()] || { icono: "fa-solid fa-ellipsis", color: "#64748b" };
         const tr = document.createElement("tr");
         if (reporteSeleccionado && reporteSeleccionado.id === rep.id) tr.classList.add("selected-row");
         
-        // Se removió el <td> del ciudadano
         tr.innerHTML = `
-            <td><strong>#${rep.id}</strong></td>
+            <td><strong>${rep.id}</strong></td>
             <td><i class="${conf.icono}" style="color: ${conf.color}"></i> ${rep.tipo}</td>
             <td>${rep.zona}</td>
             <td>${rep.fecha}</td>
@@ -145,12 +183,18 @@ function verDetalleExpediente(reporte) {
     reporteSeleccionado = reporte;
     document.getElementById("detalleVacio").classList.add("hidden");
     document.getElementById("detalleActivo").classList.remove("hidden");
-    document.getElementById("detId").textContent = `Reporte #${reporte.id}`;
+    document.getElementById("detId").textContent = `Reporte ${reporte.id}`;
     document.getElementById("detTipo").textContent = reporte.tipo;
     document.getElementById("detFecha").textContent = reporte.fecha;
     document.getElementById("detDescripcion").textContent = reporte.descripcion;
 
-    document.getElementById("detImagenEvidencia").src = reporte.imagen;
+    const imgElement = document.getElementById("detImagenEvidencia");
+    if (reporte.imagen) {
+        imgElement.src = reporte.imagen;
+        imgElement.style.display = "block";
+    } else {
+        imgElement.style.display = "none"; // Ocultar si no hay evidencia adjunta
+    }
 
     const badgeEst = document.getElementById("detEstado");
     badgeEst.textContent = reporte.estado;
@@ -197,6 +241,19 @@ function obtenerListaFiltradaGlobal() {
     });
 }
 
+function actualizarLocalStorageDesdeMemoria() {
+    // Si queremos persistir los cambios de estado (Ej: pasar de Pendiente a En Proceso) de los reportes locales
+    let historialLocal = JSON.parse(localStorage.getItem("misreportes_db")) || [];
+    
+    historialLocal.forEach(localRep => {
+        let coincidenciaEnMemoria = reportesData.find(m => m.id === localRep.id);
+        if(coincidenciaEnMemoria) {
+            localRep.estado = coincidenciaEnMemoria.estado;
+        }
+    });
+    localStorage.setItem("misreportes_db", JSON.stringify(historialLocal));
+}
+
 function inicializarEventosAcciones() {
     document.getElementById("btnMarcarProceso").addEventListener("click", () => { if (reporteSeleccionado) { reporteSeleccionado.estado = "En Proceso"; procesarCambioExitoso(); } });
     document.getElementById("btnMarcarAtendido").addEventListener("click", () => { if (reporteSeleccionado) { reporteSeleccionado.estado = "Atendido"; procesarCambioExitoso(); } });
@@ -205,7 +262,6 @@ function inicializarEventosAcciones() {
     document.getElementById("btnExportarExcel").addEventListener("click", () => {
         const datosExcel = obtenerListaFiltradaGlobal();
         if(datosExcel.length === 0) { alert("No hay registros para exportar."); return; }
-        // Se removió "Ciudadano" y "Telefono" de la exportación estructurada
         const encabezados = ["ID", "Tipo Incidencia", "Zona", "Fecha", "Estado", "Latitud", "Longitud"];
         const filas = datosExcel.map(r => [r.id, `"${r.tipo}"`, `"${r.zona.replace(/"/g, '""')}"`, `"${r.fecha}"`, `"${r.estado}"`, r.lat, r.lng]);
         const contenidoCSV = [encabezados.join(","), ...filas.map(f => f.join(","))].join("\n");
@@ -221,6 +277,7 @@ function inicializarEventosAcciones() {
 }
 
 function procesarCambioExitoso() {
+    actualizarLocalStorageDesdeMemoria();
     recalcularYRenderizarTodo();
     verDetalleExpediente(reporteSeleccionado);
 }

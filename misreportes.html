@@ -206,6 +206,53 @@
                             </div>
 
                         </div>
+                        <div class="panel detail-panel" id="panelDetalleReporte">
+                            <div class="detail-header-blank" id="detalleVacio">
+                                <i class="fa-solid fa-file-invoice" style="font-size: 40px; color: #cbd5e1; margin-bottom: 12px;"></i>
+                                <p>Selecciona un reporte de la tabla para ver su expediente, evidencias fotográficas y cambiar su estado.</p>
+                            </div>
+                            <div class="detail-content-active hidden" id="detalleActivo">
+                                <div class="detail-top">
+                                    <span class="badge-status" id="detEstado">Pendiente</span>
+                                    <h3 id="detId">Reporte #0000</h3>
+                                </div>
+                                <div class="detail-body-fields">
+                                    <div class="field-group">
+                                        <label>Tipo de Incidencia</label>
+                                        <p id="detTipo" class="field-val-bold">Inundación</p>
+                                    </div>
+                                    <div class="field-group">
+                                        <label>Fecha y Hora de Envío</label>
+                                        <p id="detFecha">23/06/2026 14:35</p>
+                                    </div>
+                                    <div class="field-group">
+                                        <label>Descripción del Problema</label>
+                                        <p id="detDescripcion" class="description-text">El agua ha colapsado las alcantarillas principales.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="evidence-gallery">
+                                <label>Evidencia Visual</label>
+                                <div class="image-wrapper-evidence">
+                                    <img src="" id="detImagenEvidencia" alt="Evidencia de incidente">
+                                </div>
+                            </div>
+
+                            <div class="incident-map-block">
+                                <label>Ubicación Georeferenciada</label>
+                                <div id="mapReporte"></div>
+                            </div>
+
+                            <div class="resolution-actions-block">
+                                <label>Gestionar Estado del Reporte</label>
+                                <div class="action-buttons-flex">
+                                    <button id="btnMarcarProceso" class="btn-action-proceso"><i class="fa-solid fa-person-digging"></i> En Proceso</button>
+                                    <button id="btnMarcarAtendido" class="btn-action-atendido"><i class="fa-solid fa-circle-check"></i> Atendido</button>
+                                    <button id="btnMarcarDescartado" class="btn-action-descartar"><i class="fa-solid fa-trash-can"></i> Descartar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
