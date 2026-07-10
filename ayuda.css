@@ -263,3 +263,345 @@ a {
     font-size: 11px; 
     color: #777; 
 }
+
+.content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0b2c66;
+}
+
+.page-title p {
+    margin-top: 6px;
+    color: #7b8794;
+}
+
+.search-help-box {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #edf2f7;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.search-help-box h3 {
+    font-size: 16px;
+    color: #1b263b;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 14px 16px 14px 45px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
+    background: #f8fafc;
+    font-size: 14px;
+    transition: all 0.25s ease;
+}
+
+.search-input-wrapper input:focus {
+    border-color: #0b2c66;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(11, 44, 102, 0.1);
+}
+
+.search-input-wrapper i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+/* Distribución del Grid Asimétrico */
+.help-grid {
+    display: grid;
+    grid-template-columns: 1.9fr 1.1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.panel-section {
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    border: 1px solid #edf2f7;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 18px;
+    color: #0b2c66;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Grid Temas Frecuentes */
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.topic-card {
+    border: 1px solid #f1f5f9;
+    border-radius: 14px;
+    padding: 18px;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.topic-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    border-color: #cbd5e1;
+}
+
+.topic-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+/* Colores Dinámicos de Iconos */
+.red-icon { background: #fee2e2; color: #ef4444; }
+.blue-icon { background: #e0f2fe; color: #0284c7; }
+.orange-icon { background: #ffedd5; color: #f97316; }
+.purple-icon { background: #f3e8ff; color: #a855f7; }
+.green-icon { background: #dcfce7; color: #22c55e; }
+.yellow-icon { background: #fef9c3; color: #eab308; }
+.dark-green-icon { background: #ccfbf1; color: #14b8a6; }
+.gray-icon { background: #f1f5f9; color: #64748b; }
+
+.topic-card h4 { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 6px; }
+.topic-card p { font-size: 13px; color: #64748b; line-height: 1.4; margin-bottom: 14px; }
+
+.btn-help-trigger {
+    background: none; border: none; color: #0b2c66; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 0; transition: gap 0.2s;
+}
+.topic-card:hover .btn-help-trigger { gap: 10px; }
+
+/* Grid de Tutoriales */
+.section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.btn-link {
+    background: none; border: none; color: #0b2c66; font-weight: 600; font-size: 13px;
+    cursor: pointer; text-decoration: underline;
+}
+
+.btn-link-small { color: #0b2c66; font-weight: 600; font-size: 12px; }
+
+.tutorials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.tutorial-card h5 { font-size: 14px; font-weight: 600; color: #1e293b; margin: 10px 0 4px 0; }
+.tutorial-card p { font-size: 12px; color: #64748b; line-height: 1.4; }
+
+.video-thumbnail {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: #000;
+}
+
+.video-thumbnail img {
+    width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: transform 0.3s;
+}
+
+.tutorial-card:hover .video-thumbnail img { transform: scale(1.04); }
+
+.video-duration {
+    position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.75);
+    color: white; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 500;
+}
+
+.play-btn {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 44px; height: 44px; border-radius: 50%; background: white; border: none;
+    color: #0b2c66; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.2s;
+}
+.tutorial-card:hover .play-btn { background: #0b2c66; color: white; transform: translate(-50%, -50%) scale(1.1); }
+
+/* ==========================================================================
+   4. COMPONENTES DEL SIDEBAR INTERNO (SOPORTE, ACORDEÓN Y GUÍA)
+   ========================================================================== */
+.panel-aside {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    border: 1px solid #edf2f7;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    margin-bottom: 20px;
+}
+
+.panel-aside h4 { font-size: 16px; font-weight: 700; color: #0b2c66; }
+.aside-subtitle { font-size: 13px; color: #64748b; margin-top: 2px; margin-bottom: 16px; }
+
+.support-channels { display: flex; flex-direction: column; gap: 12px; }
+
+.channel-card {
+    border: 1px solid #f1f5f9; border-radius: 12px; padding: 12px;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+}
+
+.channel-info { display: flex; align-items: center; gap: 12px; }
+.channel-info i { font-size: 20px; width: 24px; text-align: center; }
+
+.whatsapp-color { color: #22c55e; }
+.email-color { color: #0284c7; }
+.phone-color { color: #ef4444; }
+
+.channel-info strong { display: block; font-size: 13px; color: #1e293b; }
+.channel-info span { font-size: 11px; color: #64748b; }
+
+.btn-aside-action {
+    background: #f1f4f9; border: none; border-radius: 8px; padding: 8px 12px;
+    font-size: 12px; font-weight: 600; color: #0b2c66; cursor: pointer; transition: all 0.2s;
+    white-space: nowrap;
+}
+.btn-aside-action:hover { background: #0b2c66; color: white; }
+
+.aside-hours {
+    display: flex; align-items: center; gap: 8px; font-size: 11px; color: #64748b;
+    margin-top: 14px; padding-top: 12px; border-top: 1px solid #f1f5f9;
+}
+
+/* Acordeón de FAQs Avanzado */
+.accordion-container { display: flex; flex-direction: column; gap: 8px; }
+.accordion-item { border: 1px solid #f1f5f9; border-radius: 10px; overflow: hidden; }
+
+.accordion-header {
+    width: 100%; padding: 14px; background: #fff; border: none; outline: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    text-align: left; cursor: pointer; transition: background 0.2s;
+}
+.accordion-header:hover { background: #f8fafc; }
+
+.accordion-header span { font-size: 13px; font-weight: 600; color: #334155; }
+.accordion-header i { font-size: 12px; color: #64748b; transition: transform 0.2s ease; }
+
+.accordion-content {
+    max-height: 0; overflow: hidden; background: #f8fafc;
+    transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
+}
+
+.accordion-content p { padding: 14px; font-size: 12px; color: #475569; line-height: 1.5; }
+
+/* Estado activo del acordeón */
+.accordion-item.active .accordion-content {
+    max-height: 300px;
+    transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+}
+.accordion-item.active .accordion-header i { transform: rotate(180deg); color: #0b2c66; }
+.accordion-item.active .accordion-header { background: #f1f5f9; }
+
+/* Caja de Guía */
+.guide-panel { background: #e6f2f7; border-color: #bae6fd; }
+.guide-box { display: flex; gap: 14px; margin-bottom: 14px; }
+.guide-icon { font-size: 28px; color: #0284c7; }
+.guide-panel h5 { font-size: 14px; font-weight: 700; color: #0369a1; }
+.guide-panel p { font-size: 12px; color: #0369a1; line-height: 1.4; margin-top: 2px; }
+
+.btn-download-guide {
+    width: 100%; background: #0284c7; color: white; border: none; border-radius: 10px;
+    padding: 12px; font-weight: 600; font-size: 13px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;
+}
+.btn-download-guide:hover { background: #0369a1; }
+
+/* Banner Inferior */
+.info-alert-banner {
+    background: #fffbeb; border: 1px solid #fef3c7; border-radius: 16px;
+    padding: 18px; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.banner-text { display: flex; gap: 14px; align-items: center; }
+.banner-text i { font-size: 22px; color: #d97706; }
+.banner-text strong { display: block; font-size: 14px; color: #78350f; }
+.banner-text span { font-size: 13px; color: #92400e; }
+.btn-banner {
+    background: #d97706; color: white; border: none; border-radius: 10px; padding: 10px 16px;
+    font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;
+}
+.btn-banner:hover { background: #b45309; }
+
+/* ==========================================================================
+   5. SISTEMA DE CAPA MODAL (DIÁLOGOS DE AYUDA)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
+    z-index: 1000; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+}
+
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+.modal-card {
+    background: white; border-radius: 20px; width: 90%; max-width: 550px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15); transform: translateY(-20px); transition: transform 0.3s ease;
+}
+.modal-overlay.open .modal-card { transform: translateY(0); }
+
+.modal-header {
+    padding: 20px; border-bottom: 1px solid #f1f5f9;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.modal-header h3 { font-size: 18px; color: #0b2c66; font-weight: 700; }
+.modal-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+.modal-close:hover { color: #1e293b; }
+
+.modal-body { padding: 24px; font-size: 14px; color: #334155; line-height: 1.6; max-height: 70vh; overflow-y: auto; }
+.modal-body ul, .modal-body ol { padding-left: 20px; margin-top: 10px; }
+.modal-body li { margin-bottom: 8px; }
+
+/* ==========================================================================
+   6. RESPONSIVE / MEDIA QUERIES
+   ========================================================================== */
+@media(max-width: 1200px) {
+    .help-grid { grid-template-columns: 1fr; }
+}
+
+@media(max-width: 992px) {
+    .sidebar { left: -270px; }
+    .sidebar.active { left: 0; }
+    .main { margin-left: 0; width: 100%; }
+}
+
+@media(max-width: 768px) {
+    .topics-grid, .tutorials-grid { grid-template-columns: 1fr; }
+    .info-alert-banner { flex-direction: column; align-items: flex-start; }
+    .btn-banner { width: 100%; text-align: center; }
+}

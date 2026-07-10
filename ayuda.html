@@ -69,10 +69,259 @@
                 </div>
             </header>
 
+            <section class="content">
+                <div class="page-title">
+                    <h1>Ayuda</h1>
+                    <p>Encuentra respuestas, aprende a usar la aplicación y contáctanos si necesitas soporte.</p>
+                </div>
+
+                <div class="search-help-box">
+                    <h3>¿En qué podemos ayudarte?</h3>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="helpSearch" placeholder="Busca ayuda... (ej. no puedo enviar reportes, cambiar contraseña, alertas)">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+
+                <div class="help-grid">
+                    <div class="help-main-content">
+                        <div class="panel-section">
+                            <h3 class="section-title">Temas frecuentes</h3>
+                            <div class="topics-grid">
+                                <div class="topic-card" data-topic="reportes">
+                                    <div class="topic-icon red-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                    <h4>Problemas al reportar</h4>
+                                    <p>Soluciones a problemas al enviar reportes de emergencia.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                                <div class="topic-card" data-topic="sincronizacion">
+                                    <div class="topic-icon blue-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                                    <h4>Sincronización de datos</h4>
+                                    <p>¿Tus reportes no se sincronizan? Aprende a resolverlo.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                                <div class="topic-card" data-topic="alertas">
+                                    <div class="topic-icon orange-icon"><i class="fa-solid fa-bell"></i></div>
+                                    <h4>Alertas y notificaciones</h4>
+                                    <p>Configura tus alertas y soluciona problemas de notificaciones.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                                <div class="topic-card" data-topic="cuenta">
+                                    <div class="topic-icon purple-icon"><i class="fa-solid fa-user-gear"></i></div>
+                                    <h4>Cuenta y perfil</h4>
+                                    <p>Actualiza tu información o recupera tu cuenta fácilmente.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                                <div class="topic-card" data-topic="mapa">
+                                    <div class="topic-icon green-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                                    <h4>Mapa y ubicación</h4>
+                                    <p>Problemas con el mapa o la ubicación GPS.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                                <div class="topic-card" data-topic="offline">
+                                    <div class="topic-icon yellow-icon"><i class="fa-solid fa-wifi"></i></div>
+                                    <h4>Modo sin conexión</h4>
+                                    <p>Aprende a usar la app sin internet y sincronizar después.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                                <div class="topic-card" data-topic="rutas">
+                                    <div class="topic-icon dark-green-icon"><i class="fa-solid fa-shield-heart"></i></div>
+                                    <h4>Refugios y rutas</h4>
+                                    <p>Encuentra refugios cercanos y rutas de evacuación.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                                <div class="topic-card" data-topic="otros">
+                                    <div class="topic-icon gray-icon"><i class="fa-solid fa-circle-question"></i></div>
+                                    <h4>Otros problemas</h4>
+                                    <p>Encuentra ayuda para otros errores o dudas.</p>
+                                    <button class="btn-help-trigger">Ver ayuda <i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-section">
+                            <div class="section-header-flex">
+                                <h3 class="section-title">Tutoriales: Aprende a usar YakuAlarma</h3>
+                                <button id="btnVerMasTutoriales" class="btn-link">Ver todos los tutoriales</button>
+                            </div>
+                            <div class="tutorials-grid" id="tutorialsContainer">
+                                <div class="tutorial-card">
+                                    <div class="video-thumbnail">
+                                        <img src="imagenes/tutorial1.png" alt="Tutorial 1">
+                                        <span class="video-duration">2:45</span>
+                                        <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                    </div>
+                                    <h5>1. Introducción a YakuAlarma</h5>
+                                    <p>Conoce las funciones principales de la aplicación de manera rápida.</p>
+                                </div>
+                                <div class="tutorial-card">
+                                    <div class="video-thumbnail">
+                                        <img src="imagenes/tutorial2.png" alt="Tutorial 2">
+                                        <span class="video-duration">3:30</span>
+                                        <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                    </div>
+                                    <h5>2. Cómo reportar una emergencia</h5>
+                                    <p>Aprende paso a paso a registrar una alerta ante un desastre natural.</p>
+                                </div>
+                                <div class="tutorial-card">
+                                    <div class="video-thumbnail">
+                                        <img src="imagenes/tutorial3.png" alt="Tutorial 3">
+                                        <span class="video-duration">2:10</span>
+                                        <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                    </div>
+                                    <h5>3. Usar el mapa de riesgos</h5>
+                                    <p>Visualiza eventos y zonas de riesgo latentes en tu comunidad.</p>
+                                </div>
+                                <div class="tutorial-card">
+                                    <div class="video-thumbnail">
+                                        <img src="imagenes/tutorial4.png" alt="Tutorial 4">
+                                        <span class="video-duration">1:50</span>
+                                        <button class="play-btn"><i class="fa-solid fa-play"></i></button>
+                                    </div>
+                                    <h5>4. Configurar alertas</h5>
+                                    <p>Personaliza tus notificaciones multimedia para recibir lo importante.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-sidebar-content">
+                        <div class="panel-aside">
+                            <h4>¿No encuentras lo que buscas?</h4>
+                            <p class="aside-subtitle">Nuestro equipo de soporte puede ayudarte.</p>
+                            
+                            <div class="support-channels">
+                                <div class="channel-card">
+                                    <div class="channel-info">
+                                        <i class="fa-brands fa-whatsapp whatsapp-color"></i>
+                                        <div>
+                                            <strong>WhatsApp</strong>
+                                            <span>+51 987 654 321</span>
+                                        </div>
+                                    </div>
+                                    <a href="https://wa.me/51987654321" target="_blank" class="btn-aside-action">Abrir WhatsApp</a>
+                                </div>
+                                <div class="channel-card">
+                                    <div class="channel-info">
+                                        <i class="fa-regular fa-envelope email-color"></i>
+                                        <div>
+                                            <strong>Correo electrónico</strong>
+                                            <span>soporte@yakualarma.pe</span>
+                                        </div>
+                                    </div>
+                                    <a href="mailto:soporte@yakualarma.pe" class="btn-aside-action">Enviar correo</a>
+                                </div>
+                                <div class="channel-card">
+                                    <div class="channel-info">
+                                        <i class="fa-solid fa-phone phone-color"></i>
+                                        <div>
+                                            <strong>Línea de emergencia</strong>
+                                            <span>115</span>
+                                        </div>
+                                    </div>
+                                    <a href="tel:115" class="btn-aside-action">Llamar ahora</a>
+                                </div>
+                            </div>
+                            <div class="aside-hours">
+                                <i class="fa-regular fa-clock"></i>
+                                <span><strong>Atención:</strong> Lunes a Domingo - 7:00 a. m. a 9:00 p. m.</span>
+                            </div>
+                        </div>
+
+                        <div class="panel-aside">
+                            <div class="section-header-flex">
+                                <h4>Preguntas frecuentes</h4>
+                                <a href="#" id="verTodasFaqs" class="btn-link-small">Ver todas</a>
+                            </div>
+                            <div class="accordion-container">
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>¿Por qué mi reporte no se sincroniza?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Esto ocurre generalmente por falta de conectividad. El reporte queda guardado localmente en tu dispositivo y se enviará de forma automática en cuanto se restablezca tu señal de internet.</p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>¿Cómo activo las notificaciones?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Ve al menú de Ajustes/Configuración de tu teléfono, busca YakuAlarma en la lista de aplicaciones y asegúrate de habilitar todos los permisos de notificaciones y alertas críticas.</p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>¿Puedo usar la app sin internet?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Sí. YakuAlarma cuenta con un almacenamiento interno que te permite registrar alertas e incidentes geolocalizados sin cobertura móvil. Los datos se enviarán en segundo plano al recuperar señal.</p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>¿Cómo cambio mi contraseña?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Ingresa a tu módulo de Configuración desde el menú lateral, selecciona 'Seguridad' y luego 'Cambiar contraseña'. Deberás ingresar tu clave actual para validar la acción.</p>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <button class="accordion-header">
+                                        <span>¿Qué hago si la app se cierra sola?</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                    <div class="accordion-content">
+                                        <p>Te recomendamos borrar la memoria caché de la app desde los ajustes del sistema de tu dispositivo o comprobar si cuentas con la última versión disponible en la tienda oficial.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-aside guide-panel">
+                            <div class="guide-box">
+                                <div class="guide-icon"><i class="fa-regular fa-file-pdf"></i></div>
+                                <div>
+                                    <h5>Guía rápida (PDF)</h5>
+                                    <p>Descarga nuestra guía rápida con los pasos principales para usar YakuAlarma.</p>
+                                </div>
+                            </div>
+                            <button id="btnDownloadGuide" class="btn-download-guide">
+                                <i class="fa-solid fa-download"></i> Descargar guía
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-alert-banner">
+                    <div class="banner-text">
+                        <i class="fa-regular fa-lightbulb"></i>
+                        <div>
+                            <strong>Consejo importante:</strong>
+                            <span>Mantén siempre tu aplicación actualizada para tener la mejor experiencia y recibir alertas importantes.</span>
+                        </div>
+                    </div>
+                    <button class="btn-banner">Actualizar app</button>
+                </div>
+            </section>
         </main>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <div class="modal-overlay" id="helpModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle">Título de Ayuda</h3>
+                <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                </div>
+        </div>
+    </div>
+
     <script src="ayuda.js"></script>
 </body>
 
