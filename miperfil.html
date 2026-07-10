@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YakuAlarma - Mi Perfil</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <link rel="stylesheet" href="miperfil.css">
+</head>
+<body>
+        <div class="app">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-scroll-container">
+                <div class="brand">
+                    <img src="imagenes/logo2.PNG" alt="YakuAlarma">
+                </div>
+
+                <nav class="menu">
+                    <a href="dashboard.html"><i class="fa-solid fa-house"></i> Inicio</a>
+                    <a href="reportar.html"><i class="fa-solid fa-triangle-exclamation"></i> Reportar emergencia</a>
+                    <a href="mapacom.html"><i class="fa-solid fa-map-location-dot"></i> Mapa de riesgos</a>
+                    <a href="alertascom.html"><i class="fa-solid fa-bell"></i> Alertas activas</a>
+                    <a href="misreportes.html"><i class="fa-solid fa-file-lines"></i> Mis reportes</a>
+                    <a href="centros.html"><i class="fa-solid fa-hospital"></i> Centros de salud</a>
+                    <a href="institucion.html"><i class="fa-solid fa-building"></i> Instituciones</a>
+                    <a href="estadisticacom.html"><i class="fa-solid fa-chart-column"></i> Estadísticas climáticas</a>
+                    <a href="comunicacion.html"><i class="fa-solid fa-comments"></i> Comunicación comunitaria</a>
+                    <a href="refugios.html"><i class="fa-solid fa-route"></i> Refugios y rutas</a>
+                    <a href="configuracioncom.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+                    <a href="ayuda.html"><i class="fa-solid fa-circle-question"></i> Ayuda</a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="miperfil.html" class="profile-card">
+                    <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                    <div>
+                        <h4>Juan Pérez</h4>
+                        <span>Ciudadano</span>
+                    </div>
+                </a>
+                <button class="logout-btn" onclick="location.href='login.html'">
+                    <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div class="top-left">
+                    <button id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <div class="top-right">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="notification-badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-envelope"></i><span class="notification-badge">1</span></button>
+                    <div class="municipality">
+                        <img src="imagenes/villa.jpg" alt="Villa Rica">
+                        <div>
+                            <small>Distrito de</small>
+                            <strong>Villa Rica</strong>
+                        </div>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="page-title">
+                    <h1>Mi Perfil</h1>
+                    <p>Administra tu información personal y la configuración de tu cuenta</p>
+                </div>
+
+                <div class="profile-grid">
+                    
+                    <div class="panel form-panel">
+                        <h3 class="section-subtitle">Foto de perfil</h3>
+                        <div class="avatar-edit-container">
+                            <div class="main-avatar-wrapper">
+                                <img src="imagenes/Juan.jpg" alt="Foto de perfil" id="mainAvatar">
+                                <label for="fileInput" class="camera-icon-btn">
+                                    <i class="fa-solid fa-camera"></i>
+                                </label>
+                            </div>
+                            <div class="avatar-actions">
+                                <p class="file-specs">JPG, PNG o GIF. Máx. 2MB.</p>
+                                <div class="avatar-buttons">
+                                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                                    <button type="button" class="btn-secondary" onclick="document.getElementById('fileInput').click()">Cambiar foto</button>
+                                    <button type="button" class="btn-link-danger" id="deleteFotoBtn">Eliminar foto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="panel-divider">
+
+                        <form id="profileForm">
+                            <h3 class="section-subtitle">Información personal</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="inputNombres">Nombres *</label>
+                                    <input type="text" id="inputNombres" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputApellidos">Apellidos *</label>
+                                    <input type="text" id="inputApellidos" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="selectTipoDoc">Tipo de documento *</label>
+                                    <select id="selectTipoDoc" required>
+                                        <option value="DNI">DNI</option>
+                                        <option value="CE">Carnet de Extranjería</option>
+                                        <option value="Pasaporte">Pasaporte</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputNumDoc">Número de documento *</label>
+                                    <input type="text" id="inputNumDoc" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="inputEmail">Correo electrónico *</label>
+                                    <input type="email" id="inputEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCelular">Número de celular *</label>
+                                    <div class="phone-input-wrapper">
+                                        <span class="flag-icon">🇵🇪</span>
+                                        <input type="tel" id="inputCelular" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="inputFechaNac">Fecha de nacimiento</label>
+                                    <input type="date" id="inputFechaNac">
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectGenero">Género</label>
+                                    <select id="selectGenero">
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option value="Otro">Otro / Prefiero no decirlo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="selectDepartamento">Departamento</label>
+                                    <select id="selectDepartamento">
+                                        <option value="San Martín">San Martín</option>
+                                        <option value="Lima">Lima</option>
+                                        <option value="Pasco">Pasco</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectProvincia">Provincia</label>
+                                    <select id="selectProvincia">
+                                        <option value="Moyobamba">Moyobamba</option>
+                                        <option value="Oxapampa">Oxapampa</option>
+                                        <option value="Huaral">Huaral</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="selectDistrito">Distrito</label>
+                                    <select id="selectDistrito">
+                                        <option value="Soritor">Soritor</option>
+                                        <option value="Villa Rica">Villa Rica</option>
+                                        <option value="Huaral">Huaral</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectComunidad">Comunidad</label>
+                                    <select id="selectComunidad">
+                                        <option value="Villa Rica">Villa Rica</option>
+                                        <option value="Caserío Centro">Caserío Centro</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="info-alert-box">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p><strong>Mantén tus datos actualizados.</strong> Así podremos enviarte alertas y notificaciones importantes para tu seguridad.</p>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-cancel" id="btnCancelar">Cancelar</button>
+                                <button type="submit" class="btn-submit">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="profile-side-panels">
+                        
+                        <div class="panel account-info-panel">
+                            <h3 class="panel-inner-title">Información de la cuenta</h3>
+                            
+                            <div class="info-item">
+                                <div>
+                                    <small><i class="fa-regular fa-envelope"></i> Correo electrónico</small>
+                                    <p id="cardEmail">juan.perez@gmail.com</p>
+                                </div>
+                                <button class="btn-edit-link">Editar</button>
+                            </div>
+
+                            <div class="info-item">
+                                <div>
+                                    <small><i class="fa-solid fa-phone"></i> Número de celular</small>
+                                    <p id="cardCelular">987 654 321</p>
+                                </div>
+                                <button class="btn-edit-link">Editar</button>
+                            </div>
+
+                            <div class="info-item">
+                                <div>
+                                    <small><i class="fa-solid fa-lock"></i> Contraseña</small>
+                                    <p>••••••••••••</p>
+                                </div>
+                                <button class="btn-edit-link">Cambiar</button>
+                            </div>
+
+                            <div class="info-item">
+                                <div>
+                                    <small><i class="fa-regular fa-calendar"></i> Fecha de registro</small>
+                                    <p>02/03/2025</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item last-item">
+                                <div>
+                                    <small><i class="fa-solid fa-shield-halved"></i> Estado de cuenta</small>
+                                </div>
+                                <span class="badge-status-active">Activa</span>
+                            </div>
+
+                            <div class="security-box">
+                                <div class="shield-icon"><i class="fa-solid fa-shield-heart"></i></div>
+                                <div>
+                                    <h4>Protege tu cuenta</h4>
+                                    <p>Usa una contraseña segura y no compartas tu información personal con nadie.</p>
+                                    <a href="#">Ver consejos de seguridad <i class="fa-solid fa-arrow-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel activity-panel">
+                            <div class="panel-header-sub">
+                                <h3>Actividad de la cuenta</h3>
+                                <a href="#" class="view-all-link">Ver todo</a>
+                            </div>
+
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-icon green-icon"><i class="fa-solid fa-desktop"></i></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title-row">
+                                            <strong>Inicio de sesión</strong>
+                                            <span class="timeline-badge">Este dispositivo</span>
+                                        </div>
+                                        <p>Hoy, 09:15 a. m.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-icon blue-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title-row">
+                                            <strong>Reporte enviado</strong>
+                                            <span class="timeline-location">Villa Rica</span>
+                                        </div>
+                                        <p>Ayer, 10:30 a. m.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-icon orange-icon"><i class="fa-solid fa-user-pen"></i></div>
+                                    <div class="timeline-content">
+                                        <strong>Actualización de perfil</strong>
+                                        <p>30/04/2025, 04:20 p. m.</p>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-icon purple-icon"><i class="fa-solid fa-key"></i></div>
+                                    <div class="timeline-content">
+                                        <strong>Cambio de contraseña</strong>
+                                        <p>28/04/2025, 11:05 a. m.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel help-panel">
+                            <div class="help-box">
+                                <div class="help-icon"><i class="fa-regular fa-comment-dots"></i></div>
+                                <div>
+                                    <h4>¿Necesitas ayuda?</h4>
+                                    <p>Si tienes problemas con tu cuenta, contáctanos.</p>
+                                    <button class="btn-help-action"><i class="fa-solid fa-circle-question"></i> Ir a ayuda</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="miperfil.js"></script>
+</body>
+
+</html>

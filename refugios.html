@@ -37,7 +37,7 @@
             </div>
 
             <div class="sidebar-footer">
-                <a href="perfil.html" class="profile-card">
+                <a href="miperfil.html" class="profile-card">
                     <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
                     <div>
                         <h4>Juan Pérez</h4>
@@ -69,7 +69,68 @@
                 </div>
             </header>
 
+            <section class="content">
+                <div class="page-title">
+                    <h1>Refugios y Rutas de Evacuación</h1>
+                    <p>Ubicación en tiempo real, zonas seguras ante emergencias climáticas y desastres</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="panel map-panel">
+                        <div class="panel-header">
+                            <h3>Mapa de Monitoreo Local: Tu Ubicación, Refugios y Zonas Seguras</h3>
+                            <button id="btnRecenter" class="btn-primary-sm"><i class="fa-solid fa-crosshairs"></i> Mi posición</button>
+                        </div>
+                        <div id="map"></div>
+                    </div>
+
+                    <div class="side-panels">
+                        <div class="panel highlight-panel">
+                            <div class="panel-header">
+                                <h3><i class="fa-solid fa-star text-orange"></i> Refugio Más Cercano</h3>
+                            </div>
+                            <div id="refugioMasCercanoCard" class="nearest-card-content">
+                                <p class="loading-text">Calculando tu ubicación...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid-two">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Lista de Refugios Cercanos</h3>
+                        </div>
+                        <div class="refugios-list" id="listaRefugios">
+                            </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Rutas de Evacuación Disponibles</h3>
+                        </div>
+                        <div class="rutas-list" id="listaRutas">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Detalle Operativo de Zonas Seguras Autorizadas</h3>
+                    </div>
+                    <div class="zonas-seguras-container" id="listaZonasSeguras">
+                        </div>
+                </div>
+            </section>
         </main>
+    </div>
+
+    <div class="modal-overlay" id="modalRefugio">
+        <div class="modal-container">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-body" id="modalContent">
+                </div>
+        </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
