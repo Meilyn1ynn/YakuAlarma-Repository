@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña Yakualarma</title>
+    <link rel="stylesheet" href="contraseña.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="login-container">
+
+    <!-- SECCIÓN IZQUIERDA (branding) -->
+    <div class="login-left">
+        <a href="login.html" class="btn-back">
+            ← Regresar 
+        </a>
+        <img src="imagenes/logo1.PNG" class="login-logo" alt="YakuAlarma Logo">
+        <h1>¿Olvidaste tu contraseña?</h1>
+        <p>
+            No te preocupes, te ayudamos a recuperar el acceso a tu cuenta.
+        </p>
+
+        <div class="bg-shapes"></div>
+    </div>
+
+    <div class="login-right">
+        <h2 class="titulo-login">
+            <span class="azul">RECUPERAR</span>
+            <span class="rojo">CONTRASEÑA</span>
+        </h2>
+        <p class="subtitulo-recuperar">Ingresa el correo electrónico asociado a tu cuenta y te enviaremos un enlace para restablecer tu contraseña.</p>
+
+        <form id="recoveryForm" class="loginForm">
+            <label for="email">Correo electrónico</label>
+            <div class="input-container">
+                <span class="input-icon">✉</span>
+                <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <div class="info-box">
+                <span class="info-icon">i</span>
+                <div class="info-text">
+                    <strong>Revisa tu bandeja de entrada</strong>
+                    <p>Te enviaremos instrucciones para restablecer tu contraseña. Revisa también tu carpeta de spam.</p>
+                </div>
+            </div>
+            
+            <div id="mensaje" class="mensaje"></div>
+
+            <button type="submit" class="btn-recovery">Enviar enlace de recuperación</button>
+            
+            <div class="divider">o</div>
+
+            <a href="login.html" class="btn-remember-link">
+                <span class="lock-icon">🔒</span> Recordar contraseña
+            </a>
+
+            <p class="register-text">
+                ¿No tienes una cuenta? <a href="signup.html">Regístrate aquí</a>
+            </p>
+        </form>
+
+        <div class="security-footer">
+            <span class="shield-icon">🛡️</span>
+            <div>
+                <strong>Tu seguridad es importante</strong>
+                <p>Yakualarma nunca te pedirá tu contraseña por correo electrónico o teléfono.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="contraseña.js"></script>
+</body>
+</html>

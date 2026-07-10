@@ -1,0 +1,454 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f7f2;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.login-container {
+    display: flex;
+    height: 89vh;
+}
+
+.login-container {
+    width: 95%;
+    max-width: 1300px;
+    margin: 40px auto;
+    display: flex;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* ============================
+   SECCIÓN IZQUIERDA (branding)
+   ============================ */
+
+.titulo-login{
+    font-size: 4rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 2rem;
+}
+
+.titulo-login .azul{
+    color: #073D65;
+}
+
+.titulo-login .rojo{
+    color: #D11E1E;
+}
+
+.login-left {
+    flex: 1;
+    background: url(imagenes/recuperar.png) no-repeat center;
+    background-size: cover;
+    color: white;
+    padding: 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-left .login-logo {
+    width: 70px;
+    margin-top: 80px;
+    margin-bottom: 1rem;
+    text-shadow: 0 3px 8px rgba(255, 255, 255, 0.65);
+}
+
+.login-left h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 3px 8px rgb(0, 0, 0, 0.65);
+}
+
+.login-left p {
+    font-size: 1.1rem;
+    max-width: 380px;
+    line-height: 1.5;
+    text-shadow: 0 3px 8px rgb(0, 0, 0, 0.65);
+}
+
+/* Formas decorativas */
+.bg-shapes {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.226);
+    border-radius: 50%;
+    bottom: -80px;
+    right: -100px;
+}
+
+/* ============================
+   SECCIÓN DERECHA (formulario)
+   ============================ */
+.login-right {
+    flex: 1;
+    background: #ffffff;
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-login {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.login-right h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #073D65;
+}
+
+/* FORMULARIO e INPUTS */
+.loginForm {
+    width: 100%;
+}
+
+.loginForm label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8c9ba5;
+    font-size: 1.2rem;
+}
+
+.loginForm input {
+    width: 100%;
+    padding: 0.9rem 0.9rem 0.9rem 2.8rem;
+    border: 1px solid #d8ddea;
+    background-color: #f0f4f9;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.loginForm input:focus {
+    border-color: #073D65;
+    background-color: #fff;
+}
+
+/* CAJA INFORMATIVA AZUL */
+.info-box {
+    background-color: #eef4fe;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.info-icon {
+    background: #1a73e8;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.info-text strong {
+    color: #073D65;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.info-text p {
+    color: #445;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* MENSAJE DE EVENTOS */
+.mensaje {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* BOTONES */
+.btn-recovery {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background: linear-gradient(90deg, #A81E15, #073D65);
+    color: white;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-recovery:hover {
+    opacity: 0.9;
+}
+
+/* SEPARADOR DE LÍNEA */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #888;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #d8ddea;
+}
+
+.divider:not(:empty)::before { margin-right: .5em; }
+.divider:not(:empty)::after { margin-left: .5em; }
+
+/* BOTÓN RECORDAR CONTRASEÑA */
+.btn-remember-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0.9rem;
+    background: transparent;
+    color: #073D65;
+    border: 1.5px solid #073D65;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.btn-remember-link:hover {
+    background: #f4f7f9;
+}
+
+/* TEXTO REGISTRO */
+.register-text {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.register-text a {
+    color: #1a73e8;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+/* PIE DE SEGURIDAD */
+.security-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.shield-icon {
+    font-size: 1.2rem;
+    color: #2e7d32;
+}
+
+.security-footer strong {
+    font-size: 0.85rem;
+    color: #222;
+    display: block;
+}
+
+.security-footer p {
+    font-size: 0.75rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET 
+   ============================================================ */
+@media (max-width: 992px) {
+
+    .login-container {
+        width: 100%;
+        margin: 20px auto;
+        height: auto;
+    }
+
+    .login-left {
+        padding: 3rem 2rem;
+        background-position: center;
+    }
+
+    .login-left h1 {
+        font-size: 2.5rem;
+    }
+
+    .login-right {
+        padding: 3rem 2rem;
+    }
+
+    .loginForm {
+        max-width: 100%;
+    }
+}
+
+
+/* ============================================================
+   RESPONSIVE — MÓVIL 
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* Cambia layout de dos columnas a una */
+    .login-container {
+        flex-direction: column;
+        height: auto;
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    /* IMAGEN arriba */
+    .login-left {
+        width: 100%;
+        height: 280px;
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login-left h1 {
+        font-size: 2rem;
+    }
+
+    .login-left p {
+        max-width: 100%;
+        font-size: 1rem;
+    }
+
+    .bg-shapes {
+        display: none; /* Ocultamos decoración en móvil */
+    }
+
+    /* FORMULARIO ocupa toda la parte baja */
+    .login-right {
+        width: 100%;
+        padding: 2rem 1.2rem;
+    }
+
+    .login-right h2 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .loginForm input {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    .options {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .btn-login {
+        padding: 0.9rem;
+        font-size: 1rem;
+    }
+
+    .social {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px){
+    .titulo-login{
+        font-size: 2.5rem;
+        text-align: center;
+    }
+}
+
+/* BOTÓN REGRESAR */
+.btn-back{
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 20px;
+
+    background: rgba(255,255,255,0.95);
+    color: #073D65;
+
+    border: 2px solid #052d4b;
+    border-radius: 12px;
+
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+
+    transition: all .3s ease;
+}
+
+.btn-back:hover{
+    background: #073D65;
+    color: #fff;
+    transform: translateY(-2px);
+}
